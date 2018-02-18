@@ -1,0 +1,66 @@
+/* Made by Aldan Project | 2018*/
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 0px;
+}
+
+div.navbar {
+  display: flex;
+  background-color: #282828;
+  height: 65px;
+}
+
+header {
+  display: flex;
+  margin: 0px 15%;
+  width: 100%;
+  color: white;
+}
+
+header h1 {
+  display: inline-block;
+  margin: auto 0px;
+  font-family: 'Arimo', sans-serif;
+}
+
+header ul {
+  list-style-type: none;
+  right: 0px;
+  margin: 0px 0px 0px 20px;
+  padding: 0px;
+  overflow: hidden;
+  flex-grow: 100;
+}
+
+header ul li {
+  display: flex;
+  float: left;
+  font-size: 1.2em;
+  font-family: 'Nunito', arial;
+  text-align: center;
+}
+
+header ul li:nth-last-child(-n+2) {
+  float: right;
+}
+
+header ul li:nth-last-child(2) a:hover {
+  background-color: #67D523;
+}
+
+header ul li a {
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 0px 20px;
+  margin: 0px;
+  line-height: 65px;
+  transition: 0.3s;
+}
+
+header ul li a:hover {
+  background-color: #A50000;
+}
