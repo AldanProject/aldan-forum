@@ -7,7 +7,7 @@ html, body {
   margin: 0px;
 }
 
-div.navbar {
+div.navbar, footer {
   display: flex;
   background-color: #282828;
   height: 65px;
@@ -15,7 +15,7 @@ div.navbar {
 
 header {
   display: flex;
-  margin: 0px 15%;
+  margin: 0px 15vw;
   width: 100%;
   color: white;
 }
@@ -24,6 +24,12 @@ header h1 {
   display: inline-block;
   margin: auto 0px;
   font-family: 'Arimo', sans-serif;
+}
+
+header h1 a {
+  text-decoration: none;
+  color: #54AF1C;
+  text-shadow: 0px 0px 7px black;
 }
 
 header ul {
@@ -63,4 +69,117 @@ header ul li a {
 
 header ul li a:hover {
   background-color: #A50000;
+}
+
+footer p {
+  width: 100%;
+  margin: 0px 15vw;
+  font-family: 'Nunito', sans-serif;
+  text-align: center;
+  font-size: 1.2em;
+  color: white;
+  line-height: 65px;
+}
+
+body.center {
+  display: flex;
+}
+
+div.login {
+  margin: auto;
+}
+
+div.login p.title {
+  display: block;
+  margin: 3px 0px 3px 0px;
+  font-size: 1.3em;
+  font-family: 'Nunito', sans-serif;
+  text-align: center;
+  font-weight: bold;
+  color: #393939;
+}
+
+div.login h2 {
+  text-align: center;
+  font-family: 'Arimo', sans-serif;
+  font-size: 2em;
+  margin: 0px 0px 15px 0px;
+}
+
+div.login form {
+  padding: 20px 30px 25px 30px;
+  border-radius: 15px;
+  border: 2px solid #B0B0B0;
+  box-shadow: 0px 0px 8px 1px rgba(155,155,155,1);
+  background: linear-gradient(#E7E7E7, white);
+}
+
+.login-form input[type=text],
+.login-form input[type=password],
+.login-form input[type=email] {
+  font-size: 1.3em;
+  font-family: 'Nunito', arial;
+  width: 100%;
+  border-radius: 6px;
+  border: 0px;
+  text-align: center;
+  transition: 0.2s;
+}
+
+.login-form input[type=text]:focus,
+.login-form input[type=password]:focus,
+.login-form input[type=email]:focus {
+  box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
+}
+
+.login-form input[type=submit] {
+  display: block;
+  font-size: 1.3em;
+  font-family: 'Arimo', arial;
+  color: white;
+  border-radius: 8px;
+  margin-top: 15px;
+  width: 100% !important;
+  border: 0px;
+  padding: 5px 0px;
+  transition: 0.2s;
+  background: linear-gradient(#54AF1C, #63F50A);
+}
+
+.login-form input[type=submit]:hover, .login-form input[type=submit]:focus {
+  box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
+}
+
+p.no-user {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 1.2em;
+  font-family: 'Nunito', arial;
+}
+
+p.no-user a {
+  text-decoration: none;
+  color: #54AF1C;
+  font-weight: bold;
+}
+
+p.no-user a:hover {
+  text-shadow: 0px 0px 2px #63D81C;
+}
+
+p.message {
+  margin: 15px 0px 0px 0px;
+  text-align: center;
+  font-family: 'Nunito', arial;
+}
+
+hr {
+  margin-top: 15px;
+  border: 0;
+  height: 2px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+div.signup {
+  width: 35%;
 }

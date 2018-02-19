@@ -9,6 +9,11 @@
     <link rel="stylesheet" type="text/css" href="lib/styles.css">
   </head>
   <body>
+    <!-- Navbar -->
     <?php include("lib/inc/navbar.php"); ?>
+    <!-- Content -->
+    <br>
+    <!-- Footer -->
+    <?php include("lib/inc/footer.php"); ?>
   </body>
 </html>
