@@ -1,4 +1,5 @@
 /* Made by Aldan Project | 2018*/
+
 html, body {
   width: 100vw;
   height: 100vh;
@@ -15,7 +16,7 @@ div.navbar, footer {
 
 header {
   display: flex;
-  margin: 0px 15vw;
+  margin: 0px 12vw;
   width: 100%;
   color: white;
 }
@@ -71,9 +72,19 @@ header ul li a:hover {
   background-color: #A50000;
 }
 
+header img.logo {
+  width: 350px;
+  filter: opacity(85%);
+  transition: 0.3s;
+}
+
+header img.logo:hover {
+  filter: opacity(100%);
+}
+
 footer p {
   width: 100%;
-  margin: 0px 15vw;
+  margin: 0px 12vw;
   font-family: 'Nunito', sans-serif;
   text-align: center;
   font-size: 1.2em;
@@ -182,4 +193,11 @@ hr {
 
 div.signup {
   width: 35%;
+}
+
+/* Media */
+@media (max-width: 1270px) {
+  header {
+    margin: 0px 5vw;
+  }
 }

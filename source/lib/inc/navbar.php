@@ -1,6 +1,6 @@
 <div class="navbar">
   <header>
-    <h1><a href="index.pgp">Aldan Project</a></h1>
+    <a href="index.php"><img src="img/logo/aldan-project.png" alt="Aldan Project - Logo" class="logo"></a>
     <ul>
       <li><a href="#">Inicio</a></li>
       <li><a href="#">Blog</a></li>
