@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <!-- Made by Aldan Project | 2018 -->
+<?php include_once("lib/config.php"); ?>
 <html>
   <head>
     <meta charset="utf-8">
@@ -18,7 +19,7 @@
   </head>
   <body class="center">
     <div class="login signup">
-      <h2>Aldan Project</h2>
+      <a href="<?php echo SERVER_URL; ?>"><img src="img/logo/aldan-project.png" alt="Aldan Project - Logo" class="logo"></a>
       <form action="signup.php" method="post" class="login-form">
         <p class="title">Usuario</p>
         <input type="text" name="username" autocomplete="off" required
@@ -53,7 +54,7 @@
         }
         if(isset($_POST['username']))
         {
-          include("lib/sql.php");
+          include_once("lib/sql.php");
           $username = $_POST['username'];
           $email = $_POST['email'];
           $passwordOne = $_POST['passwordOne'];
@@ -61,32 +62,36 @@
 
           if($passwordOne != $passwordTwo)
           {
-            header("Location: signup.php?e=2&user=". $username . "&email=" . $email);
+            header("Location: ".SERVER_URL."signup?e=2&user=". $username . "&email=" . $email);
           }
           else
           {
             $check = $connection->prepare("SELECT username FROM users WHERE username = ?");
+            if(!$check)
+              die("<p class='message'>" . mysqli_error($connection) . "</p>");
             $check->bind_param("s", $username);
             $check->execute();
             $userCheck = $check->get_result();
 
             if(mysqli_num_rows($userCheck) > 0) //Check if username already exists
-              header("Location: signup.php?e=3&user=". $username . "&email=" . $email);
+              header("Location: ".SERVER_URL."signup?e=3&user=". $username . "&email=" . $email);
             else
             {
               $query = $connection->prepare("INSERT INTO users(id_user, username, email, password, level) VALUES(null, ?, ?, md5(?), 2)");
+              if(!$query)
+                die("<p class='message'>" . mysqli_error($connection) . "</p>");
               $query->bind_param("sss", $username, $email, $passwordTwo);
               $query->execute();
 
               $result = $query->get_result();
               if(!$result)
-                header("Location: signup.php?e=1");
+                header("Location: ".SERVER_URL."signup?e=1");
               else
               {
                 session_start();
                 $_SESSION['username'] = $username;
                 $_SESSION['level'] = 2;
-                header("Location: index.php?signedup");
+                header("Location: ".SERVER_URL);
               }
             }
           }

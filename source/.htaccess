@@ -1,1 +1,10 @@
+RewriteEngine on
+
+#Rewrite rules
+RewriteRule ^/ index.php
+RewriteRule ^login login.php
+RewriteRule ^signup signup.php
+RewriteRule ^user/([A-Za-z0-9]+)$ index.php?user=$1
+
+#Error 404 not found
 ErrorDocument 404 /aldan-forum/source/404.php

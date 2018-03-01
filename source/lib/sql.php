@@ -10,7 +10,7 @@ $connection = new mysqli($host, $username, $password, $database);
 
 if($connection -> connect_errno)
 {
-  echo '<p class="message">Error de conexión</p>';
+  die(mysqli_error($connection));
 }
 else
 {

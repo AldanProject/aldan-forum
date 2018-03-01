@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <!-- Made by Aldan Project | 2018 -->
+<?php include_once("lib/config.php"); ?>
 <html>
   <head>
     <meta charset="utf-8">
@@ -12,13 +13,13 @@
       session_start();
       if(isset($_SESSION['username']))
       {
-        header("Location: index.php");
+        header("Location: ".SERVER_URL);
       }
     ?>
   </head>
   <body class="center">
     <div class="login">
-      <h2>Aldan Project</h2>
+      <a href="<?php echo SERVER_URL; ?>"><img src="img/logo/aldan-project.png" alt="Aldan Project - Logo" class="logo"></a>
       <form action="login.php" method="post" class="login-form">
         <p class="title">Usuario</p>
         <input type="text" name="username" autocomplete="off" required autofocus>
@@ -42,22 +43,24 @@
           }
           if(isset($_POST['username']))
           {
-            include("lib/sql.php");
+            include_once("lib/sql.php");
             $username = $_POST['username']; //Gets username
             $password = $_POST['password']; //Gets password without MD5 encryption
 
             $query = $connection->prepare("SELECT username, level FROM users WHERE username = ? AND password = md5(?)"); //Prepares the query
+            if(!$query)
+              die("<p class='message'>" . mysqli_error($connection) . "</p>");
             $query->bind_param("ss", $username, $password); //Binds all parameters
             $query->execute(); //Executes the query
 
             $result = $query->get_result(); //Obtains the query result
             if(!$result)
-              header("Location: login.php?e=1"); //Error #1. Query error
+              header("Location: ".SERVER_URL."login?e=1"); //Error #1. Query error
             else
             {
               $num = mysqli_num_rows($result);
               if($num == 0)
-                header("Location: login.php?e=2"); //Error #2. Either the username does not exist or password is incorrect
+                header("Location: ".SERVER_URL."login?e=2"); //Error #2. Either the username does not exist or password is incorrect
               else
               {
                 $rows = mysqli_fetch_array($result);
@@ -65,14 +68,14 @@
                 $_SESSION['username'] = $rows['username']; //Sets username
                 $_SESSION['level'] = $rows['level']; //Sets user level
 
-                header("Location: index.php");
+                header("Location: ".SERVER_URL);
               }
             }
           }
         ?>
       </form>
       <hr>
-      <p class="no-user">Si no estás registrado, crea una cuenta <a href="signup.php">aquí</a>.</p>
+      <p class="no-user">Si no estás registrado, crea una cuenta <a href="<?php echo SERVER_URL; ?>signup">aquí</a>.</p>
     </div>
   </body>
 </html>

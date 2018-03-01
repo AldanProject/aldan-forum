@@ -1,5 +1,6 @@
 /* Made by Aldan Project | 2018*/
 
+/* Main */
 html, body {
   width: 100vw;
   height: 100vh;
@@ -8,6 +9,15 @@ html, body {
   margin: 0px;
 }
 
+div.main-container {
+  width: 80vw;
+  margin: 0px auto 0px auto;
+  background-color: #F9F9F9;
+  overflow: auto;
+  box-shadow: -5px 0 5px -5px rgba(155,155,155,1), 5px 0 5px -5px rgba(155,155,155,1);
+}
+
+/* Navbar */
 div.navbar, footer {
   display: flex;
   background-color: #282828;
@@ -72,16 +82,17 @@ header ul li a:hover {
   background-color: #A50000;
 }
 
-header img.logo {
+img.logo {
   width: 350px;
   filter: opacity(85%);
   transition: 0.3s;
 }
 
-header img.logo:hover {
+img.logo:hover {
   filter: opacity(100%);
 }
 
+/* Footer */
 footer p {
   width: 100%;
   margin: 0px 12vw;
@@ -92,6 +103,7 @@ footer p {
   line-height: 65px;
 }
 
+/* Login & sign up */
 body.center {
   display: flex;
 }
@@ -110,7 +122,7 @@ div.login p.title {
   color: #393939;
 }
 
-div.login h2 {
+div.login h2, div.message-box h2 {
   text-align: center;
   font-family: 'Arimo', sans-serif;
   font-size: 2em;
@@ -184,6 +196,12 @@ p.message {
   font-family: 'Nunito', arial;
 }
 
+p.message.large {
+  margin: 0px;
+  padding: 15px 0px 15px 0px;
+  font-size: 1.5em;
+}
+
 hr {
   margin-top: 15px;
   border: 0;
@@ -193,6 +211,59 @@ hr {
 
 div.signup {
   width: 35%;
+}
+
+div.login img.logo {
+  display: block;
+  margin: auto auto 10px auto;
+}
+
+/* 404 not found */
+div.message-box {
+  padding: 20px 30px 25px 30px;
+  border-radius: 15px;
+  border: 2px solid #B0B0B0;
+  box-shadow: 0px 0px 8px 1px rgba(155,155,155,1);
+  background: linear-gradient(#E7E7E7, white);
+}
+
+div.message-box p {
+  margin: 15px 0px 0px 0px;
+  text-align: center;
+  font-family: 'Nunito', arial;
+}
+
+div.message-box p a {
+  text-decoration: none;
+  color: #54AF1C;
+  font-weight: bold;
+}
+
+div.message-box p a:hover {
+  text-shadow: 0px 0px 2px #63D81C;
+}
+
+/* User page */
+img.user-image {
+  float: right;
+  width: 250px;
+  height: 250px;
+  border-radius: 15px;
+  margin: 15px;
+  box-shadow: 0px 0px 8px 0px #A0A0A0;
+  transition: 0.15s;
+}
+
+img.user-image:hover {
+  box-shadow: 0px 0px 8px 3px #A0A0A0;
+}
+
+user {
+  display: block;
+  font-family: 'Nunito', sans-serif;
+  font-size: 2.5em;
+  padding: 10px 0px 0px 0px;
+  text-align: center;
 }
 
 /* Media */
