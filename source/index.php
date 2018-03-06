@@ -15,6 +15,7 @@
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Arimo|Nunito" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="<?php echo SERVER_URL; ?>lib/styles.css">
+    <script src="<?php echo SERVER_URL; ?>lib/scripts.js"></script>
   </head>
   <body>
     <!-- Navbar -->

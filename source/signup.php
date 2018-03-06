@@ -62,7 +62,7 @@
 
           if($passwordOne != $passwordTwo)
           {
-            header("Location: ".SERVER_URL."signup?e=2&user=". $username . "&email=" . $email);
+            header("Location: ".SERVER_URL."signup?e=2&user={$username}&email={$email}");
           }
           else
           {
@@ -74,25 +74,24 @@
             $userCheck = $check->get_result();
 
             if(mysqli_num_rows($userCheck) > 0) //Check if username already exists
-              header("Location: ".SERVER_URL."signup?e=3&user=". $username . "&email=" . $email);
+              header("Location: ".SERVER_URL."signup?e=3&user={$username}&email={$email}");
             else
             {
-              $query = $connection->prepare("INSERT INTO users(id_user, username, email, password, level) VALUES(null, ?, ?, md5(?), 2)");
+              $query = $connection->prepare("INSERT INTO users(id_user, username, email, password, level, biography, location) VALUES(null, ?, ?, md5(?), 2, '[NONE]', '[NONE]')");
               if(!$query)
                 die("<p class='message'>" . mysqli_error($connection) . "</p>");
               $query->bind_param("sss", $username, $email, $passwordTwo);
               $query->execute();
 
-              $result = $query->get_result();
-              if(!$result)
-                header("Location: ".SERVER_URL."signup?e=1");
-              else
+              if($query)
               {
                 session_start();
                 $_SESSION['username'] = $username;
                 $_SESSION['level'] = 2;
                 header("Location: ".SERVER_URL);
               }
+              else
+                header("Location: ".SERVER_URL."signup?e=1&user={$username}&email={$email}");
             }
           }
         }
