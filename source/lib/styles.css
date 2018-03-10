@@ -83,7 +83,7 @@ header ul li a:hover {
   background-color: #A50000;
 }
 
-header ul li:hover > ul {
+header ul li.dropdown:hover > ul {
   display: block;
 }
 
@@ -91,7 +91,8 @@ header ul li ul {
   display: none;
   position: absolute;
   top: 100%;
-  font-size: 0.65em;
+  width: 200px;
+  font-size: 0.68em;
   background-color: white;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -101,15 +102,12 @@ header ul li ul {
 header ul li ul li {
   display: block;
   float: none;
-  border-top: 1px solid black;
-}
-
-header ul li ul li:first-child {
-  border-top: none;
 }
 
 header ul li ul li a {
   color: black;
+  line-height: 240%;
+  margin: 6px 0;
 }
 
 header ul li ul li a:hover {
@@ -278,33 +276,44 @@ div.message-box p a:hover {
 }
 
 /* User page */
+#user {
+    display: none;
+}
+
 #user-table {
   width: 100%;
   padding: 15px 30px 0 30px;
 }
 
-#column-image {
+.column-image {
   text-align: right;
 }
 
-#column-info {
-  width: 100%;
+.column-info {
+  width: 100% !important;
 }
 
-#biography-content, #location-content, #gender-content {
+#user-biography, #user-location, #user-gender {
   border-radius: 15px;
   padding: 5px;
   transition: 0.20s;
 }
 
-#location-content, #gender-content {
+#user-gender {
   display: inline-block;
-  width: 50%;
-  margin-top: 10px;
-  box-sizing: border-box;
 }
 
-#biography-content:hover, #location-content:hover, #gender-content:hover {
+#user-biography, #user-location {
+  display: none;
+}
+
+#user-gender, #user-location {
+  box-sizing: border-box;
+  width: 50%;
+  margin: 10px 0 0 0;
+}
+
+#user-biography:hover, #user-location:hover, #user-gender:hover {
   background-color: #EFE1E1;
 }
 
@@ -312,7 +321,7 @@ div.message-box p a:hover {
   width: 250px;
   height: 250px;
   margin: 0 0 15px 15px;
-  border-radius: 15px;
+  border-radius: 10px;
   box-shadow: 0px 0px 8px 0px #A0A0A0;
   transition: 0.15s;
 }

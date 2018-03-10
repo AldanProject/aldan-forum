@@ -5,6 +5,14 @@
       <li><a href="<?php echo SERVER_URL; ?>">Inicio</a></li>
       <li><a href="#">Blog</a></li>
       <li><a href="#">Usuarios</a></li>
+      <li id="second-button" class="left-menu">
+        <a href="#">[ACTION]</a>
+        <ul id="menu-dropdown">
+          <li><a href="<?php echo SERVER_URL; ?>edit/profile">Editar perfil</a></li>
+          <li><a href="<?php echo SERVER_URL; ?>logout">Cerrar sesión</a></li>
+        </ul>
+      </li>
+      <li id="login-button" class="left-menu"><a href="<?php echo SERVER_URL; ?>login">Iniciar sesión</a></li>
     </ul>
   </header>
 </div>
@@ -20,15 +28,14 @@
 
     header("Location: ".SERVER_URL);
   }
+
   if(!isset($_SESSION['username']))
   {
-    print("<script>createMenuElements('{$server}', false, '')</script>");
+    print("<script>setMenuElements('{$server}', false, '');</script>");
   }
   else
   {
     $user = $_SESSION['username'];
-    print("<script>createMenuElements('{$server}', true, '{$user}')</script>");
-    //echo "<li><a href='".SERVER_URL."?logout'>Cerrar sesión</a></li>";
-    //echo "<li class='left-menu dropdown'><a href='".SERVER_URL."user/{$_SESSION['username']}'>{$_SESSION['username']}</a></li>";
+    print("<script>setMenuElements('{$server}', true, '{$user}');</script>");
   }
 ?>

@@ -4,6 +4,7 @@ RewriteEngine on
 RewriteRule ^/ index.php
 RewriteRule ^login login.php
 RewriteRule ^signup signup.php
+RewriteRule ^logout index.php?logout
 RewriteRule ^user/([A-Za-z0-9]+)$ index.php?user=$1
 RewriteRule ^edit/profile index.php?edit-profile
 

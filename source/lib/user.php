@@ -1,5 +1,29 @@
 <!-- Here is created all the user's page structure -->
-<div id="user"></div>
+<div id="user">
+  <h2 id="user-title" class="user-title">[USERNAME]</h2>
+  <p id="user-email" class="user-email">[USER EMAIL]</p>
+  <table id="user-table">
+    <tr>
+      <td class="column-info">
+        <div id="user-biography">
+          <p class="title">Biografía</p>
+          <p class="user-content"></p>
+        </div><!--
+        --><div id="user-location">
+          <p class="title">Locación</p>
+          <p class="user-content"></p>
+        </div><!--
+        --><div id="user-gender">
+          <p class="title">Género</p>
+          <p class="user-content"></p>
+        </div>
+      </td>
+      <td class="column-image">
+        <img id="user-image" class="user-image" src="#">
+      </td>
+    </tr>
+  </table>
+</div>
 
 <?php
 /* Made by Aldan Project | 2018 */
@@ -34,7 +58,7 @@ else
       $image = SERVER_URL . "img/users/{$user['id_user']}.jpg";
     else
       $image = SERVER_URL . "img/users/no-avatar.jpg";
-    echo "<script>setUserProfile('{$username}', '{$image}', '{$email}', '{$biography}', '{$location}', '{$gender}');</script>";
+    echo "<script>setUserProfile('{$username}', '{$image}', '{$email}', '{$biography}', '{$location}', {$gender});</script>";
   }
 }
 ?>
