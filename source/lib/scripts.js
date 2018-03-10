@@ -76,3 +76,60 @@ function setUserProfile(username, image, email, biography, location, gender)
   container.appendChild(userEmail);
   container.appendChild(table);
 }
+
+function createMenuElements(server, activeUser, username)
+{
+  var container = document.getElementById('navbar');
+  //If user is not logged in
+  if(!activeUser)
+  {
+    var signup = document.createElement('li');
+    var signupLink = document.createElement('a');
+    signup.classList.toggle('left-menu');
+    signup.classList.toggle('sign-up');
+    signupLink.href = server + 'signup';
+    signupLink.innerHTML = 'Registrarse';
+    signup.appendChild(signupLink);
+
+    var login = document.createElement('li');
+    var loginLink = document.createElement('a');
+    login.classList.toggle('left-menu');
+    loginLink.href = server + 'login';
+    loginLink.innerHTML = 'Iniciar sesión';
+    login.appendChild(loginLink);
+
+    container.appendChild(signup);
+    container.appendChild(login);
+  }
+  else
+  {
+    var user = document.createElement('li');
+    var userLink = document.createElement('a');
+    user.classList.toggle('left-menu');
+    userLink.href = server + "user/" + username;
+    userLink.innerHTML = username;
+    user.appendChild(userLink);
+
+    var ul = document.createElement('ul');
+
+    var editProfile = document.createElement('li');
+    var editProfileLink = document.createElement('a');
+    editProfileLink.href = server + 'edit/profile';
+    editProfileLink.innerHTML = 'Editar perfil';
+    editProfile.appendChild(editProfileLink);
+
+    var logout = document.createElement('li');
+    var logoutLink = document.createElement('a');
+    logoutLink.href = server + '?logout';
+    logoutLink.innerHTML = 'Cerrar sesión';
+    logout.appendChild(logoutLink);
+
+    //Append to parent
+    ul.appendChild(editProfile);
+    ul.appendChild(logout);
+    user.appendChild(ul);
+
+    //Apply to container
+    container.appendChild(user);
+  }
+}

@@ -29,6 +29,7 @@ header {
   margin: 0px 12vw;
   width: 100%;
   color: white;
+  position: relative;
 }
 
 header h1 {
@@ -60,12 +61,12 @@ header ul li {
   text-align: center;
 }
 
-header ul li:nth-last-child(-n+2) {
+header ul li.left-menu {
   float: right;
 }
 
-header ul li:nth-last-child(2) a:hover {
-  background-color: #67D523;
+header ul li.sign-up a:hover {
+  background-color: #62D51C;
 }
 
 header ul li a {
@@ -80,6 +81,39 @@ header ul li a {
 
 header ul li a:hover {
   background-color: #A50000;
+}
+
+header ul li:hover > ul {
+  display: block;
+}
+
+header ul li ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  font-size: 0.65em;
+  background-color: white;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+header ul li ul li {
+  display: block;
+  float: none;
+  border-top: 1px solid black;
+}
+
+header ul li ul li:first-child {
+  border-top: none;
+}
+
+header ul li ul li a {
+  color: black;
+}
+
+header ul li ul li a:hover {
+  background-color: #62D51C;
 }
 
 img.logo {
@@ -166,7 +200,7 @@ div.login form {
   border: 0px;
   padding: 5px 0px;
   transition: 0.2s;
-  background: linear-gradient(#54AF1C, #63F50A);
+  background: linear-gradient(#54AF1C, #62D51C);
 }
 
 .login-form input[type=submit]:hover, .login-form input[type=submit]:focus {

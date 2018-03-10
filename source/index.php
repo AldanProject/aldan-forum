@@ -28,6 +28,10 @@
       {
         include_once("lib/user.php");
       }
+      else if(isset($_GET['edit-profile']))
+      {
+        //Page does not exist
+      }
       else
       {
         echo "<br>"; //Only for navbar and footer separation

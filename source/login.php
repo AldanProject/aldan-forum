@@ -25,7 +25,7 @@
         <input type="text" name="username" autocomplete="off" required autofocus>
         <p class="title">Contraseña</p>
         <input type="password" name="password" required>
-        <input type="submit" value="Inciar sesión">
+        <input type="submit" value="Iniciar sesión">
         <?php
           if(isset($_GET['e']))
           {
