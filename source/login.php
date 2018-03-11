@@ -25,6 +25,7 @@
         <input type="text" name="username" autocomplete="off" required autofocus>
         <p class="title">Contraseña</p>
         <input type="password" name="password" required>
+        <input type="checkbox" name="remind" value="1" checked> <p class="message inline">Recordarme</p>
         <input type="submit" value="Iniciar sesión">
         <?php
           if(isset($_GET['e']))
@@ -47,7 +48,7 @@
             $username = $_POST['username']; //Gets username
             $password = $_POST['password']; //Gets password without MD5 encryption
 
-            $query = $connection->prepare("SELECT username, level FROM users WHERE username = ? AND password = md5(?)"); //Prepares the query
+            $query = $connection->prepare("SELECT username, level, password FROM users WHERE username = ? AND password = md5(?)"); //Prepares the query
             if(!$query)
               die("<p class='message'>" . mysqli_error($connection) . "</p>");
             $query->bind_param("ss", $username, $password); //Binds all parameters
@@ -64,6 +65,11 @@
               else
               {
                 $rows = mysqli_fetch_array($result);
+                if($_POST['remind']) //Remind 30 days
+                {
+                  setcookie("username", $rows['username'], time()+60*60*24*30);
+                  setcookie("password", $rows['password'], time()+60*60*24*30);
+                }
                 session_start();
                 $_SESSION['username'] = $rows['username']; //Sets username
                 $_SESSION['level'] = $rows['level']; //Sets user level
