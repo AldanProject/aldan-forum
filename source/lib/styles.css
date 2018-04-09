@@ -1,0 +1,379 @@
+/* Made by Aldan Project | 2018*/
+
+/* Main */
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 0px;
+}
+
+div.main-container {
+  width: 80vw;
+  margin: 0px auto 0px auto;
+  background-color: #F9F9F9;
+  overflow: auto;
+  box-shadow: -5px 0 5px -5px rgba(155,155,155,1), 5px 0 5px -5px rgba(155,155,155,1);
+}
+
+/* Navbar */
+div.navbar, footer {
+  display: flex;
+  background-color: #282828;
+  height: 65px;
+}
+
+header {
+  display: flex;
+  margin: 0px 12vw;
+  width: 100%;
+  color: white;
+  position: relative;
+}
+
+header h1 {
+  display: inline-block;
+  margin: auto 0px;
+  font-family: 'Arimo', sans-serif;
+}
+
+header h1 a {
+  text-decoration: none;
+  color: #54AF1C;
+  text-shadow: 0px 0px 7px black;
+}
+
+header ul {
+  list-style-type: none;
+  right: 0px;
+  margin: 0px 0px 0px 20px;
+  padding: 0px;
+  overflow: hidden;
+  flex-grow: 100;
+}
+
+header ul li {
+  display: flex;
+  float: left;
+  font-size: 1.2em;
+  font-family: 'Nunito', arial;
+  text-align: center;
+}
+
+header ul li.left-menu {
+  float: right;
+}
+
+header ul li.sign-up a:hover {
+  background-color: #62D51C;
+}
+
+header ul li a {
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 0px 20px;
+  margin: 0px;
+  line-height: 65px;
+  transition: 0.3s;
+}
+
+header ul li a:hover {
+  background-color: #A50000;
+}
+
+header ul li.dropdown:hover > ul {
+  display: block;
+}
+
+header ul li ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  width: 200px;
+  font-size: 0.68em;
+  background-color: white;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+header ul li ul li {
+  display: block;
+  float: none;
+}
+
+header ul li ul li a {
+  color: black;
+  line-height: 240%;
+  margin: 6px 0;
+}
+
+header ul li ul li a:hover {
+  background-color: #62D51C;
+}
+
+img.logo {
+  width: 350px;
+  filter: opacity(85%);
+  transition: 0.3s;
+}
+
+img.logo:hover {
+  filter: opacity(100%);
+}
+
+/* Footer */
+footer p {
+  width: 100%;
+  margin: 0px 12vw;
+  font-family: 'Nunito', sans-serif;
+  text-align: center;
+  font-size: 1.2em;
+  color: white;
+  line-height: 65px;
+}
+
+/* Login & sign up */
+body.center {
+  display: flex;
+}
+
+div.login {
+  margin: auto;
+}
+
+div.login p.title {
+  display: block;
+  margin: 3px 0px 3px 0px;
+  font-size: 1.3em;
+  font-family: 'Nunito', sans-serif;
+  text-align: center;
+  font-weight: bold;
+  color: #393939;
+}
+
+div.login h2, div.message-box h2 {
+  text-align: center;
+  font-family: 'Arimo', sans-serif;
+  font-size: 2em;
+  margin: 0px 0px 15px 0px;
+}
+
+div.login form {
+  padding: 20px 30px 25px 30px;
+  border-radius: 15px;
+  border: 2px solid #B0B0B0;
+  box-shadow: 0px 0px 8px 1px rgba(155,155,155,1);
+  background: linear-gradient(#E7E7E7, white);
+}
+
+.login-form input[type=text],
+.login-form input[type=password],
+.login-form input[type=email] {
+  font-size: 1.3em;
+  font-family: 'Nunito', arial;
+  width: 100%;
+  border-radius: 6px;
+  border: 0px;
+  text-align: center;
+  transition: 0.2s;
+}
+
+.login-form input[type=text]:focus,
+.login-form input[type=password]:focus,
+.login-form input[type=email]:focus {
+  box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
+}
+
+.login-form input[type=submit] {
+  display: block;
+  font-size: 1.3em;
+  font-family: 'Arimo', arial;
+  color: white;
+  border-radius: 8px;
+  margin-top: 15px;
+  width: 100% !important;
+  border: 0px;
+  padding: 5px 0px;
+  transition: 0.2s;
+  background: linear-gradient(#54AF1C, #62D51C);
+}
+
+.login-form input[type=submit]:hover, .login-form input[type=submit]:focus {
+  box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.75);
+}
+
+.login-form input[type=checkbox] {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+p.no-user {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 1.2em;
+  font-family: 'Nunito', arial;
+}
+
+p.no-user a {
+  text-decoration: none;
+  color: #54AF1C;
+  font-weight: bold;
+}
+
+p.no-user a:hover {
+  text-shadow: 0px 0px 2px #63D81C;
+}
+
+p.message {
+  margin: 15px 0px 0px 0px;
+  text-align: center;
+  font-family: 'Nunito', arial;
+}
+
+p.message.large {
+  margin: 0px;
+  padding: 15px 0px 15px 0px;
+  font-size: 1.5em;
+}
+
+p.message.inline {
+  display: inline-block;
+  line-height: 120%;
+}
+
+hr {
+  margin-top: 15px;
+  border: 0;
+  height: 2px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+div.signup {
+  width: 35%;
+}
+
+div.login img.logo {
+  display: block;
+  margin: auto auto 10px auto;
+}
+
+/* 404 not found */
+div.message-box {
+  padding: 20px 30px 25px 30px;
+  border-radius: 15px;
+  border: 2px solid #B0B0B0;
+  box-shadow: 0px 0px 8px 1px rgba(155,155,155,1);
+  background: linear-gradient(#E7E7E7, white);
+}
+
+div.message-box p {
+  margin: 15px 0px 0px 0px;
+  text-align: center;
+  font-family: 'Nunito', arial;
+}
+
+div.message-box p a {
+  text-decoration: none;
+  color: #54AF1C;
+  font-weight: bold;
+}
+
+div.message-box p a:hover {
+  text-shadow: 0px 0px 2px #63D81C;
+}
+
+/* User page */
+#user {
+    display: none;
+}
+
+#user-table {
+  width: 100%;
+  padding: 15px 30px 0 30px;
+}
+
+.column-image {
+  text-align: right;
+}
+
+.column-info {
+  width: 100% !important;
+}
+
+#user-biography, #user-location, #user-gender {
+  border-radius: 15px;
+  padding: 5px;
+  transition: 0.20s;
+}
+
+#user-gender {
+  display: inline-block;
+}
+
+#user-biography, #user-location {
+  display: none;
+}
+
+#user-gender, #user-location {
+  box-sizing: border-box;
+  width: 50%;
+  margin: 10px 0 0 0;
+}
+
+#user-biography:hover, #user-location:hover, #user-gender:hover {
+  background-color: #EFE1E1;
+}
+
+.user-image {
+  width: 250px;
+  height: 250px;
+  margin: 0 0 15px 15px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px 0px #A0A0A0;
+  transition: 0.15s;
+}
+
+.user-image:hover {
+  box-shadow: 0px 0px 8px 3px #A0A0A0;
+}
+
+.user-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 2.5em;
+  font-weight: normal;
+  text-align: center;
+  padding: 10px 0px 0px 0px;
+  margin: 0;
+}
+
+.user-email {
+  display: block;
+  font-family: 'Arimo', arial;
+  font-size: 1.15em;
+  text-align: right;
+  margin: 0 30px 0 0;
+}
+
+p.title {
+  font-family: 'Nunito', serif;
+  font-size: 1.8em;
+  font-weight: bold;
+  margin: 0px;
+}
+
+.user-content {
+  font-family: 'Arimo', arial;
+  font-size: 1.2em;
+  margin: 0;
+}
+
+/* Media */
+@media (max-width: 1270px) {
+  header {
+    margin: 0px 5vw;
+  }
+}
