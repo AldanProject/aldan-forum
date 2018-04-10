@@ -2,15 +2,16 @@
 
 /* Main */
 html, body {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
   margin: 0px;
 }
 
 div.main-container {
-  width: 80vw;
+  width: calc(100% - 100px);
+  max-width: 1200px;
   margin: 0px auto 0px auto;
   background-color: #F9F9F9;
   overflow: auto;
@@ -26,7 +27,7 @@ div.navbar, footer {
 
 header {
   display: flex;
-  margin: 0px 12vw;
+  margin: 0px 10%;
   width: 100%;
   color: white;
   position: relative;
@@ -53,6 +54,10 @@ header ul {
   flex-grow: 100;
 }
 
+header ul:hover > li a.main-bar {
+  color: rgba(255, 255, 255, 0.5);
+}
+
 header ul li {
   display: flex;
   float: left;
@@ -72,15 +77,15 @@ header ul li.sign-up a:hover {
 header ul li a {
   display: block;
   text-decoration: none;
-  color: white;
+  color: rgba(255, 255, 255, 1);
   padding: 0px 20px;
   margin: 0px;
   line-height: 65px;
   transition: 0.3s;
 }
 
-header ul li a:hover {
-  background-color: #A50000;
+header ul li a.main-bar:hover {
+  color: rgba(255, 255, 255, 1);
 }
 
 header ul li.dropdown:hover > ul {
@@ -90,12 +95,11 @@ header ul li.dropdown:hover > ul {
 header ul li ul {
   display: none;
   position: absolute;
-  top: 100%;
+  top: 80%;
   width: 200px;
   font-size: 0.68em;
   background-color: white;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  border-radius: 5px;
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 
@@ -116,12 +120,12 @@ header ul li ul li a:hover {
 
 img.logo {
   width: 350px;
-  filter: opacity(85%);
+  filter: brightness(80%);
   transition: 0.3s;
 }
 
 img.logo:hover {
-  filter: opacity(100%);
+  filter: brightness(100%);
 }
 
 /* Footer */
@@ -372,8 +376,8 @@ p.title {
 }
 
 /* Media */
-@media (max-width: 1270px) {
+@media (max-width: 1200px) {
   header {
-    margin: 0px 5vw;
+    margin: 0px 5%;
   }
 }
