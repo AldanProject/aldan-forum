@@ -12,7 +12,7 @@
           <li><a href="<?php echo SERVER_URL; ?>logout">Cerrar sesión</a></li>
         </ul>
       </li>
-      <li class="main-bar" id="login-button" class="left-menu"><a href="<?php echo SERVER_URL; ?>login">Iniciar sesión</a></li>
+      <li class="left-menu" id="login-button"><a class="main-bar" href="<?php echo SERVER_URL; ?>login">Iniciar sesión</a></li>
     </ul>
   </header>
 </div>

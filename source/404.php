@@ -13,7 +13,7 @@
       <div class="message-box">
         <h2>Error 404</h2>
         <p>Ooops, no encontramos la página que solicitaste</p>
-        <p>Pueden regresar al inicio haciendo <a href="<?php echo SERVER_URL; ?>">clic aquí</a></p>
+        <p>Puede regresar al inicio haciendo <a href="<?php echo SERVER_URL; ?>">clic aquí</a></p>
       </div>
     </div>
   </body>

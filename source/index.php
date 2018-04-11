@@ -22,7 +22,7 @@
     <?php include_once("lib/inc/navbar.php"); ?>
 
     <!-- Content -->
-    <div class="main-container">
+    <div id="main-container" class="main-container">
       <?php
       if(isset($_GET['user']))
       {
@@ -30,15 +30,19 @@
       }
       else if(isset($_GET['edit-profile']))
       {
-        //Page does not exist
+        //include_once("lib/config/edit-profile.php");
+      }
+      else if(isset($_GET['forum']))
+      {
+        //include_once("lib/forum/forum-content.php");
       }
       else
       {
-        echo "<br>"; //Only for navbar and footer separation
+        include_once("lib/forums.php");
+        //include_once("lib/right-bar.php");
       }
       ?>
     </div>
-
 
     <!-- Footer -->
     <?php include_once("lib/inc/footer.php"); ?>
