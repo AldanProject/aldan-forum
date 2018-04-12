@@ -1,12 +1,3 @@
-<!--
-<div id="1" class="forum-box" onclick="callForumPage(this);">
-  <img class="forum-icon" src="img/forums/1.png">
-  <p class="forum-title">Prueba de foro</p>
-  <p class="forum-description">La descripción perrona del foro xddddd</p>
-  <img class="arrow" src="img/assets/arrow.png">
-</div>
--->
-
 <?php
 /* Made by Aldan Project | 2018 */
 include_once("sql.php");

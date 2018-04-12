@@ -1,5 +1,6 @@
 /* Made by Aldan Project | 2018 */
 var forumID, forumTitle, forumDescription;
+var postID, postTitle, postCreator, postComments;
 
 /* Write the user information in user.php */
 function setUserProfile(username, imageURL, email, biography, location, gender)
@@ -109,5 +110,52 @@ function addForum()
     mainDiv.appendChild(arrow);
     //Append to mainContainer
     mainContainer.appendChild(mainDiv);
+  }
+}
+
+/* Post link */
+function callPostPage(forumDiv)
+{
+  window.location.href = forumID + "/post/" + forumDiv.id;
+}
+
+/* Add posts */
+function addPost()
+{
+  //Search for main-container div
+  var mainContainer = document.getElementById('main-container');
+  for(var i = 0; i < postID.length; i++)
+  {
+    //Create new div
+    var mainDiv = document.createElement('div');
+    mainDiv.classList.add('forum-box');
+    mainDiv.classList.add('post');
+    if(i == 0)
+      mainDiv.classList.add('first-post');
+    mainDiv.id = postID[i];
+    mainDiv.setAttribute('onClick', 'callPostPage(this);');
+    //Create title
+    var title = document.createElement('p');
+    title.classList.add('forum-title');
+    title.innerHTML = postTitle[i];
+    //Create post's creator
+    var creator = document.createElement('p');
+    creator.classList.add('post-creator');
+    creator.innerHTML = "por " + postCreator[i];
+    //Create # of postComments
+    var comments = document.createElement('p');
+    comments.classList.add('num-post');
+    comments.innerHTML = "<b>Número de comentarios: </b>" + postComments[i];
+    //Create arrow
+    var arrow = document.createElement('img');
+    arrow.classList.add('arrow');
+    arrow.src = '../img/assets/arrow.png';
+    //Append to mainDiv
+    mainDiv.appendChild(title);
+    mainDiv.appendChild(creator);
+    mainDiv.appendChild(comments);
+    mainDiv.appendChild(arrow);
+    //Append to mainContainer
+    mainContainer.append(mainDiv);
   }
 }

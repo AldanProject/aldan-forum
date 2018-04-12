@@ -60,5 +60,6 @@ else
       $image = SERVER_URL . "img/users/no-avatar.jpg";
     echo "<script>setUserProfile('{$username}', '{$image}', '{$email}', '{$biography}', '{$location}', {$gender});</script>";
   }
+  print("<script>document.title = 'Perfil de {$username} | Foro de Aldan Project';</script>");
 }
 ?>

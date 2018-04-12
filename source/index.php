@@ -3,14 +3,7 @@
 <?php include("lib/config.php"); ?>
 <html>
   <head>
-    <?php
-    if(isset($_GET['user']))
-    {
-      echo "<title>Perfil de {$_GET['user']} | Foro de Aldan Project</title>";
-    }
-    else
-      echo "<title>Inicio | Foro de Aldan Project</title>";
-    ?>
+    <title>Foro de Aldan Project</title>
     <meta charset="utf-8">
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Arimo|Nunito" rel="stylesheet">
@@ -34,10 +27,11 @@
       }
       else if(isset($_GET['forum']))
       {
-        //include_once("lib/forum/forum-content.php");
+        include_once("lib/forum/forum-content.php");
       }
       else
       {
+        print("<script>document.title = 'Inicio | Foro de Aldan Project';</script>");
         include_once("lib/forums.php");
         //include_once("lib/right-bar.php");
       }

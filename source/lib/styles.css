@@ -15,7 +15,7 @@ div.main-container {
   margin: 0 auto 0 auto;
   max-width: 1200px;
   overflow: auto;
-  width: calc(100% - 100px);
+  width: calc(100% - 150px);
 }
 
 /* Navbar */
@@ -388,8 +388,8 @@ p.title {
 }
 
 .forum-box:hover {
-  cursor: pointer;
   box-shadow: 0 3px 15px 0 rgba(0,0,0,1);
+  cursor: pointer;
 }
 
 .forum-icon {
@@ -400,13 +400,10 @@ p.title {
 }
 
 .forum-title {
-  margin: 0;
-}
-
-.forum-title {
   color: #62D51C;
   font-family: 'Arimo', sans-serif;
   font-size: 1.4em;
+  margin: 0;
   text-decoration: none;
 }
 
@@ -432,8 +429,42 @@ p.title {
   right: 10px;
 }
 
+/* Post */
+
+.post {
+  border: 1px solid rgb(150, 150, 150);
+  border-bottom: none;
+  box-shadow: none;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.first-post {
+  margin-top: 10px;
+}
+
+.post:last-of-type {
+  border-bottom: 1px solid rgb(150, 150, 150);
+  margin-bottom: 10px;
+}
+
+.post-creator {
+  font-family: 'Nunito', arial;
+  margin: 0;
+}
+
+.num-post {
+  bottom: 0;
+  font-family: 'Nunito', sans-serif;
+  margin: auto;
+  position: absolute;
+  height: 20px;
+  right: 80px;
+  top: 0;
+}
+
 /* Media */
-@media (max-width: 1200) {
+@media (max-width: 1200px) {
   header {
     margin: 0 5%;
   }
