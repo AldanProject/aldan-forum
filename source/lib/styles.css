@@ -231,16 +231,26 @@ p.no-user a:hover {
   text-shadow: 0 0 2px #63D81C;
 }
 
-p.message {
+.message {
   font-family: 'Nunito', arial;
   margin: 15px 0 15px 0;
   text-align: center;
 }
 
-p.message.large {
+.large {
   font-size: 1.5em;
   margin: 0;
   padding: 15px 0 15px 0;
+}
+
+.message a {
+  color: #62D51C;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.message a:hover {
+  text-decoration: underline;
 }
 
 .inline {
@@ -456,9 +466,9 @@ p.title {
 .num-post {
   bottom: 0;
   font-family: 'Nunito', sans-serif;
+  height: 20px;
   margin: auto;
   position: absolute;
-  height: 20px;
   right: 80px;
   top: 0;
 }

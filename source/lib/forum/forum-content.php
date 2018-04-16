@@ -12,6 +12,9 @@
 print("<script>forumID = {$_GET['forum']}</script>");
 
 include_once("lib/sql.php");
+include_once("lib/config.php");
+$serverURL = SERVER_URL;
+
 $nameQuery = $connection->prepare("SELECT name FROM forums WHERE id_forum = ?");
 if(!$nameQuery)
   echo "<p class='message'>" . mysqli_error($connection) . "</p>";
@@ -37,7 +40,10 @@ else
   {
     $nr = mysqli_num_rows($result);
     if($nr == 0)
+    {
       echo "<p class='message large'>No hay publicaciones</p>";
+      echo "<p class='message large'><a href='{$serverURL}'>Regresar al inicio</a></p>";
+    }
     else
     {
       $num = 0;
