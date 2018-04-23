@@ -1,10 +1,13 @@
 /* Made by Aldan Project | 2018 */
 var forumID, forumTitle, forumDescription;
 var postID, postTitle, postCreator, postComments;
+var serverURL;
 
 /* Write the user information in user.php */
 function setUserProfile(username, imageURL, email, biography, location, gender)
 {
+  document.title = 'Perfil de ' + username + ' | Foro de Aldan Project';
+
   var container = document.getElementById('user');
   var userTitle = document.getElementById('user-title');
   var userEmail = document.getElementById('user-email');
@@ -44,7 +47,6 @@ function setUserProfile(username, imageURL, email, biography, location, gender)
     userLocationP[3].innerHTML = location;
     userLocation.style.display = 'inline-block';
   }
-
   container.style.display = 'block';
 }
 
@@ -158,4 +160,35 @@ function addPost()
     //Append to mainContainer
     mainContainer.append(mainDiv);
   }
+}
+
+function searchUser(username)
+{
+  window.location.href = serverURL + 'user/' + username;
+}
+
+function createPost(title, date, content, avatar, username, forumName, forumID)
+{
+  document.title = title + ' | Foro de Aldan Project';
+  /* Search tags */
+  var forumStructure = document.getElementById('forum-structure');
+  var post = document.getElementById('post');
+  var postTitle = document.getElementById('post-title');
+  var postDate = document.getElementById('post-date');
+  var postContent = document.getElementById('post-content');
+  var userImage = document.getElementById('user-image');
+  var usernameText = document.getElementById('username');
+  /* Apply changes */
+  postTitle.innerHTML = title;
+  postDate.innerHTML = 'Fecha de publicación: ' + date;
+  postContent.innerHTML = content;
+  userImage.src = avatar;
+  var userClick = "searchUser('" + username + "')";
+  userImage.setAttribute('onClick', userClick);
+  usernameText.innerHTML = username;
+  usernameText.setAttribute('onClick', userClick);
+  forumStructure.innerHTML = '<a href="' + serverURL + 'forum/' + forumID + '">' + forumName + "</a> > " + title;
+  /* Show containers */
+  forumStructure.style.display = "block";
+  post.style.display = "table";
 }

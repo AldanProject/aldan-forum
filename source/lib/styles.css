@@ -473,6 +473,75 @@ p.title {
   top: 0;
 }
 
+/* Post */
+.forum-structure {
+  display: none;
+  font-family: 'Lato', sans-serif;
+  margin: 15px 0 0 15px;
+}
+
+.forum-structure a {
+  color: #62D51C;
+  text-decoration: none;
+}
+
+.forum-structure a:hover {
+  text-decoration: underline;
+}
+
+.post-container {
+  display: none;
+  padding: 12px;
+  width: 100%;
+}
+
+.content, .user {
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.content {
+  width: 75%;
+}
+
+.user {
+  border-left: 1px solid rgb(150, 150, 150);
+  width: 25%;
+  text-align: center;
+}
+
+.post-image {
+  width: 150px;
+  height: 150px;
+  margin: 15px 0 0 0;
+}
+
+.post-username {
+  font-size: 2.2em;
+  padding: 0;
+}
+
+.post-title {
+  font-family: 'Arimo', sans-serif;
+}
+
+.date {
+  font-family: 'Arimo', serif;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.content {
+  font-family: 'Lato', arial;
+  padding: 0 10px;
+}
+
+/* General */
+.link:hover {
+  cursor: pointer;
+}
+
 /* Media */
 @media (max-width: 1200px) {
   header {

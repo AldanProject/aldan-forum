@@ -6,7 +6,7 @@
     <title>Foro de Aldan Project</title>
     <meta charset="utf-8">
     <!-- Styles -->
-    <link href="https://fonts.googleapis.com/css?family=Arimo|Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Arimo|Nunito|Lato" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="<?php echo SERVER_URL; ?>lib/styles.css">
     <script src="<?php echo SERVER_URL; ?>lib/scripts.js"></script>
   </head>
@@ -29,10 +29,18 @@
       {
         include_once("lib/forum/forum-content.php");
       }
+      else if(isset($_GET['post']))
+      {
+        include_once("lib/forum/post-content.php");
+      }
       else
       {
         print("<script>document.title = 'Inicio | Foro de Aldan Project';</script>");
         include_once("lib/forums.php");
+      }
+
+      if(!isset($_GET['user']))
+      {
         //include_once("lib/right-bar.php");
       }
       ?>

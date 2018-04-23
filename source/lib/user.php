@@ -32,7 +32,7 @@ include_once("sql.php");
 $username = $_GET['user'];
 $query = $connection->prepare("SELECT id_user, username, email, biography, location, gender FROM users WHERE username = ?");
 if(!$query)
-  echo "<p class='message'>" . mysqli_error($connection) . "</p>";
+  die("<p class='message'>" . mysqli_error($connection) . "</p>");
 $query->bind_param("s", $username);
 $query->execute();
 
@@ -48,7 +48,7 @@ else
   }
   else
   {
-    $user = mysqli_fetch_array($result);
+    $user = mysqli_fetch_assoc($result);
     $username = $user['username'];
     $email = $user['email'];
     $biography = $user['biography'];
@@ -58,8 +58,7 @@ else
       $image = SERVER_URL . "img/users/{$user['id_user']}.jpg";
     else
       $image = SERVER_URL . "img/users/no-avatar.jpg";
-    echo "<script>setUserProfile('{$username}', '{$image}', '{$email}', '{$biography}', '{$location}', {$gender});</script>";
+    print("<script>setUserProfile('{$username}', '{$image}', '{$email}', '{$biography}', '{$location}', {$gender});</script>");
   }
-  print("<script>document.title = 'Perfil de {$username} | Foro de Aldan Project';</script>");
 }
 ?>

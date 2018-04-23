@@ -55,7 +55,7 @@ else
         $query = $connection->prepare("SELECT username FROM users WHERE id_user = ?");
         if(!$query)
           echo "<p class='message'>" . mysqli_error($connection) . "</p>";
-        $query->bind_param("i", $postID[$num]);
+        $query->bind_param("i", $rows['id_user']);
         $query->execute();
         $result = $query->get_result();
         if(!$result)
