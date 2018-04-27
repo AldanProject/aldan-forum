@@ -48,7 +48,7 @@
             $username = $_POST['username']; //Gets username
             $password = $_POST['password']; //Gets password without MD5 encryption
 
-            $query = $connection->prepare("SELECT username, level, password FROM users WHERE username = ? AND password = md5(?)"); //Prepares the query
+            $query = $connection->prepare("SELECT id_user, username, level, password FROM users WHERE username = ? AND password = md5(?)"); //Prepares the query
             if(!$query)
               die("<p class='message'>" . mysqli_error($connection) . "</p>");
             $query->bind_param("ss", $username, $password); //Binds all parameters
@@ -72,6 +72,7 @@
                 }
                 session_start();
                 $_SESSION['username'] = $rows['username']; //Sets username
+                $_SESSION['userID'] = $rows['id_user']; //Sets user id
                 $_SESSION['level'] = $rows['level']; //Sets user level
 
                 header("Location: ".SERVER_URL);

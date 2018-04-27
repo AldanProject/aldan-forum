@@ -53,6 +53,7 @@
       {
         $rows = mysqli_fetch_array($result);
         $_SESSION['username'] = $rows['username'];
+        $_SESSION['userID'] = $rows['id_user'];
         $_SESSION['level'] = $rows['level'];
       }
       else
