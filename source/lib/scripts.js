@@ -1,7 +1,8 @@
 /* Made by Aldan Project | 2018 */
+var serverURL;
 var forumID, forumTitle, forumDescription;
 var postID, postTitle, postCreator, postComments;
-var serverURL;
+var commentID, commentContent, commentCreator;
 
 /* Write the user information in user.php */
 function setUserProfile(username, imageURL, email, biography, location, gender)
@@ -51,18 +52,24 @@ function setUserProfile(username, imageURL, email, biography, location, gender)
 }
 
 /* Control the navbar buttons */
-function setMenuElements(serverURL, activeUser, username)
+function setMenuElements(serverURL, activeUser, username, userID)
 {
   var loginButton = document.getElementById('login-button');
   var secondButton = document.getElementById('second-button');
+  var avatar = document.getElementById('user-avatar');
+  var usernameLabel = document.getElementById('username-label');
+  var userLink = document.getElementById('user-link');
   var secondButtonLink = secondButton.childNodes;
 
   if(activeUser)
   {
     loginButton.style.display = 'none';
     secondButton.classList.toggle('dropdown');
-    secondButtonLink[1].innerHTML = username;
-    secondButtonLink[1].href = serverURL + 'user/' + username;
+    secondButtonLink[1].style.display = "none";
+    avatar.src = serverURL + "img/users/" + userID + ".jpg";
+    avatar.style.display = "inline-block";
+    usernameLabel.innerHTML = username;
+    userLink.href = serverURL + 'user/' + username;
   }
   else
   {
@@ -162,11 +169,13 @@ function addPost()
   }
 }
 
+/* User link */
 function searchUser(username)
 {
   window.location.href = serverURL + 'user/' + username;
 }
 
+/* Create post */
 function createPost(title, date, content, avatar, username, forumName, forumID)
 {
   document.title = title + ' | Foro de Aldan Project';
@@ -191,4 +200,41 @@ function createPost(title, date, content, avatar, username, forumName, forumID)
   /* Show containers */
   forumStructure.style.display = "block";
   post.style.display = "table";
+}
+
+/* Apply style on text areas */
+function applyStyle(option)
+{
+  var newText;
+  var txtarea = document.getElementById('comment-area');
+  var start = txtarea.selectionStart;
+  var finish = txtarea.selectionEnd;
+  var selected = txtarea.value.substring(start, finish);
+  var length = txtarea.value.lenght;
+
+  switch (option)
+  {
+    case 0:
+      /* Bold */
+      newText = "<b>" + selected + "</b>";
+      break;
+    case 1:
+      /* Italic */
+      newText = "<i>" + selected + "</i>";
+      break;
+    case 2:
+      /* Italic */
+      newText = "<u>" + selected + "</u>";
+      break;
+    case 3:
+      var link = prompt('Inserta el enlace');
+      newText = '<a href="' + link + '">' + selected + "</a>";
+      break;
+  }
+  txtarea.value = txtarea.value.substring(0, start) + newText + txtarea.value.substring(finish, length);
+}
+
+function showCommentBox() {
+  var commentBox = document.getElementById('comment-box');
+  commentBox.style.display = "block";
 }

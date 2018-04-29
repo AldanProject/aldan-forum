@@ -14,6 +14,7 @@ div.main-container {
   box-shadow: -5px 0 5px -5px rgba(155,155,155,1), 5px 0 5px -5px rgba(155,155,155,1);
   margin: 0 auto 0 auto;
   max-width: 1200px;
+  min-width: 1070px;
   overflow: auto;
   width: calc(100% - 150px);
 }
@@ -22,6 +23,7 @@ div.main-container {
 div.navbar, footer {
   background-color: #282828;
   display: flex;
+  min-width: 1070px;
   height: 65px;
 }
 
@@ -67,7 +69,8 @@ header ul li {
   text-align: center;
 }
 
-header ul .left-menu {
+header ul .right-menu {
+  height: 65px;
   float: right;
 }
 
@@ -125,6 +128,26 @@ img.logo {
 
 img.logo:hover {
   filter: brightness(100%);
+}
+
+.user-link {
+  display: flex;
+  margin-right: 20px;
+  padding: 0;
+}
+
+.user-avatar {
+  display: none;
+  border-radius: 10px;
+  height: 55px;
+  margin: auto;
+  width: 55px;
+}
+
+.username-label {
+  color: #62D51C;
+  margin-top: 10px;
+  font-size: 1.6em;
 }
 
 /* Footer */
@@ -440,7 +463,6 @@ p.title {
 }
 
 /* Post */
-
 .post {
   border: 1px solid rgb(150, 150, 150);
   border-bottom: none;
@@ -473,7 +495,7 @@ p.title {
   top: 0;
 }
 
-/* Post */
+/* Forum structure */
 .forum-structure {
   display: none;
   font-family: 'Lato', sans-serif;
@@ -537,6 +559,67 @@ p.title {
   padding: 0 10px;
 }
 
+/* Post comment */
+.comment-title {
+  font-family: 'Nunito', serif;
+  font-size: 1.8em;
+  font-weight: bold;
+  margin: 5px 0 10px 30px;
+}
+
+.comment-box {
+  display: none;
+  width: 100%;
+}
+
+.comment-area {
+  border-radius: 10px;
+  box-sizing: border-box;
+  display: block;
+  font-family: 'Lato', arial;
+  font-size: 1.3em;
+  height: 100px;
+  margin-left: 30px;
+  margin: auto;
+  padding: 10px;
+  resize: none;
+  width: 50%;
+}
+
+.comment-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.buttons {
+  width: 50%;
+}
+
+.comment-buttons input {
+  background-color: #4EA717;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  margin-right: 3px;
+  padding: 7px;
+  transition: 0.15s;
+}
+
+.comment-buttons input:hover {
+  box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.8);
+}
+
+.comment-buttons input:last-child {
+  float: right;
+}
+
+.comment-buttons input:nth-last-child(2) {
+  float: right;
+  margin-right: 0;
+  background-color: #E81595;
+}
+
 /* General */
 .link:hover {
   cursor: pointer;
@@ -546,5 +629,11 @@ p.title {
 @media (max-width: 1200px) {
   header {
     margin: 0 5%;
+  }
+}
+
+@media (max-width: 1070px) {
+  body {
+    overflow: auto;
   }
 }

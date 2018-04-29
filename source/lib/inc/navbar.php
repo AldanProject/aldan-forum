@@ -5,14 +5,16 @@
       <li><a class="main-bar" href="<?php echo SERVER_URL; ?>">Inicio</a></li>
       <li><a class="main-bar" href="#">Blog</a></li>
       <li><a class="main-bar" href="#">Usuarios</a></li>
-      <li id="second-button" class="left-menu">
+      <li id="second-button" class="right-menu">
         <a class="main-bar" href="#">[ACTION]</a>
+        <a id="user-link" class="user-link" href="#"><img id="user-avatar" class="user-avatar" src=""></a>
         <ul id="menu-dropdown">
+          <li id="username-label" class="username-label">[USERNAME]</li>
           <li><a href="<?php echo SERVER_URL; ?>edit/profile">Editar perfil</a></li>
           <li><a href="<?php echo SERVER_URL; ?>logout">Cerrar sesión</a></li>
         </ul>
       </li>
-      <li class="left-menu" id="login-button"><a class="main-bar" href="<?php echo SERVER_URL; ?>login">Iniciar sesión</a></li>
+      <li class="right-menu" id="login-button"><a class="main-bar" href="<?php echo SERVER_URL; ?>login">Iniciar sesión</a></li>
     </ul>
   </header>
 </div>
@@ -34,7 +36,7 @@
   if(isset($_COOKIE['username']) && isset($_COOKIE['password']) && !isset($_SESSION['username']))
   {
     include_once("lib/sql.php");
-    $query = $connection->prepare("SELECT username, level, password FROM users WHERE username = ? AND password = ?");
+    $query = $connection->prepare("SELECT id_user, username, level, password FROM users WHERE username = ? AND password = ?");
     if(!$query)
       die("<p class='message'>" . mysqli_error($connection) . "</p>");
     $query->bind_param("ss", $_COOKIE['username'], $_COOKIE['password']);
@@ -71,6 +73,7 @@
   else
   {
     $user = $_SESSION['username'];
-    print("<script>setMenuElements('{$server}', true, '{$user}');</script>");
+    $id = $_SESSION['userID'];
+    print("<script>setMenuElements('{$server}', true, '{$user}', '{$id}');</script>");
   }
 ?>
