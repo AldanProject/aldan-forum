@@ -78,7 +78,7 @@
             else
             {
               $userLevel = 3;
-              $query = $connection->prepare("INSERT INTO users(id_user, username, email, password, level, biography, location) VALUES(null, ?, ?, md5(?), ?, '[NONE]', '[NONE]')");
+              $query = $connection->prepare("INSERT INTO users(id_user, username, email, password, level, biography, location) VALUES(null, ?, ?, SHA2(?, 256), ?, '[NONE]', '[NONE]')");
               if(!$query)
                 die("<p class='message'>" . mysqli_error($connection) . "</p>");
               $query->bind_param("sssi", $username, $email, $passwordTwo, $userLevel);

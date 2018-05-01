@@ -48,7 +48,7 @@
             $username = $_POST['username']; //Gets username
             $password = $_POST['password']; //Gets password without MD5 encryption
 
-            $query = $connection->prepare("SELECT id_user, username, level, password FROM users WHERE username = ? AND password = md5(?)"); //Prepares the query
+            $query = $connection->prepare("SELECT id_user, username, level, password FROM users WHERE username = ? AND password = SHA2(?, 256)"); //Prepares the query
             if(!$query)
               die("<p class='message'>" . mysqli_error($connection) . "</p>");
             $query->bind_param("ss", $username, $password); //Binds all parameters

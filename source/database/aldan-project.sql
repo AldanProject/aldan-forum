@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 01-05-2018 a las 06:07:18
+-- Tiempo de generación: 01-05-2018 a las 17:48:37
 -- Versión del servidor: 10.1.25-MariaDB
 -- Versión de PHP: 7.1.7
 
@@ -86,7 +86,8 @@ CREATE TABLE `forum_comments` (
 
 INSERT INTO `forum_comments` (`id_comment`, `content`, `date`, `id_user`, `id_post`) VALUES
 (1, 'Este es un <b>comentario</b>.<br>\r\nY este <a href=\"https://www.google.com\">un enlace</a>.', '2018-04-30 22:40:53', 1, 1),
-(2, 'Este es un segundo comentario publicado por <i>Hanatan</i>', '2018-04-30 22:43:20', 2, 1);
+(2, 'Este es un segundo comentario publicado por <i>Hanatan</i>', '2018-04-30 22:43:20', 2, 1),
+(4, 'Me gustó el diseño del <u>foro</u>, el único detalle es que le faltan bastantes cosas, por ejemplo, crear <b>publicaciones</b> :)', '2018-05-01 10:25:06', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -120,7 +121,7 @@ CREATE TABLE `users` (
   `id_user` bigint(20) UNSIGNED NOT NULL,
   `username` varchar(25) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `password` varchar(35) NOT NULL,
+  `password` varchar(70) NOT NULL,
   `level` int(2) NOT NULL,
   `biography` varchar(100) NOT NULL,
   `location` varchar(40) NOT NULL,
@@ -132,10 +133,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `username`, `email`, `password`, `level`, `biography`, `location`, `gender`) VALUES
-(1, 'Azumi', 'alejandro-hdez115@outlook.com', '63f9f9e9354fe12b2a8c1ed30615a8b7', 1, 'If does not exist, program it.', 'Tonalá, Jalisco', 1),
-(2, 'Hanatan', 'alexazumi935@gmail.com', '15de21c670ae7c3f6f3f1f37029303c9', 2, '[NONE]', '[NONE]', 0),
-(10, 'Rackio', 'sgcesar@outlook.es', 'bff190217e2dba8059ae033b1bbecce1', 2, '[NONE]', '[NONE]', 0),
-(12, 'Sr_Panda', 'firerex001@gmail.com', '7f2daf21261d0acfd28a2603e10a3445', 1, '[NONE]', '[NONE]', 0);
+(1, 'Azumi', 'alejandro-hdez115@outlook.com', '215e2b2a880169c2bb2a01a7826359538bc6da2aec7b558d287ae27b2920bd31', 1, 'If does not exist, program it.', 'Tonalá, Jalisco', 1),
+(2, 'Hanatan', 'alexazumi935@gmail.com', '91a73fd806ab2c005c13b4dc19130a884e909dea3f72d46e30266fe1a1f588d8', 3, '[NONE]', '[NONE]', 0),
+(10, 'Rackio', 'sgcesar@outlook.es', '37b4be64dfd2c4ffc9fb610725c04192e476fe7d3b22d5c0ea77468af9886992', 3, '[NONE]', '[NONE]', 0),
+(12, 'Sr_Panda', 'firerex001@gmail.com', '37b4be64dfd2c4ffc9fb610725c04192e476fe7d3b22d5c0ea77468af9886992', 2, '[NONE]', '[NONE]', 0);
 
 --
 -- Índices para tablas volcadas
@@ -194,7 +195,7 @@ ALTER TABLE `forums`
 -- AUTO_INCREMENT de la tabla `forum_comments`
 --
 ALTER TABLE `forum_comments`
-  MODIFY `id_comment` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_comment` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `forum_posts`
 --

@@ -1,4 +1,5 @@
 <?php
+/* Made by Aldan Project | 2018 */
 $userID = 0;
 
 function createPost()
@@ -78,7 +79,7 @@ function createComments()
   include("lib/sql.php");
 
   $post = $_GET['post'];
-  $query = $connection->prepare("SELECT id_comment, content, date, id_user FROM forum_comments WHERE id_post = ?");
+  $query = $connection->prepare("SELECT id_comment, content, date, id_user FROM forum_comments WHERE id_post = ? ORDER BY id_comment DESC");
   if(!$query)
     die("<p class='message'>" . mysqli_error($connection) . "</p>");
   $query->bind_param("i", $post);
@@ -139,6 +140,19 @@ function verifyIfLevel()
     print("<script>showOptionButtons();</script>");
   }
 }
+
+function makeComment()
+{
+  include("lib/sql.php");
+  $post = $_GET['post'];
+  $user = $_SESSION['userID'];
+  $comment = $_POST['comment-area'];
+  $query = $connection->prepare("INSERT INTO forum_comments(id_comment, content, date, id_user, id_post) VALUES(null, ?, now(), ?, ?)");
+  if(!$query)
+    die("<p class='message'>" . mysqli_error($connection) . "</p>");
+  $query->bind_param("sii", $comment, $user, $post);
+  $query->execute();
+}
 ?>
 <!-- Here is created all the post's page structure -->
 <p id="forum-structure" class="forum-structure">{STRUCTURE}</p>
@@ -170,7 +184,6 @@ function verifyIfLevel()
       <input type="button" value="Subrayado" onclick="applyStyle(2);">
       <input type="button" value="Enlace" onclick="applyStyle(3);">
       <input type="submit" value="Comentar">
-      <input type="button" value="Previsualizar" onclick="commentPreview();">
     </div>
   </div>
   <hr>
@@ -192,9 +205,12 @@ function verifyIfLevel()
 -->
 </div>
 <?php
-/* Made by Aldan Project | 2018 */
 createPost();
 verifyUser();
 verifyIfLevel();
+
+if(isset($_POST['comment-area']))
+  makeComment();
+
 createComments();
 ?>

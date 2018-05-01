@@ -5,7 +5,7 @@
 - https://www.phpmyadmin.net
 -
 - Servidor: 127.0.0.1:3306
-- Tiempo de generación: 01-05-2018 a las 06:07:25
+- Tiempo de generación: 01-05-2018 a las 17:48:43
 - Versión del servidor: 10.1.25-MariaDB
 - Versión de PHP: 7.1.7
 -->
@@ -46,7 +46,7 @@
                   `id_post` int(11) NOT NULL,
                   PRIMARY KEY (`id_comment`),
                   UNIQUE KEY `id_comment` (`id_comment`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="forum_posts">
                 CREATE TABLE `forum_posts` (
@@ -65,7 +65,7 @@
                   `id_user` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
                   `username` varchar(25) NOT NULL,
                   `email` varchar(100) NOT NULL,
-                  `password` varchar(35) NOT NULL,
+                  `password` varchar(70) NOT NULL,
                   `level` int(2) NOT NULL,
                   `biography` varchar(100) NOT NULL,
                   `location` varchar(40) NOT NULL,
@@ -133,6 +133,13 @@ Y este &lt;a href=&quot;https://www.google.com&quot;&gt;un enlace&lt;/a&gt;.</co
             <column name="id_user">2</column>
             <column name="id_post">1</column>
         </table>
+        <table name="forum_comments">
+            <column name="id_comment">4</column>
+            <column name="content">Me gustó el diseño del &lt;u&gt;foro&lt;/u&gt;, el único detalle es que le faltan bastantes cosas, por ejemplo, crear &lt;b&gt;publicaciones&lt;/b&gt; :)</column>
+            <column name="date">2018-05-01 10:25:06</column>
+            <column name="id_user">1</column>
+            <column name="id_post">1</column>
+        </table>
         <!-- Tabla forum_posts -->
         <table name="forum_posts">
             <column name="id_post">1</column>
@@ -147,7 +154,7 @@ Y este &lt;a href=&quot;https://www.google.com&quot;&gt;un enlace&lt;/a&gt;.</co
             <column name="id_user">1</column>
             <column name="username">Azumi</column>
             <column name="email">alejandro-hdez115@outlook.com</column>
-            <column name="password">63f9f9e9354fe12b2a8c1ed30615a8b7</column>
+            <column name="password">215e2b2a880169c2bb2a01a7826359538bc6da2aec7b558d287ae27b2920bd31</column>
             <column name="level">1</column>
             <column name="biography">If does not exist, program it.</column>
             <column name="location">Tonalá, Jalisco</column>
@@ -157,8 +164,8 @@ Y este &lt;a href=&quot;https://www.google.com&quot;&gt;un enlace&lt;/a&gt;.</co
             <column name="id_user">2</column>
             <column name="username">Hanatan</column>
             <column name="email">alexazumi935@gmail.com</column>
-            <column name="password">15de21c670ae7c3f6f3f1f37029303c9</column>
-            <column name="level">2</column>
+            <column name="password">91a73fd806ab2c005c13b4dc19130a884e909dea3f72d46e30266fe1a1f588d8</column>
+            <column name="level">3</column>
             <column name="biography">[NONE]</column>
             <column name="location">[NONE]</column>
             <column name="gender">0</column>
@@ -167,8 +174,8 @@ Y este &lt;a href=&quot;https://www.google.com&quot;&gt;un enlace&lt;/a&gt;.</co
             <column name="id_user">10</column>
             <column name="username">Rackio</column>
             <column name="email">sgcesar@outlook.es</column>
-            <column name="password">bff190217e2dba8059ae033b1bbecce1</column>
-            <column name="level">2</column>
+            <column name="password">37b4be64dfd2c4ffc9fb610725c04192e476fe7d3b22d5c0ea77468af9886992</column>
+            <column name="level">3</column>
             <column name="biography">[NONE]</column>
             <column name="location">[NONE]</column>
             <column name="gender">0</column>
@@ -177,8 +184,8 @@ Y este &lt;a href=&quot;https://www.google.com&quot;&gt;un enlace&lt;/a&gt;.</co
             <column name="id_user">12</column>
             <column name="username">Sr_Panda</column>
             <column name="email">firerex001@gmail.com</column>
-            <column name="password">7f2daf21261d0acfd28a2603e10a3445</column>
-            <column name="level">1</column>
+            <column name="password">37b4be64dfd2c4ffc9fb610725c04192e476fe7d3b22d5c0ea77468af9886992</column>
+            <column name="level">2</column>
             <column name="biography">[NONE]</column>
             <column name="location">[NONE]</column>
             <column name="gender">0</column>

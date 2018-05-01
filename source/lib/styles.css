@@ -535,14 +535,14 @@ p.title {
 
 .user {
   border-left: 1px solid rgb(150, 150, 150);
-  width: 25%;
   text-align: center;
+  width: 25%;
 }
 
 .post-image {
-  width: 150px;
   height: 150px;
   margin: 15px 0 0 0;
+  width: 150px;
 }
 
 .post-username {
@@ -556,13 +556,18 @@ p.title {
 
 .date {
   font-family: 'Arimo', serif;
-  text-align: right;
   margin-right: 10px;
+  text-align: right;
 }
 
 .content {
   font-family: 'Lato', arial;
   padding: 0 10px;
+}
+
+p.content {
+  width: 100%;
+  padding: 0;
 }
 
 /* Post comment */
@@ -583,7 +588,7 @@ p.title {
   box-sizing: border-box;
   display: block;
   font-family: 'Lato', arial;
-  font-size: 1.3em;
+  font-size: 1.2em;
   height: 100px;
   margin-left: 30px;
   margin: auto;
@@ -618,16 +623,17 @@ p.title {
 
 .comment-buttons input:last-child {
   float: right;
-}
-
-.comment-buttons input:nth-last-child(2) {
-  float: right;
   margin-right: 0;
   background-color: #E81595;
 }
 
 .user-comment {
   display: table;
+  border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.user-comment:last-child {
+  border-bottom: none;
 }
 
 .comment-section, .post-border {
