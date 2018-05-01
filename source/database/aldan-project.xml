@@ -5,7 +5,7 @@
 - https://www.phpmyadmin.net
 -
 - Servidor: 127.0.0.1:3306
-- Tiempo de generación: 29-04-2018 a las 05:24:06
+- Tiempo de generación: 01-05-2018 a las 06:07:25
 - Versión del servidor: 10.1.25-MariaDB
 - Versión de PHP: 7.1.7
 -->
@@ -41,11 +41,12 @@
                 CREATE TABLE `forum_comments` (
                   `id_comment` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
                   `content` text NOT NULL,
+                  `date` datetime NOT NULL,
                   `id_user` int(11) NOT NULL,
                   `id_post` int(11) NOT NULL,
                   PRIMARY KEY (`id_comment`),
                   UNIQUE KEY `id_comment` (`id_comment`)
-                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+                ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="forum_posts">
                 CREATE TABLE `forum_posts` (
@@ -117,6 +118,21 @@
             <column name="description">Se supone que aquí hay una pequeña descripción del foro, pero no la hay :c</column>
         </table>
         <!-- Tabla forum_comments -->
+        <table name="forum_comments">
+            <column name="id_comment">1</column>
+            <column name="content">Este es un &lt;b&gt;comentario&lt;/b&gt;.&lt;br&gt;
+Y este &lt;a href=&quot;https://www.google.com&quot;&gt;un enlace&lt;/a&gt;.</column>
+            <column name="date">2018-04-30 22:40:53</column>
+            <column name="id_user">1</column>
+            <column name="id_post">1</column>
+        </table>
+        <table name="forum_comments">
+            <column name="id_comment">2</column>
+            <column name="content">Este es un segundo comentario publicado por &lt;i&gt;Hanatan&lt;/i&gt;</column>
+            <column name="date">2018-04-30 22:43:20</column>
+            <column name="id_user">2</column>
+            <column name="id_post">1</column>
+        </table>
         <!-- Tabla forum_posts -->
         <table name="forum_posts">
             <column name="id_post">1</column>

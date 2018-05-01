@@ -137,11 +137,17 @@ img.logo:hover {
 }
 
 .user-avatar {
-  display: none;
   border-radius: 10px;
+  display: none;
   height: 55px;
   margin: auto;
+  filter: contrast(50%);
+  transition: 0.2s;
   width: 55px;
+}
+
+header ul .dropdown:hover > a .user-avatar {
+  filter: contrast(100%);
 }
 
 .username-label {
@@ -618,6 +624,14 @@ p.title {
   float: right;
   margin-right: 0;
   background-color: #E81595;
+}
+
+.user-comment {
+  display: table;
+}
+
+.comment-section, .post-border {
+  width: 100%;
 }
 
 /* General */

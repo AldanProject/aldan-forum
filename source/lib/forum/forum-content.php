@@ -82,10 +82,10 @@ else
         }
         $num++;
       }
-      echo "<script>postID = " . json_encode($postID) . "</script>";
-      echo "<script>postTitle = " . json_encode($postTitle) . "</script>";
-      echo "<script>postCreator = " . json_encode($postCreator) . "</script>";
-      echo "<script>postComments = " . json_encode($postComments) . "</script>";
+      print("<script>postID = " . json_encode($postID) . "</script>");
+      print("<script>postTitle = " . json_encode($postTitle) . "</script>");
+      print("<script>postCreator = " . json_encode($postCreator) . "</script>");
+      print("<script>postComments = " . json_encode($postComments) . "</script>");
       print("<script>addPost();</script>");
     }
   }

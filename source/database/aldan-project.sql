@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 29-04-2018 a las 05:24:02
+-- Tiempo de generación: 01-05-2018 a las 06:07:18
 -- Versión del servidor: 10.1.25-MariaDB
 -- Versión de PHP: 7.1.7
 
@@ -75,9 +75,18 @@ INSERT INTO `forums` (`id_forum`, `name`, `description`) VALUES
 CREATE TABLE `forum_comments` (
   `id_comment` bigint(20) UNSIGNED NOT NULL,
   `content` text NOT NULL,
+  `date` datetime NOT NULL,
   `id_user` int(11) NOT NULL,
   `id_post` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `forum_comments`
+--
+
+INSERT INTO `forum_comments` (`id_comment`, `content`, `date`, `id_user`, `id_post`) VALUES
+(1, 'Este es un <b>comentario</b>.<br>\r\nY este <a href=\"https://www.google.com\">un enlace</a>.', '2018-04-30 22:40:53', 1, 1),
+(2, 'Este es un segundo comentario publicado por <i>Hanatan</i>', '2018-04-30 22:43:20', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -185,7 +194,7 @@ ALTER TABLE `forums`
 -- AUTO_INCREMENT de la tabla `forum_comments`
 --
 ALTER TABLE `forum_comments`
-  MODIFY `id_comment` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_comment` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `forum_posts`
 --

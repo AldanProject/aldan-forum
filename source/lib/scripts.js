@@ -2,7 +2,7 @@
 var serverURL;
 var forumID, forumTitle, forumDescription;
 var postID, postTitle, postCreator, postComments;
-var commentID, commentContent, commentCreator;
+var commentID, commentContent, commentDate, commentCreator, creatorAvatar;
 
 /* Write the user information in user.php */
 function setUserProfile(username, imageURL, email, biography, location, gender)
@@ -189,7 +189,7 @@ function createPost(title, date, content, avatar, username, forumName, forumID)
   var usernameText = document.getElementById('username');
   /* Apply changes */
   postTitle.innerHTML = title;
-  postDate.innerHTML = 'Fecha de publicación: ' + date;
+  postDate.innerHTML = '<b>Fecha de publicación: </b>' + date;
   postContent.innerHTML = content;
   userImage.src = avatar;
   var userClick = "searchUser('" + username + "')";
@@ -234,7 +234,56 @@ function applyStyle(option)
   txtarea.value = txtarea.value.substring(0, start) + newText + txtarea.value.substring(finish, length);
 }
 
+/* Show comment box */
 function showCommentBox() {
   var commentBox = document.getElementById('comment-box');
   commentBox.style.display = "block";
+}
+
+function createComments() {
+  var commentsContainer = document.getElementById('user-comments');
+  for(var i = 0; i < commentID.length; i++)
+  {
+    var table = document.createElement('table');
+    table.id = "comment-" + commentID[i];
+    table.classList.add('post-container');
+    table.classList.add('user-comment');
+    var tr = document.createElement('tr');
+    tr.classList.add('post-border');
+    var content = document.createElement('td');
+    content.classList.add('content');
+    var date = document.createElement('p');
+    date.classList.add('date');
+    date.innerHTML = '<b>Fecha de comentario: </b>' + commentDate[i];
+    var comment = document.createElement('p');
+    comment.classList.add('content');
+    comment.innerHTML = commentContent[i];
+
+    var user = document.createElement('td');
+    user.classList.add('user');
+    var avatar = document.createElement('img');
+    avatar.classList.add('user-image');
+    avatar.classList.add('link');
+    avatar.classList.add('post-image');
+    avatar.src = creatorAvatar[i];
+    var userLink = "searchUser('" + commentCreator[i] + "');";
+    avatar.setAttribute('onClick', userLink);
+    var username = document.createElement('p');
+    username.classList.add('user-title');
+    username.classList.add('link');
+    username.classList.add('post-username');
+    username.innerHTML = commentCreator[i];
+    username.setAttribute('onClick', userLink);
+
+    /* Join */
+    content.appendChild(date);
+    content.appendChild(comment);
+    user.appendChild(avatar);
+    user.appendChild(username);
+    tr.appendChild(content);
+    tr.appendChild(user);
+    table.appendChild(tr);
+
+    commentsContainer.appendChild(table);
+  }
 }

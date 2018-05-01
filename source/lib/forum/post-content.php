@@ -75,7 +75,7 @@ function createComments()
   include("lib/sql.php");
 
   $post = $_GET['post'];
-  $query = $connection->prepare("SELECT * FROM forum_comments WHERE id_post = ?");
+  $query = $connection->prepare("SELECT id_comment, content, date, id_user FROM forum_comments WHERE id_post = ?");
   if(!$query)
     die("<p class='message'>" . mysqli_error($connection) . "</p>");
   $query->bind_param("i", $post);
@@ -88,7 +88,31 @@ function createComments()
     $num = mysqli_num_rows($result);
     if($num > 0)
     {
+      while($rows = mysqli_fetch_assoc($result))
+      {
+        $commentID[] = $rows['id_comment'];
+        $commentContent[] = $rows['content'];
+        $commentDate[] = $rows['date'];
 
+        if(file_exists("img/users/{$rows['id_user']}.jpg"))
+          $image[] = SERVER_URL . "img/users/{$rows['id_user']}.jpg";
+        else
+          $image[] = SERVER_URL . "img/users/no-avatar.jpg";
+        /* User data */
+        $user = mysqli_query($connection, "SELECT username FROM users WHERE id_user = {$rows['id_user']}");
+        $num = mysqli_num_rows($user);
+        if($num > 0)
+        {
+            $user = mysqli_fetch_assoc($user);
+            $commentUser[] = $user['username'];
+        }
+      }
+      print("<script>commentID = " . json_encode($commentID) . "</script>");
+      print("<script>commentContent = " . json_encode($commentContent) . "</script>");
+      print("<script>commentDate = " . json_encode($commentDate) . "</script>");
+      print("<script>commentCreator = " . json_encode($commentUser) . "</script>");
+      print("<script>creatorAvatar = " . json_encode($image) . "</script>");
+      print("<script>createComments();</script>");
     }
     else
     {
@@ -115,7 +139,7 @@ function verifyUser() {
     </td>
     <td class="user">
       <img id="user-image" class="user-image link post-image" onclick="" src="">
-      <p id="username" class="user-title link post-username" onclick="searchUser('<?php print(SERVER_URL); ?>', 'Azumi');">{USERNAME}</p>
+      <p id="username" class="user-title link post-username" onclick="">{USERNAME}</p>
     </td>
   </tr>
 </table>
@@ -135,6 +159,22 @@ function verifyUser() {
   </div>
   <hr>
 </form>
+<div id="user-comments" class="comment-section">
+<!--
+  <table class="post-container user-comment">
+    <tr class="post-border">
+      <td class="content">
+        <p class="date">{DATE}</p>
+        <p class="content">{CONTENT}</p>
+      </td>
+      <td class="user">
+        <img class="user-image link post-image" onclick="" src="">
+        <p class="user-title link post-username" onclick="">{USERNAME}</p>
+      </td>
+    </tr>
+  </table>
+-->
+</div>
 <?php
 /* Made by Aldan Project | 2018 */
 createPost();
