@@ -97,6 +97,7 @@ function createComments()
         $commentID[] = $rows['id_comment'];
         $commentContent[] = $rows['content'];
         $commentDate[] = $rows['date'];
+        $creatorID[] = $rows['id_user'];
 
         if(file_exists("img/users/{$rows['id_user']}.jpg"))
           $image[] = SERVER_URL . "img/users/{$rows['id_user']}.jpg";
@@ -116,6 +117,7 @@ function createComments()
       print("<script>commentDate = " . json_encode($commentDate) . "</script>");
       print("<script>commentCreator = " . json_encode($commentUser) . "</script>");
       print("<script>creatorAvatar = " . json_encode($image) . "</script>");
+      print("<script>creatorID = " . json_encode($creatorID) . "</script>");
       print("<script>createComments();</script>");
     }
     else
@@ -130,6 +132,7 @@ function verifyUser()
   if(isset($_SESSION['username']))
   {
     print("<script>showCommentBox();</script>");
+    print("<script>showOptionComments({$_SESSION['userID']});</script>");
   }
 }
 
@@ -152,6 +155,19 @@ function makeComment()
     die("<p class='message'>" . mysqli_error($connection) . "</p>");
   $query->bind_param("sii", $comment, $user, $post);
   $query->execute();
+}
+
+function deleteComment()
+{
+  include("lib/sql.php");
+  $comment = $_POST['delete-comment'];
+  $query = $connection->prepare("DELETE FROM forum_comments WHERE id_comment = ?");
+  if(!$query)
+    die("<p class='message'>" . mysqli_error($connection) . "</p>");
+  $query->bind_param("i", $comment);
+  $query->execute();
+
+  print("<script>alert('El comentario ha sido eliminado');</script>");
 }
 ?>
 <!-- Here is created all the post's page structure -->
@@ -205,12 +221,14 @@ function makeComment()
 -->
 </div>
 <?php
-createPost();
-verifyUser();
-verifyIfLevel();
+if(isset($_POST['delete-comment']))
+  deleteComment();
 
+createPost();
+verifyIfLevel();
 if(isset($_POST['comment-area']))
   makeComment();
 
 createComments();
+verifyUser();
 ?>

@@ -2,7 +2,7 @@
 var serverURL;
 var forumID, forumTitle, forumDescription;
 var postID, postTitle, postCreator, postComments;
-var commentID, commentContent, commentDate, commentCreator, creatorAvatar;
+var commentID, commentContent, commentDate, commentCreator, creatorAvatar, creatorID;
 
 /* Write the user information in user.php */
 function setUserProfile(username, imageURL, email, biography, location, gender)
@@ -235,22 +235,47 @@ function applyStyle(option)
 }
 
 /* Show comment box */
-function showCommentBox() {
+function showCommentBox()
+{
   var commentBox = document.getElementById('comment-box');
   commentBox.style.display = "block";
 }
 
 /* Create comments */
-function createComments() {
+function createComments()
+{
   var commentsContainer = document.getElementById('user-comments');
   for(var i = 0; i < commentID.length; i++)
   {
+    /* Option buttons */
+    var buttons = document.createElement('div');
+    buttons.classList.add('option-buttons');
+    buttons.id = creatorID[i];
+    buttons.classList.add('comment-options');
+    var deleteForm = document.createElement('form');
+    deleteForm.method = 'post';
+    deleteForm.style.display = 'inline-block';
+    deleteForm.setAttribute('onsubmit', "return confirm('Está a punto de eliminar el comentario, ¿desea continuar?')");
+    var hiddenID = document.createElement('input');
+    hiddenID.type = 'hidden';
+    hiddenID.name = 'delete-comment';
+    hiddenID.value = commentID[i];
+    var deleteBtn = document.createElement('input');
+    deleteBtn.type = 'submit';
+    deleteBtn.classList.add('delete');
+    deleteBtn.value = 'Eliminar comentario';
+    var modifyBtn = document.createElement('input');
+    modifyBtn.type = 'button';
+    modifyBtn.value = 'Modificar comentario';
+    modifyBtn.name = commentID[i];
+    /* Main structure */
     var table = document.createElement('table');
     table.id = "comment-" + commentID[i];
     table.classList.add('post-container');
     table.classList.add('user-comment');
     var tr = document.createElement('tr');
     tr.classList.add('post-border');
+    /* Content */
     var content = document.createElement('td');
     content.classList.add('content');
     var date = document.createElement('p');
@@ -259,7 +284,7 @@ function createComments() {
     var comment = document.createElement('p');
     comment.classList.add('content');
     comment.innerHTML = commentContent[i];
-
+    /* User */
     var user = document.createElement('td');
     user.classList.add('user');
     var avatar = document.createElement('img');
@@ -275,22 +300,40 @@ function createComments() {
     username.classList.add('post-username');
     username.innerHTML = commentCreator[i];
     username.setAttribute('onClick', userLink);
-
     /* Join */
+    deleteForm.appendChild(hiddenID);
+    deleteForm.appendChild(deleteBtn);
+    buttons.appendChild(deleteForm);
+    buttons.appendChild(modifyBtn);
     content.appendChild(date);
     content.appendChild(comment);
     user.appendChild(avatar);
     user.appendChild(username);
+    tr.appendChild(buttons);
     tr.appendChild(content);
     tr.appendChild(user);
     table.appendChild(tr);
-
+    /* Append to main container */
     commentsContainer.appendChild(table);
   }
 }
 
 /* Show option buttons */
-function showOptionButtons() {
+function showOptionButtons()
+{
   var buttons = document.getElementById('option-buttons');
   buttons.style.display = "block";
+}
+
+/* Show option buttons for comments */
+function showOptionComments(user)
+{
+  var comments = document.getElementsByClassName('comment-options');
+  for(var i = 0; i < comments.length; i++)
+  {
+    if(user == comments[i].id)
+    {
+      comments[i].style.display = 'block';
+    }
+  }
 }

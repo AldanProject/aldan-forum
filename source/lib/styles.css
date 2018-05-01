@@ -644,14 +644,15 @@ p.content {
 .option-buttons {
   display: none;
   float: right;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .option-buttons input {
+  background-color: #4EA717;
   border-radius: 5px;
   border: none;
-  background-color: #4EA717;
   color: white;
+  margin: 0 5px 10px 5px;
   padding: 5px 10px;
   transition: 0.2s;
 }
