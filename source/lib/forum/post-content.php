@@ -1,4 +1,6 @@
 <?php
+$userID = 0;
+
 function createPost()
 {
   include("lib/sql.php");
@@ -32,6 +34,7 @@ function createPost()
         if($num > 0)
         {
           $userData = mysqli_fetch_assoc($result);
+          $GLOBALS['userID'] = $userData['id_user'];
           $query = $connection->prepare("SELECT name FROM forums WHERE id_forum = ?");
           if(!$query)
             echo "<p class='message'>" . mysqli_error($connection) . "</p>";
@@ -121,16 +124,29 @@ function createComments()
   }
 }
 
-function verifyUser() {
+function verifyUser()
+{
   if(isset($_SESSION['username']))
   {
     print("<script>showCommentBox();</script>");
+  }
+}
+
+function verifyIfLevel()
+{
+  if(isset($_SESSION['userID']) && ($_SESSION['userID'] === $GLOBALS['userID'] || $_SESSION['level'] == 1 || $_SESSION['level'] == 2))
+  {
+    print("<script>showOptionButtons();</script>");
   }
 }
 ?>
 <!-- Here is created all the post's page structure -->
 <p id="forum-structure" class="forum-structure">{STRUCTURE}</p>
 <table id="post" class="post-container">
+  <div id="option-buttons" class="option-buttons">
+    <input class="delete" type="button" value="Eliminar publicación">
+    <input type="button" value="Editar publicación">
+  </div>
   <tr class="post-border">
     <td class="content">
       <h2 id="post-title" class="user-title post-title">{TITLE}</h2>
@@ -179,5 +195,6 @@ function verifyUser() {
 /* Made by Aldan Project | 2018 */
 createPost();
 verifyUser();
+verifyIfLevel();
 createComments();
 ?>

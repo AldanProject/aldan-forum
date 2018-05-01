@@ -634,6 +634,30 @@ p.title {
   width: 100%;
 }
 
+/* Option buttons */
+.option-buttons {
+  display: none;
+  float: right;
+  margin-right: 20px;
+}
+
+.option-buttons input {
+  border-radius: 5px;
+  border: none;
+  background-color: #4EA717;
+  color: white;
+  padding: 5px 10px;
+  transition: 0.2s;
+}
+
+.option-buttons .delete {
+  background-color: #E81595;
+}
+
+.option-buttons input:hover {
+  box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.8);
+}
+
 /* General */
 .link:hover {
   cursor: pointer;

@@ -52,7 +52,7 @@ function setUserProfile(username, imageURL, email, biography, location, gender)
 }
 
 /* Control the navbar buttons */
-function setMenuElements(serverURL, activeUser, username, userID)
+function setMenuElements(serverURL, activeUser, username, avatarURL)
 {
   var loginButton = document.getElementById('login-button');
   var secondButton = document.getElementById('second-button');
@@ -66,7 +66,7 @@ function setMenuElements(serverURL, activeUser, username, userID)
     loginButton.style.display = 'none';
     secondButton.classList.toggle('dropdown');
     secondButtonLink[1].style.display = "none";
-    avatar.src = serverURL + "img/users/" + userID + ".jpg";
+    avatar.src = avatarURL;
     avatar.style.display = "inline-block";
     usernameLabel.innerHTML = username;
     userLink.href = serverURL + 'user/' + username;
@@ -240,6 +240,7 @@ function showCommentBox() {
   commentBox.style.display = "block";
 }
 
+/* Create comments */
 function createComments() {
   var commentsContainer = document.getElementById('user-comments');
   for(var i = 0; i < commentID.length; i++)
@@ -286,4 +287,10 @@ function createComments() {
 
     commentsContainer.appendChild(table);
   }
+}
+
+/* Show option buttons */
+function showOptionButtons() {
+  var buttons = document.getElementById('option-buttons');
+  buttons.style.display = "block";
 }

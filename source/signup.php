@@ -77,17 +77,18 @@
               header("Location: ".SERVER_URL."signup?e=3&user={$username}&email={$email}");
             else
             {
-              $query = $connection->prepare("INSERT INTO users(id_user, username, email, password, level, biography, location) VALUES(null, ?, ?, md5(?), 2, '[NONE]', '[NONE]')");
+              $userLevel = 3;
+              $query = $connection->prepare("INSERT INTO users(id_user, username, email, password, level, biography, location) VALUES(null, ?, ?, md5(?), ?, '[NONE]', '[NONE]')");
               if(!$query)
                 die("<p class='message'>" . mysqli_error($connection) . "</p>");
-              $query->bind_param("sss", $username, $email, $passwordTwo);
+              $query->bind_param("sssi", $username, $email, $passwordTwo, $userLevel);
               $query->execute();
 
               if($query)
               {
                 session_start();
                 $_SESSION['username'] = $username;
-                $_SESSION['level'] = 2;
+                $_SESSION['level'] = 3;
                 header("Location: ".SERVER_URL);
               }
               else

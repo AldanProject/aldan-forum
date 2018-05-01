@@ -74,6 +74,12 @@
   {
     $user = $_SESSION['username'];
     $id = $_SESSION['userID'];
-    print("<script>setMenuElements('{$server}', true, '{$user}', '{$id}');</script>");
+
+    if(file_exists("img/users/{$id}.jpg"))
+      $image = SERVER_URL . "img/users/{$id}.jpg";
+    else
+      $image = SERVER_URL . "img/users/no-avatar.jpg";
+
+    print("<script>setMenuElements('{$server}', true, '{$user}', '{$image}');</script>");
   }
 ?>
