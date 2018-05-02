@@ -337,3 +337,10 @@ function showOptionComments(user)
     }
   }
 }
+
+/* Show new post button */
+function showNewPost()
+{
+  var button = document.getElementById('option-buttons');
+  button.style.display = 'block';
+}

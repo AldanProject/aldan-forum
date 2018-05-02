@@ -38,11 +38,6 @@
         print("<script>document.title = 'Inicio | Foro de Aldan Project';</script>");
         include_once("lib/forums.php");
       }
-
-      if(!isset($_GET['user']))
-      {
-        //include_once("lib/right-bar.php");
-      }
       ?>
     </div>
 
