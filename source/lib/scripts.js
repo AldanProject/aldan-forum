@@ -363,3 +363,12 @@ function setPageTitle(title)
 {
   document.title = title + " | Foro de Aldan Project";
 }
+
+/* Confirm button */
+function confirmButton(message)
+{
+  if(window.confirm(message))
+  {
+
+  }
+}

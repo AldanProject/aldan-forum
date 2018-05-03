@@ -5,7 +5,7 @@
 - https://www.phpmyadmin.net
 -
 - Servidor: 127.0.0.1:3306
-- Tiempo de generación: 01-05-2018 a las 17:48:43
+- Tiempo de generación: 04-05-2018 a las 01:46:22
 - Versión del servidor: 10.1.25-MariaDB
 - Versión de PHP: 7.1.7
 -->
@@ -33,9 +33,10 @@
                   `id_forum` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
                   `name` varchar(60) NOT NULL,
                   `description` text NOT NULL,
+                  `closed` int(11) NOT NULL,
                   PRIMARY KEY (`id_forum`),
                   UNIQUE KEY `id_forum` (`id_forum`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+                ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="forum_comments">
                 CREATE TABLE `forum_comments` (
@@ -46,7 +47,7 @@
                   `id_post` int(11) NOT NULL,
                   PRIMARY KEY (`id_comment`),
                   UNIQUE KEY `id_comment` (`id_comment`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+                ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="forum_posts">
                 CREATE TABLE `forum_posts` (
@@ -111,11 +112,13 @@
             <column name="id_forum">1</column>
             <column name="name">Primer foro</column>
             <column name="description">Este es el primer foro que existe, eres libre de publicar aquí</column>
+            <column name="closed">1</column>
         </table>
         <table name="forums">
             <column name="id_forum">2</column>
-            <column name="name">Segundo foro de discución</column>
+            <column name="name">Segundo foro de discusión</column>
             <column name="description">Se supone que aquí hay una pequeña descripción del foro, pero no la hay :c</column>
+            <column name="closed">0</column>
         </table>
         <!-- Tabla forum_comments -->
         <table name="forum_comments">
@@ -134,9 +137,9 @@ Y este &lt;a href=&quot;https://www.google.com&quot;&gt;un enlace&lt;/a&gt;.</co
             <column name="id_post">1</column>
         </table>
         <table name="forum_comments">
-            <column name="id_comment">4</column>
-            <column name="content">Me gustó el diseño del &lt;u&gt;foro&lt;/u&gt;, el único detalle es que le faltan bastantes cosas, por ejemplo, crear &lt;b&gt;publicaciones&lt;/b&gt; :)</column>
-            <column name="date">2018-05-01 10:25:06</column>
+            <column name="id_comment">5</column>
+            <column name="content">Necesito ayuda con &lt;i&gt;este &lt;/i&gt;proyecto.</column>
+            <column name="date">2018-05-01 16:36:34</column>
             <column name="id_user">1</column>
             <column name="id_post">1</column>
         </table>
@@ -146,7 +149,7 @@ Y este &lt;a href=&quot;https://www.google.com&quot;&gt;un enlace&lt;/a&gt;.</co
             <column name="title">Primera publicación</column>
             <column name="content">Contenido chido y &lt;a href=&quot;https://www.google.com&quot;&gt;un enlace&lt;/a&gt;.&lt;br&gt;&lt;b&gt;Negritas&lt;/b&gt;&lt;br&gt;&lt;i&gt;Cursiva&lt;/i&gt;&lt;br&gt;&lt;u&gt;Subrayado&lt;/u&gt;</column>
             <column name="date">2018-04-22 19:20:30</column>
-            <column name="id_forum">1</column>
+            <column name="id_forum">2</column>
             <column name="id_user">2</column>
         </table>
         <!-- Tabla users -->

@@ -1,7 +1,5 @@
 <div id="option-buttons" class="option-buttons new-post">
-  <form method="post" class="options-form" action="new/forum">
-    <input type="submit" value="Nuevo foro">
-  </form>
+    <a href="<?php print(SERVER_URL); ?>new/forum"><input type="submit" value="Nuevo foro"></a>
 </div>
 <?php
 /* Made by Aldan Project | 2018 */

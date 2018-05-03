@@ -205,7 +205,8 @@ div.login form {
 
 .login-form input[type=email],
 .login-form input[type=text],
-.login-form input[type=password] {
+.login-form input[type=password],
+.login-form select {
   border-radius: 6px;
   border: 0;
   font-family: 'Nunito', arial;
@@ -655,7 +656,7 @@ p.content {
   border-radius: 5px;
   border: none;
   color: white;
-  margin: 0 5px 0 5px;
+  margin: 5px 5px 0 10px;
   padding: 5px 10px;
   transition: 0.2s;
 }
@@ -683,6 +684,27 @@ p.content {
 .new-post form {
   float: right;
   margin-right: 5px;
+}
+
+/* New forum form */
+.new-forum {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.new-forum p {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.5em;
+  margin: 10px 0 5px 0;
+  text-align: center;
+}
+
+.new-forum input[type=submit], .new-forum input[type=text], .new-forum select {
+  border: 1px solid rgb(180, 180, 180);
+  display: block;
+  font-size: 1.2em;
+  margin: 10px auto;
+  width: 80%;
 }
 
 /* General */

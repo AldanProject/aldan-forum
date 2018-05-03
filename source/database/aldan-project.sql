@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 01-05-2018 a las 17:48:37
+-- Tiempo de generación: 04-05-2018 a las 01:46:14
 -- Versión del servidor: 10.1.25-MariaDB
 -- Versión de PHP: 7.1.7
 
@@ -55,16 +55,17 @@ INSERT INTO `blog_posts` (`id_post`, `title`, `description`, `content`, `img`, `
 CREATE TABLE `forums` (
   `id_forum` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(60) NOT NULL,
-  `description` text NOT NULL
+  `description` text NOT NULL,
+  `closed` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `forums`
 --
 
-INSERT INTO `forums` (`id_forum`, `name`, `description`) VALUES
-(1, 'Primer foro', 'Este es el primer foro que existe, eres libre de publicar aquí'),
-(2, 'Segundo foro de discución', 'Se supone que aquí hay una pequeña descripción del foro, pero no la hay :c');
+INSERT INTO `forums` (`id_forum`, `name`, `description`, `closed`) VALUES
+(1, 'Primer foro', 'Este es el primer foro que existe, eres libre de publicar aquí', 1),
+(2, 'Segundo foro de discusión', 'Se supone que aquí hay una pequeña descripción del foro, pero no la hay :c', 0);
 
 -- --------------------------------------------------------
 
@@ -87,7 +88,7 @@ CREATE TABLE `forum_comments` (
 INSERT INTO `forum_comments` (`id_comment`, `content`, `date`, `id_user`, `id_post`) VALUES
 (1, 'Este es un <b>comentario</b>.<br>\r\nY este <a href=\"https://www.google.com\">un enlace</a>.', '2018-04-30 22:40:53', 1, 1),
 (2, 'Este es un segundo comentario publicado por <i>Hanatan</i>', '2018-04-30 22:43:20', 2, 1),
-(4, 'Me gustó el diseño del <u>foro</u>, el único detalle es que le faltan bastantes cosas, por ejemplo, crear <b>publicaciones</b> :)', '2018-05-01 10:25:06', 1, 1);
+(5, 'Necesito ayuda con <i>este </i>proyecto.', '2018-05-01 16:36:34', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -109,7 +110,7 @@ CREATE TABLE `forum_posts` (
 --
 
 INSERT INTO `forum_posts` (`id_post`, `title`, `content`, `date`, `id_forum`, `id_user`) VALUES
-(1, 'Primera publicación', 'Contenido chido y <a href=\"https://www.google.com\">un enlace</a>.<br><b>Negritas</b><br><i>Cursiva</i><br><u>Subrayado</u>', '2018-04-22 19:20:30', 1, 2);
+(1, 'Primera publicación', 'Contenido chido y <a href=\"https://www.google.com\">un enlace</a>.<br><b>Negritas</b><br><i>Cursiva</i><br><u>Subrayado</u>', '2018-04-22 19:20:30', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -190,12 +191,12 @@ ALTER TABLE `blog_posts`
 -- AUTO_INCREMENT de la tabla `forums`
 --
 ALTER TABLE `forums`
-  MODIFY `id_forum` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_forum` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `forum_comments`
 --
 ALTER TABLE `forum_comments`
-  MODIFY `id_comment` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_comment` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `forum_posts`
 --

@@ -177,11 +177,11 @@ function deleteComment()
   <div id="option-buttons" class="option-buttons">
     <form method="post" class="options-form">
       <input class="post-id" type="hidden" name="delete-post">
-      <input class="delete" type="button" value="Eliminar publicación">
+      <input class="delete" type="submit" value="Eliminar publicación">
     </form>
     <form method="post" class="options-form">
       <input class="post-id" type="hidden" name="modify-post">
-      <input type="button" value="Editar publicación">
+      <input type="submit" value="Editar publicación">
     </form>
   </div>
   <tr class="post-border">
