@@ -176,7 +176,7 @@ function searchUser(username)
 }
 
 /* Create post */
-function createPost(title, date, content, avatar, username, forumName, forumID)
+function createPost(title, date, content, avatar, username, forumName, forumID, postID)
 {
   document.title = title + ' | Foro de Aldan Project';
   /* Search tags */
@@ -187,6 +187,9 @@ function createPost(title, date, content, avatar, username, forumName, forumID)
   var postContent = document.getElementById('post-content');
   var userImage = document.getElementById('user-image');
   var usernameText = document.getElementById('username');
+  var hiddenID = document.getElementsByClassName('post-id');
+  for(var i = 0; i < hiddenID.length; i++)
+    hiddenID[i].value = postID;
   /* Apply changes */
   postTitle.innerHTML = title;
   postDate.innerHTML = '<b>Fecha de publicación: </b>' + date;
@@ -252,22 +255,30 @@ function createComments()
     buttons.classList.add('option-buttons');
     buttons.id = creatorID[i];
     buttons.classList.add('comment-options');
+    /* Delete form */
     var deleteForm = document.createElement('form');
     deleteForm.method = 'post';
-    deleteForm.style.display = 'inline-block';
+    deleteForm.classList.add('options-form');
     deleteForm.setAttribute('onsubmit', "return confirm('Está a punto de eliminar el comentario, ¿desea continuar?')");
-    var hiddenID = document.createElement('input');
-    hiddenID.type = 'hidden';
-    hiddenID.name = 'delete-comment';
-    hiddenID.value = commentID[i];
+    var deleteID = document.createElement('input');
+    deleteID.type = 'hidden';
+    deleteID.name = 'delete-comment';
+    deleteID.value = commentID[i];
     var deleteBtn = document.createElement('input');
     deleteBtn.type = 'submit';
     deleteBtn.classList.add('delete');
     deleteBtn.value = 'Eliminar comentario';
+    /* Modify form */
+    var modifyForm = document.createElement('form');
+    modifyForm.method = 'post';
+    modifyForm.classList.add('options-form');
+    var modifyID = document.createElement('input');
+    modifyID.type = 'hidden';
+    modifyID.name = 'modify-comment';
+    modifyID.value = commentID[i];
     var modifyBtn = document.createElement('input');
-    modifyBtn.type = 'button';
+    modifyBtn.type = 'submit';
     modifyBtn.value = 'Modificar comentario';
-    modifyBtn.name = commentID[i];
     /* Main structure */
     var table = document.createElement('table');
     table.id = "comment-" + commentID[i];
@@ -301,17 +312,19 @@ function createComments()
     username.innerHTML = commentCreator[i];
     username.setAttribute('onClick', userLink);
     /* Join */
-    deleteForm.appendChild(hiddenID);
+    deleteForm.appendChild(deleteID);
     deleteForm.appendChild(deleteBtn);
+    modifyForm.appendChild(modifyID);
+    modifyForm.appendChild(modifyBtn);
     buttons.appendChild(deleteForm);
-    buttons.appendChild(modifyBtn);
+    buttons.appendChild(modifyForm);
     content.appendChild(date);
     content.appendChild(comment);
     user.appendChild(avatar);
     user.appendChild(username);
-    tr.appendChild(buttons);
     tr.appendChild(content);
     tr.appendChild(user);
+    table.appendChild(buttons);
     table.appendChild(tr);
     /* Append to main container */
     commentsContainer.appendChild(table);
@@ -338,9 +351,15 @@ function showOptionComments(user)
   }
 }
 
-/* Show new post button */
+/* Show new post button or new forum */
 function showNewPost()
 {
   var button = document.getElementById('option-buttons');
   button.style.display = 'block';
+}
+
+/* Set page title */
+function setPageTitle(title)
+{
+  document.title = title + " | Foro de Aldan Project";
 }

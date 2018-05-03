@@ -8,6 +8,7 @@
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Arimo|Nunito|Lato" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="<?php echo SERVER_URL; ?>lib/styles.css">
+    <link rel="shortcut icon" type="image/png" href="<?php echo SERVER_URL; ?>img/favicon.png"/>
     <script src="<?php echo SERVER_URL; ?>lib/scripts.js"></script>
   </head>
   <body>
@@ -32,6 +33,10 @@
       else if(isset($_GET['post']))
       {
         include_once("lib/forum/post-content.php");
+      }
+      else if(isset($_GET['new-forum']))
+      {
+        include_once("lib/forum/new-forum.php");
       }
       else
       {

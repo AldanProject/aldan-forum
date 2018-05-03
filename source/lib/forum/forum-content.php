@@ -7,7 +7,10 @@
 </div>
 -->
 <div id="option-buttons" class="option-buttons new-post">
-  <input type="button" value="Nueva publicación">
+  <form method="post" class="options-form">
+    <input type="hidden" name="new-post">
+    <input type="button" value="Nueva publicación">
+  </form>
 </div>
 <?php
 /* Made by Aldan Project | 2018 */

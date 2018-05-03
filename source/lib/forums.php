@@ -1,5 +1,16 @@
+<div id="option-buttons" class="option-buttons new-post">
+  <form method="post" class="options-form" action="new/forum">
+    <input type="submit" value="Nuevo foro">
+  </form>
+</div>
 <?php
 /* Made by Aldan Project | 2018 */
+function checkIfLevel() {
+  if(isset($_SESSION['level']) && $_SESSION['level'] < 3)
+  {
+    print("<script>showNewPost();</script>");
+  }
+}
 include_once("sql.php");
 
 $query = $connection->prepare("SELECT * FROM forums");
@@ -29,4 +40,6 @@ else
     print("<script>addForum();</script>");
   }
 }
+
+checkIfLevel();
 ?>

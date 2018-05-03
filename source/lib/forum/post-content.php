@@ -58,6 +58,7 @@ function createPost()
               $forum = $forumName['name'];
               $forumID = $_GET['id'];
               $serverURL = SERVER_URL;
+              $postID = $_GET['post'];
 
               if(file_exists("img/users/{$userData['id_user']}.jpg"))
                 $image = SERVER_URL . "img/users/{$userData['id_user']}.jpg";
@@ -65,7 +66,7 @@ function createPost()
                 $image = SERVER_URL . "img/users/no-avatar.jpg";
 
               print("<script>serverURL = '{$serverURL}'</script>");
-              print("<script>createPost('{$title}', '{$date}', '{$content}', '{$image}', '{$username}', '{$forum}', '{$forumID}')</script>");
+              print("<script>createPost('{$title}', '{$date}', '{$content}', '{$image}', '{$username}', '{$forum}', '{$forumID}', '{$postID}')</script>");
             }
           }
         }
@@ -174,8 +175,14 @@ function deleteComment()
 <p id="forum-structure" class="forum-structure">{STRUCTURE}</p>
 <table id="post" class="post-container">
   <div id="option-buttons" class="option-buttons">
-    <input class="delete" type="button" value="Eliminar publicación">
-    <input type="button" value="Editar publicación">
+    <form method="post" class="options-form">
+      <input class="post-id" type="hidden" name="delete-post">
+      <input class="delete" type="button" value="Eliminar publicación">
+    </form>
+    <form method="post" class="options-form">
+      <input class="post-id" type="hidden" name="modify-post">
+      <input type="button" value="Editar publicación">
+    </form>
   </div>
   <tr class="post-border">
     <td class="content">
