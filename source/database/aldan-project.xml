@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 4.7.0
+- https://www.phpmyadmin.net
+-
+- Servidor: 127.0.0.1:3306
+- Tiempo de generación: 05-05-2018 a las 03:20:39
+- Versión del servidor: 10.1.25-MariaDB
+- Versión de PHP: 7.1.7
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="aldan-project" collation="utf8_general_ci" charset="utf8">
+            <pma:table name="blog_posts">
+                CREATE TABLE `blog_posts` (
+                  `id_post` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                  `title` varchar(35) NOT NULL,
+                  `description` mediumtext NOT NULL,
+                  `content` mediumtext NOT NULL,
+                  `img` varchar(50) NOT NULL,
+                  `date` date DEFAULT NULL,
+                  PRIMARY KEY (`id_post`),
+                  UNIQUE KEY `id_post` (`id_post`)
+                ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="forums">
+                CREATE TABLE `forums` (
+                  `id_forum` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                  `name` varchar(60) NOT NULL,
+                  `description` text NOT NULL,
+                  `closed` int(11) NOT NULL,
+                  PRIMARY KEY (`id_forum`),
+                  UNIQUE KEY `id_forum` (`id_forum`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="forum_comments">
+                CREATE TABLE `forum_comments` (
+                  `id_comment` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                  `content` text NOT NULL,
+                  `date` datetime NOT NULL,
+                  `id_user` int(11) NOT NULL,
+                  `id_post` int(11) NOT NULL,
+                  PRIMARY KEY (`id_comment`),
+                  UNIQUE KEY `id_comment` (`id_comment`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="forum_posts">
+                CREATE TABLE `forum_posts` (
+                  `id_post` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                  `title` varchar(60) NOT NULL,
+                  `content` text NOT NULL,
+                  `date` datetime NOT NULL,
+                  `id_forum` int(11) NOT NULL,
+                  `id_user` int(11) NOT NULL,
+                  PRIMARY KEY (`id_post`),
+                  UNIQUE KEY `id_post` (`id_post`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="users">
+                CREATE TABLE `users` (
+                  `id_user` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+                  `username` varchar(25) NOT NULL,
+                  `email` varchar(100) NOT NULL,
+                  `password` varchar(70) NOT NULL,
+                  `level` int(2) NOT NULL,
+                  `biography` varchar(100) NOT NULL,
+                  `location` varchar(40) NOT NULL,
+                  `gender` int(1) NOT NULL,
+                  PRIMARY KEY (`id_user`),
+                  UNIQUE KEY `id_user` (`id_user`)
+                ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Base de datos: 'aldan-project'
+    -->
+    <database name="aldan-project">
+        <!-- Tabla blog_posts -->
+        <table name="blog_posts">
+            <column name="id_post">1</column>
+            <column name="title">Título del primer artículo</column>
+            <column name="description">Este es el &lt;b&gt;primer&lt;/b&gt; articulo en la página de &lt;b&gt;Aldan Project&lt;/b&gt;, aquí puedes insertar información relacionada sobre el tema que se habla en el articulo.&lt;br&gt; Incluyendo una &lt;b&gt;imagen&lt;/b&gt; que lo acompaña a su lado izquierdo.&lt;br&gt;&lt;br&gt; Y aquí hay un &lt;a href='#'&gt;enlace&lt;/a&gt;.</column>
+            <column name="content">&lt;center&gt;Estás leyendo el &lt;b&gt;contenido&lt;/b&gt; de la primera publicación en &lt;a href='#'&gt;Aldan Project&lt;/a&gt;</column>
+            <column name="img">blog01.jpg</column>
+            <column name="date">2018-02-09</column>
+        </table>
+        <table name="blog_posts">
+            <column name="id_post">8</column>
+            <column name="title">Publicación creada con el panel</column>
+            <column name="description">Descripción escrita en un &lt;b&gt;textarea&lt;/b&gt; en el panel de administrador, el cual puede eliminar, modificar y buscar publicaciones.</column>
+            <column name="content">&lt;center&gt;Contenido centrado&lt;/center&gt;</column>
+            <column name="img">blog02.jpg</column>
+            <column name="date">2018-02-15</column>
+        </table>
+        <table name="blog_posts">
+            <column name="id_post">9</column>
+            <column name="title">Nueva publicación</column>
+            <column name="description">Probando el número de publicaciones impar.</column>
+            <column name="content">No hay :c</column>
+            <column name="img">blog01.jpg</column>
+            <column name="date">2018-02-15</column>
+        </table>
+        <!-- Tabla forums -->
+        <table name="forums">
+            <column name="id_forum">1</column>
+            <column name="name">Primer foro</column>
+            <column name="description">Este es el primer foro que existe, eres libre de publicar aquí</column>
+            <column name="closed">1</column>
+        </table>
+        <table name="forums">
+            <column name="id_forum">2</column>
+            <column name="name">Segundo foro de discusión</column>
+            <column name="description">Se supone que aquí hay una pequeña descripción del foro, pero no la hay :c</column>
+            <column name="closed">0</column>
+        </table>
+        <!-- Tabla forum_comments -->
+        <table name="forum_comments">
+            <column name="id_comment">1</column>
+            <column name="content">Este es un &lt;b&gt;comentario&lt;/b&gt;.&lt;br&gt;
+Y este &lt;a href=&quot;https://www.google.com&quot;&gt;un enlace&lt;/a&gt;.</column>
+            <column name="date">2018-04-30 22:40:53</column>
+            <column name="id_user">1</column>
+            <column name="id_post">1</column>
+        </table>
+        <table name="forum_comments">
+            <column name="id_comment">2</column>
+            <column name="content">Este es un segundo comentario publicado por &lt;i&gt;Hanatan&lt;/i&gt;</column>
+            <column name="date">2018-04-30 22:43:20</column>
+            <column name="id_user">2</column>
+            <column name="id_post">1</column>
+        </table>
+        <table name="forum_comments">
+            <column name="id_comment">5</column>
+            <column name="content">Necesito ayuda con &lt;i&gt;este &lt;/i&gt;proyecto.</column>
+            <column name="date">2018-05-01 16:36:34</column>
+            <column name="id_user">1</column>
+            <column name="id_post">1</column>
+        </table>
+        <!-- Tabla forum_posts -->
+        <table name="forum_posts">
+            <column name="id_post">1</column>
+            <column name="title">Primera publicación</column>
+            <column name="content">Contenido chido y &lt;a href=&quot;https://www.google.com&quot;&gt;un enlace&lt;/a&gt;.&lt;br&gt;&lt;b&gt;Negritas&lt;/b&gt;&lt;br&gt;&lt;i&gt;Cursiva&lt;/i&gt;&lt;br&gt;&lt;u&gt;Subrayado&lt;/u&gt;</column>
+            <column name="date">2018-04-22 19:20:30</column>
+            <column name="id_forum">2</column>
+            <column name="id_user">2</column>
+        </table>
+        <!-- Tabla users -->
+        <table name="users">
+            <column name="id_user">1</column>
+            <column name="username">Azumi</column>
+            <column name="email">alejandro-hdez115@outlook.com</column>
+            <column name="password">215e2b2a880169c2bb2a01a7826359538bc6da2aec7b558d287ae27b2920bd31</column>
+            <column name="level">1</column>
+            <column name="biography">If does not exist, program it.</column>
+            <column name="location">Tonalá, Jalisco</column>
+            <column name="gender">1</column>
+        </table>
+        <table name="users">
+            <column name="id_user">2</column>
+            <column name="username">Hanatan</column>
+            <column name="email">alexazumi935@gmail.com</column>
+            <column name="password">91a73fd806ab2c005c13b4dc19130a884e909dea3f72d46e30266fe1a1f588d8</column>
+            <column name="level">3</column>
+            <column name="biography">[NONE]</column>
+            <column name="location">[NONE]</column>
+            <column name="gender">0</column>
+        </table>
+        <table name="users">
+            <column name="id_user">10</column>
+            <column name="username">Rackio</column>
+            <column name="email">sgcesar@outlook.es</column>
+            <column name="password">37b4be64dfd2c4ffc9fb610725c04192e476fe7d3b22d5c0ea77468af9886992</column>
+            <column name="level">3</column>
+            <column name="biography">[NONE]</column>
+            <column name="location">[NONE]</column>
+            <column name="gender">0</column>
+        </table>
+        <table name="users">
+            <column name="id_user">12</column>
+            <column name="username">Sr_Panda</column>
+            <column name="email">firerex001@gmail.com</column>
+            <column name="password">37b4be64dfd2c4ffc9fb610725c04192e476fe7d3b22d5c0ea77468af9886992</column>
+            <column name="level">2</column>
+            <column name="biography">[NONE]</column>
+            <column name="location">[NONE]</column>
+            <column name="gender">0</column>
+        </table>
+        <table name="users">
+            <column name="id_user">14</column>
+            <column name="username">Polo</column>
+            <column name="email">bla@gmail.com</column>
+            <column name="password">91a73fd806ab2c005c13b4dc19130a884e909dea3f72d46e30266fe1a1f588d8</column>
+            <column name="level">3</column>
+            <column name="biography">[NONE]</column>
+            <column name="location">[NONE]</column>
+            <column name="gender">0</column>
+        </table>
+    </database>
+</pma_xml_export>

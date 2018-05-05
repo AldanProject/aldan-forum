@@ -1,20 +1,14 @@
 <!DOCTYPE html>
 <!-- Made by Aldan Project | 2018 -->
-<?php include("lib/config.php"); ?>
+<?php include_once("lib/config.php"); include_once("lib/functions.php"); ?>
 <html>
   <head>
-    <?php
-    if(isset($_GET['user']))
-    {
-      echo "<title>Perfil de {$_GET['user']} | Foro de Aldan Project</title>";
-    }
-    else
-      echo "<title>Inicio | Foro de Aldan Project</title>";
-    ?>
+    <title>Foro de Aldan Project</title>
     <meta charset="utf-8">
     <!-- Styles -->
-    <link href="https://fonts.googleapis.com/css?family=Arimo|Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Arimo|Nunito|Lato" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="<?php echo SERVER_URL; ?>lib/styles.css">
+    <link rel="shortcut icon" type="image/png" href="<?php echo SERVER_URL; ?>img/favicon.png"/>
     <script src="<?php echo SERVER_URL; ?>lib/scripts.js"></script>
   </head>
   <body>
@@ -22,7 +16,7 @@
     <?php include_once("lib/inc/navbar.php"); ?>
 
     <!-- Content -->
-    <div class="main-container">
+    <div id="main-container" class="main-container">
       <?php
       if(isset($_GET['user']))
       {
@@ -30,15 +24,31 @@
       }
       else if(isset($_GET['edit-profile']))
       {
-        //Page does not exist
+        //include_once("lib/config/edit-profile.php");
+      }
+      else if(isset($_GET['new-post']))
+      {
+        //include_once("lib/post/new-post.php");
+      }
+      else if(isset($_GET['post']))
+      {
+        include_once("lib/forum/post-content.php");
+      }
+      else if(isset($_GET['forum']))
+      {
+        include_once("lib/forum/forum-content.php");
+      }
+      else if(isset($_GET['new-forum']))
+      {
+        include_once("lib/forum/new-forum.php");
       }
       else
       {
-        echo "<br>"; //Only for navbar and footer separation
+        print("<script>document.title = 'Inicio | Foro de Aldan Project';</script>");
+        include_once("lib/forums.php");
       }
       ?>
     </div>
-
 
     <!-- Footer -->
     <?php include_once("lib/inc/footer.php"); ?>

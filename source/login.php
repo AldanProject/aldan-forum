@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- Made by Aldan Project | 2018 -->
-<?php include_once("lib/config.php"); ?>
+<?php include_once("lib/config.php"); include_once("lib/functions.php"); ?>
 <html>
   <head>
     <meta charset="utf-8">
@@ -44,24 +44,16 @@
           }
           if(isset($_POST['username']))
           {
-            include_once("lib/sql.php");
             $username = $_POST['username']; //Gets username
-            $password = $_POST['password']; //Gets password without MD5 encryption
-
-            $query = $connection->prepare("SELECT username, level, password FROM users WHERE username = ? AND password = md5(?)"); //Prepares the query
-            if(!$query)
-              die("<p class='message'>" . mysqli_error($connection) . "</p>");
-            $query->bind_param("ss", $username, $password); //Binds all parameters
-            $query->execute(); //Executes the query
-
-            $result = $query->get_result(); //Obtains the query result
-            if(!$result)
-              header("Location: ".SERVER_URL."login?e=1"); //Error #1. Query error
-            else
+            $password = $_POST['password']; //Gets password without SHA-2 encryption
+            $result = loginQuery('id_user, username, level, password', $username, $password);
+            if($result)
             {
-              $num = mysqli_num_rows($result);
-              if($num == 0)
+              $nr = mysqli_num_rows($result);
+              if($nr == 0)
+              {
                 header("Location: ".SERVER_URL."login?e=2"); //Error #2. Either the username does not exist or password is incorrect
+              }
               else
               {
                 $rows = mysqli_fetch_array($result);
@@ -72,6 +64,7 @@
                 }
                 session_start();
                 $_SESSION['username'] = $rows['username']; //Sets username
+                $_SESSION['userID'] = $rows['id_user']; //Sets user id
                 $_SESSION['level'] = $rows['level']; //Sets user level
 
                 header("Location: ".SERVER_URL);
