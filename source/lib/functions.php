@@ -112,7 +112,7 @@ function selectQuery($data, $table, $field, $valueType, $value, $extra)
     }
     else
     {
-      if(!empty($field))
+      if(!empty($field) || (!empty($extra) && preg_match('/INNER JOIN/', $extra)))
       {
         $query->bind_param($valueType, $value);
       }
@@ -377,13 +377,13 @@ function createComments($post)
 
 function createPost($post, $forum)
 {
-  $result = selectQuery('*', 'forum_posts', 'id_post', 'i', $post, null);
-  if($result)
+  $data = selectQuery('forum_posts.*, forums.name', 'forum_posts', null, 'i', $post, 'INNER JOIN forums ON forum_posts.id_forum = forums.id_forum WHERE forum_posts.id_post = ?');
+  if($data)
   {
-    $num = mysqli_num_rows($result);
+    $num = mysqli_num_rows($data);
     if($num > 0)
     {
-      $postData = mysqli_fetch_assoc($result);
+      $postData = mysqli_fetch_assoc($data);
       $result = selectQuery('id_user, username', 'users', 'id_user', 'i', $postData['id_user'], null);
       if($result)
       {
@@ -392,27 +392,18 @@ function createPost($post, $forum)
         {
           $userData = mysqli_fetch_assoc($result);
           $GLOBALS['userID'] = $userData['id_user'];
-          $query = selectQuery('name', 'forums', 'id_forum', 'i', $forum, null);
-          if($query)
-          {
-            $num = mysqli_num_rows($result);
-            if($num > 0)
-            {
-              $forumName = mysqli_fetch_assoc($result);
-              /* Get results */
-              $title = $postData['title'];
-              $date = $postData['date'];
-              $content = $postData['content'];
-              $username = $userData['username'];
-              $forum = $forumName['name'];
-              $forumID = $forum;
-              $serverURL = SERVER_URL;
-              $postID = $_GET['post'];
-              $image = checkAvatar($userData['id_user']);
-              print("<script>serverURL = '{$serverURL}'</script>");
-              print("<script>createPost('{$title}', '{$date}', '{$content}', '{$image}', '{$username}', '{$forum}', '{$forumID}', '{$postID}')</script>");
-            }
-          }
+          /* Get results */
+          $title = $postData['title'];
+          $date = $postData['date'];
+          $content = $postData['content'];
+          $username = $userData['username'];
+          $forum = $postData['name'];
+          $forumID = $forum;
+          $serverURL = SERVER_URL;
+          $postID = $_GET['post'];
+          $image = checkAvatar($userData['id_user']);
+          print("<script>serverURL = '{$serverURL}'</script>");
+          print("<script>createPost('{$title}', '{$date}', '{$content}', '{$image}', '{$username}', '{$forum}', '{$forumID}', '{$postID}')</script>");
         }
       }
     }
