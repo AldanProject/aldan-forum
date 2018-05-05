@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- Made by Aldan Project | 2018 -->
-<?php include("lib/config.php"); ?>
+<?php include_once("lib/config.php"); include_once("lib/functions.php"); ?>
 <html>
   <head>
     <title>Foro de Aldan Project</title>
@@ -26,13 +26,17 @@
       {
         //include_once("lib/config/edit-profile.php");
       }
-      else if(isset($_GET['forum']))
+      else if(isset($_GET['new-post']))
       {
-        include_once("lib/forum/forum-content.php");
+        //include_once("lib/post/new-post.php");
       }
       else if(isset($_GET['post']))
       {
         include_once("lib/forum/post-content.php");
+      }
+      else if(isset($_GET['forum']))
+      {
+        include_once("lib/forum/forum-content.php");
       }
       else if(isset($_GET['new-forum']))
       {

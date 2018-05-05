@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- Made by Aldan Project | 2018 -->
-<?php include_once("lib/config.php"); ?>
+<?php include_once("lib/config.php"); include_once("lib/functions.php"); ?>
 <html>
   <head>
     <meta charset="utf-8">
@@ -66,33 +66,28 @@
           }
           else
           {
-            $check = $connection->prepare("SELECT username FROM users WHERE username = ?");
-            if(!$check)
-              die("<p class='message'>" . mysqli_error($connection) . "</p>");
-            $check->bind_param("s", $username);
-            $check->execute();
-            $userCheck = $check->get_result();
-
+            $userCheck = selectQuery('username', 'users', 'username', 's', $username);
             if(mysqli_num_rows($userCheck) > 0) //Check if username already exists
+            {
               header("Location: ".SERVER_URL."signup?e=3&user={$username}&email={$email}");
+            }
             else
             {
-              $userLevel = 3;
-              $query = $connection->prepare("INSERT INTO users(id_user, username, email, password, level, biography, location) VALUES(null, ?, ?, SHA2(?, 256), ?, '[NONE]', '[NONE]')");
-              if(!$query)
-                die("<p class='message'>" . mysqli_error($connection) . "</p>");
-              $query->bind_param("sssi", $username, $email, $passwordTwo, $userLevel);
-              $query->execute();
-
-              if($query)
+              $result = signupUser($username, $email, $passwordTwo, 3);
+              if($result)
               {
+                $query = selectQuery('id_user, username, level', 'users', 'username', 's', $username);
+                $user = mysqli_fetch_assoc($query);
                 session_start();
-                $_SESSION['username'] = $username;
-                $_SESSION['level'] = 3;
-                header("Location: ".SERVER_URL);
+                $_SESSION['userID'] = $user['id_user'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['level'] = $user['level'];
+                header("Location: " . SERVER_URL);
               }
               else
-                header("Location: ".SERVER_URL."signup?e=1&user={$username}&email={$email}");
+              {
+                header("Location: " . SERVER_URL . "signup?e=1&user={$username}&email={$email}");
+              }
             }
           }
         }

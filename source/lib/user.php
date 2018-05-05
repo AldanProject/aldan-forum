@@ -27,19 +27,9 @@
 
 <?php
 /* Made by Aldan Project | 2018 */
-include_once("sql.php");
-
 $username = $_GET['user'];
-$query = $connection->prepare("SELECT id_user, username, email, biography, location, gender FROM users WHERE username = ?");
-if(!$query)
-  die("<p class='message'>" . mysqli_error($connection) . "</p>");
-$query->bind_param("s", $username);
-$query->execute();
-
-$result = $query->get_result();
-if(!$result)
-  echo "<p class='message'>" . mysqli_error($connection) . "</p>";
-else
+$result = getUser($username);
+if($result)
 {
   $num = mysqli_num_rows($result);
   if($num == 0)
@@ -54,10 +44,7 @@ else
     $biography = $user['biography'];
     $location = $user['location'];
     $gender = $user['gender'];
-    if(file_exists("img/users/{$user['id_user']}.jpg"))
-      $image = SERVER_URL . "img/users/{$user['id_user']}.jpg";
-    else
-      $image = SERVER_URL . "img/users/no-avatar.jpg";
+    $image = checkAvatar($user['id_user']);
     print("<script>setUserProfile('{$username}', '{$image}', '{$email}', '{$biography}', '{$location}', {$gender});</script>");
   }
 }

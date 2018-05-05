@@ -1,25 +1,11 @@
 <div id="option-buttons" class="option-buttons new-post">
-    <a href="<?php print(SERVER_URL); ?>new/forum"><input type="submit" value="Nuevo foro"></a>
+    <a href="<?php print(SERVER_URL); ?>new/forum"><input type="button" value="Nuevo foro"></a>
 </div>
 <?php
 /* Made by Aldan Project | 2018 */
-function checkIfLevel() {
-  if(isset($_SESSION['level']) && $_SESSION['level'] < 3)
-  {
-    print("<script>showNewPost();</script>");
-  }
-}
-include_once("sql.php");
-
-$query = $connection->prepare("SELECT * FROM forums");
-if(!$query)
-  echo "<p class='message'>" . mysqli_error($connection) . "</p>";
-$query->execute();
-
-$result = $query->get_result();
-if(!$result)
-  echo "<p class='message'>" . mysqli_error($connection) . "</p>";
-else
+checkIfLevel();
+$result = selectQuery('*', 'forums', null, null, null, null);
+if($result)
 {
   $num = mysqli_num_rows($result);
   if($num == 0)
@@ -38,6 +24,4 @@ else
     print("<script>addForum();</script>");
   }
 }
-
-checkIfLevel();
 ?>

@@ -31,19 +31,12 @@
     session_unset();
     session_destroy(); //Destroys the session
 
-    header("Location: ".SERVER_URL);
+    header("Location: " . SERVER_URL);
   }
 
   if(isset($_COOKIE['username']) && isset($_COOKIE['password']) && !isset($_SESSION['username']))
   {
-    include_once("lib/sql.php");
-    $query = $connection->prepare("SELECT id_user, username, level, password FROM users WHERE username = ? AND password = ?");
-    if(!$query)
-      die("<p class='message'>" . mysqli_error($connection) . "</p>");
-    $query->bind_param("ss", $_COOKIE['username'], $_COOKIE['password']);
-    $query->execute();
-
-    $result = $query->get_result();
+    $result = loginQuery('id_user, username, level, password', $_COOKIE['username'], $_COOKIE['password']);
     if(!$result)
     {
       setcookie("username", "", time() - 3600);

@@ -1,12 +1,12 @@
 <?php
 /* Made by Aldan Project | 2018 */
 
-$host = "localhost"; /* Only for local testing */
-$username = "root";
-$password = "";
+$hostDB = "localhost"; /* Only for local testing */
+$usernameDB = "root";
+$passwordDB = "";
 $database = "aldan-project";
 
-$connection = new mysqli($host, $username, $password, $database);
+$connection = new mysqli($hostDB, $usernameDB, $passwordDB, $database);
 
 if($connection -> connect_errno)
 {

@@ -133,6 +133,8 @@ function addPost()
 {
   //Search for main-container div
   var mainContainer = document.getElementById('main-container');
+  var editLink = document.getElementById('add-link');
+  editLink.href = serverURL + "new/post/" + forumID;
   for(var i = 0; i < postID.length; i++)
   {
     //Create new div
@@ -231,10 +233,16 @@ function applyStyle(option)
       break;
     case 3:
       var link = prompt('Inserta el enlace');
-      newText = '<a href="' + link + '">' + selected + "</a>";
+      if(link != null)
+      {
+        newText = '<a href="' + link + '">' + selected + "</a>";
+      }
       break;
   }
-  txtarea.value = txtarea.value.substring(0, start) + newText + txtarea.value.substring(finish, length);
+  if(newText)
+  {
+    txtarea.value = txtarea.value.substring(0, start) + newText + txtarea.value.substring(finish, length);
+  }
 }
 
 /* Show comment box */
@@ -344,7 +352,7 @@ function showOptionComments(user)
   var comments = document.getElementsByClassName('comment-options');
   for(var i = 0; i < comments.length; i++)
   {
-    if(user == comments[i].id)
+    if(user == comments[i].id || user == 1)
     {
       comments[i].style.display = 'block';
     }
