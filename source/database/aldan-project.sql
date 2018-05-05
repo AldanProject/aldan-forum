@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 04-05-2018 a las 01:46:14
+-- Tiempo de generación: 05-05-2018 a las 03:20:36
 -- Versión del servidor: 10.1.25-MariaDB
 -- Versión de PHP: 7.1.7
 
@@ -137,7 +137,8 @@ INSERT INTO `users` (`id_user`, `username`, `email`, `password`, `level`, `biogr
 (1, 'Azumi', 'alejandro-hdez115@outlook.com', '215e2b2a880169c2bb2a01a7826359538bc6da2aec7b558d287ae27b2920bd31', 1, 'If does not exist, program it.', 'Tonalá, Jalisco', 1),
 (2, 'Hanatan', 'alexazumi935@gmail.com', '91a73fd806ab2c005c13b4dc19130a884e909dea3f72d46e30266fe1a1f588d8', 3, '[NONE]', '[NONE]', 0),
 (10, 'Rackio', 'sgcesar@outlook.es', '37b4be64dfd2c4ffc9fb610725c04192e476fe7d3b22d5c0ea77468af9886992', 3, '[NONE]', '[NONE]', 0),
-(12, 'Sr_Panda', 'firerex001@gmail.com', '37b4be64dfd2c4ffc9fb610725c04192e476fe7d3b22d5c0ea77468af9886992', 2, '[NONE]', '[NONE]', 0);
+(12, 'Sr_Panda', 'firerex001@gmail.com', '37b4be64dfd2c4ffc9fb610725c04192e476fe7d3b22d5c0ea77468af9886992', 2, '[NONE]', '[NONE]', 0),
+(14, 'Polo', 'bla@gmail.com', '91a73fd806ab2c005c13b4dc19130a884e909dea3f72d46e30266fe1a1f588d8', 3, '[NONE]', '[NONE]', 0);
 
 --
 -- Índices para tablas volcadas
@@ -191,12 +192,12 @@ ALTER TABLE `blog_posts`
 -- AUTO_INCREMENT de la tabla `forums`
 --
 ALTER TABLE `forums`
-  MODIFY `id_forum` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_forum` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `forum_comments`
 --
 ALTER TABLE `forum_comments`
-  MODIFY `id_comment` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_comment` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `forum_posts`
 --
@@ -206,7 +207,7 @@ ALTER TABLE `forum_posts`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;COMMIT;
+  MODIFY `id_user` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

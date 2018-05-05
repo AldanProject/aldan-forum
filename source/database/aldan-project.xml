@@ -5,7 +5,7 @@
 - https://www.phpmyadmin.net
 -
 - Servidor: 127.0.0.1:3306
-- Tiempo de generación: 04-05-2018 a las 01:46:22
+- Tiempo de generación: 05-05-2018 a las 03:20:39
 - Versión del servidor: 10.1.25-MariaDB
 - Versión de PHP: 7.1.7
 -->
@@ -36,7 +36,7 @@
                   `closed` int(11) NOT NULL,
                   PRIMARY KEY (`id_forum`),
                   UNIQUE KEY `id_forum` (`id_forum`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="forum_comments">
                 CREATE TABLE `forum_comments` (
@@ -47,7 +47,7 @@
                   `id_post` int(11) NOT NULL,
                   PRIMARY KEY (`id_comment`),
                   UNIQUE KEY `id_comment` (`id_comment`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+                ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="forum_posts">
                 CREATE TABLE `forum_posts` (
@@ -73,7 +73,7 @@
                   `gender` int(1) NOT NULL,
                   PRIMARY KEY (`id_user`),
                   UNIQUE KEY `id_user` (`id_user`)
-                ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+                ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
             </pma:table>
         </pma:database>
     </pma:structure_schemas>
@@ -189,6 +189,16 @@ Y este &lt;a href=&quot;https://www.google.com&quot;&gt;un enlace&lt;/a&gt;.</co
             <column name="email">firerex001@gmail.com</column>
             <column name="password">37b4be64dfd2c4ffc9fb610725c04192e476fe7d3b22d5c0ea77468af9886992</column>
             <column name="level">2</column>
+            <column name="biography">[NONE]</column>
+            <column name="location">[NONE]</column>
+            <column name="gender">0</column>
+        </table>
+        <table name="users">
+            <column name="id_user">14</column>
+            <column name="username">Polo</column>
+            <column name="email">bla@gmail.com</column>
+            <column name="password">91a73fd806ab2c005c13b4dc19130a884e909dea3f72d46e30266fe1a1f588d8</column>
+            <column name="level">3</column>
             <column name="biography">[NONE]</column>
             <column name="location">[NONE]</column>
             <column name="gender">0</column>
