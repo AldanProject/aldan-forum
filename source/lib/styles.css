@@ -9,6 +9,12 @@ html, body {
   width: 100%;
 }
 
+.backgroungImage {
+  background-image: url('../img/background.png');
+  background-repeat: repeat;
+  background-position: center center;
+}
+
 div.main-container {
   background-color: #F9F9F9;
   box-shadow: -5px 0 5px -5px rgba(155,155,155,1), 5px 0 5px -5px rgba(155,155,155,1);
