@@ -63,20 +63,22 @@
           if($passwordOne != $passwordTwo)
           {
             header("Location: ".SERVER_URL."signup?e=2&user={$username}&email={$email}");
+            die();
           }
           else
           {
-            $userCheck = selectQuery('username', 'users', 'username', 's', $username);
+            $userCheck = selectQuery('username', 'users', 'username', 's', $username, null);
             if(mysqli_num_rows($userCheck) > 0) //Check if username already exists
             {
               header("Location: ".SERVER_URL."signup?e=3&user={$username}&email={$email}");
+              die();
             }
             else
             {
               $result = signupUser($username, $email, $passwordTwo, 3);
               if($result)
               {
-                $query = selectQuery('id_user, username, level', 'users', 'username', 's', $username);
+                $query = selectQuery('id_user, username, level', 'users', 'username', 's', $username, null);
                 $user = mysqli_fetch_assoc($query);
                 session_start();
                 $_SESSION['userID'] = $user['id_user'];
