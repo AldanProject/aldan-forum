@@ -141,7 +141,7 @@ function signupUser($username, $email, $password, $level)
   if(!empty($username) && !empty($email) && !empty($password) && !empty($level))
   {
     include("lib/sql.php");
-    $query = $connection->prepare("INSERT INTO users(id_user, username, email, password, level, biography, location) VALUES(null, ?, ?, SHA2(?, 256), ?, '[NONE]', '[NONE]')");
+    $query = $connection->prepare("INSERT INTO users(id_user, username, email, password, level, biography, location, gender) VALUES(null, ?, ?, SHA2(?, 256), ?, '[NONE]', '[NONE]', 0)");
     if(!$query)
     {
       $e = mysqli_error($connection);;
