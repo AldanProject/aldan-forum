@@ -81,7 +81,7 @@ function setMenuElements(serverURL, activeUser, username, avatarURL)
 /* Forum link */
 function callForumPage(forumDiv)
 {
-  window.location.href = "forum/" + forumDiv.id;
+  window.location.href = forumDiv.id;
 }
 
 /* Add forums */
@@ -160,7 +160,7 @@ function addPost()
     //Create arrow
     var arrow = document.createElement('img');
     arrow.classList.add('arrow');
-    arrow.src = '../img/assets/arrow.png';
+    arrow.src = 'img/assets/arrow.png';
     //Append to mainDiv
     mainDiv.appendChild(title);
     mainDiv.appendChild(creator);
@@ -201,7 +201,7 @@ function createPost(title, date, content, avatar, username, forumName, forumID, 
   userImage.setAttribute('onClick', userClick);
   usernameText.innerHTML = username;
   usernameText.setAttribute('onClick', userClick);
-  forumStructure.innerHTML = '<a href="' + serverURL + 'forum/' + forumID + '">' + forumName + "</a> > " + title;
+  forumStructure.innerHTML = '<a href="' + serverURL + forumID + '">' + forumName + "</a> > " + title;
   /* Show containers */
   forumStructure.style.display = "block";
   post.style.display = "table";

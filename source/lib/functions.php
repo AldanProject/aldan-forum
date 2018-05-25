@@ -397,13 +397,13 @@ function createPost($post, $forum)
           $date = $postData['date'];
           $content = $postData['content'];
           $username = $userData['username'];
-          $forum = $postData['name'];
+          $forumName = $postData['name'];
           $forumID = $forum;
           $serverURL = SERVER_URL;
           $postID = $_GET['post'];
           $image = checkAvatar($userData['id_user']);
           print("<script>serverURL = '{$serverURL}'</script>");
-          print("<script>createPost('{$title}', '{$date}', '{$content}', '{$image}', '{$username}', '{$forum}', '{$forumID}', '{$postID}')</script>");
+          print("<script>createPost('{$title}', '{$date}', '{$content}', '{$image}', '{$username}', '{$forumName}', '{$forumID}', '{$postID}')</script>");
         }
       }
     }

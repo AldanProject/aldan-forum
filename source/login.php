@@ -42,7 +42,7 @@
                 break;
             }
           }
-          if(isset($_POST['username']))
+          else if(isset($_POST['username']))
           {
             $username = $_POST['username']; //Gets username
             $password = $_POST['password']; //Gets password without SHA-2 encryption
@@ -66,7 +66,7 @@
                 $_SESSION['username'] = $rows['username']; //Sets username
                 $_SESSION['userID'] = $rows['id_user']; //Sets user id
                 $_SESSION['level'] = $rows['level']; //Sets user level
-
+                
                 header("Location: ".SERVER_URL);
               }
             }
