@@ -5,7 +5,7 @@
 - https://www.phpmyadmin.net
 -
 - Servidor: 127.0.0.1:3306
-- Tiempo de generación: 05-05-2018 a las 03:20:39
+- Tiempo de generación: 26-05-2018 a las 02:56:38
 - Versión del servidor: 10.1.25-MariaDB
 - Versión de PHP: 7.1.7
 -->
@@ -22,11 +22,10 @@
                   `title` varchar(35) NOT NULL,
                   `description` mediumtext NOT NULL,
                   `content` mediumtext NOT NULL,
-                  `img` varchar(50) NOT NULL,
                   `date` date DEFAULT NULL,
                   PRIMARY KEY (`id_post`),
                   UNIQUE KEY `id_post` (`id_post`)
-                ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+                ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="forums">
                 CREATE TABLE `forums` (
@@ -36,7 +35,7 @@
                   `closed` int(11) NOT NULL,
                   PRIMARY KEY (`id_forum`),
                   UNIQUE KEY `id_forum` (`id_forum`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+                ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="forum_comments">
                 CREATE TABLE `forum_comments` (
@@ -47,7 +46,7 @@
                   `id_post` int(11) NOT NULL,
                   PRIMARY KEY (`id_comment`),
                   UNIQUE KEY `id_comment` (`id_comment`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+                ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
             </pma:table>
             <pma:table name="forum_posts">
                 CREATE TABLE `forum_posts` (
@@ -68,12 +67,13 @@
                   `email` varchar(100) NOT NULL,
                   `password` varchar(70) NOT NULL,
                   `level` int(2) NOT NULL,
+                  `score` int(11) NOT NULL,
                   `biography` varchar(100) NOT NULL,
                   `location` varchar(40) NOT NULL,
                   `gender` int(1) NOT NULL,
                   PRIMARY KEY (`id_user`),
                   UNIQUE KEY `id_user` (`id_user`)
-                ) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+                ) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
             </pma:table>
         </pma:database>
     </pma:structure_schemas>
@@ -83,30 +83,6 @@
     -->
     <database name="aldan-project">
         <!-- Tabla blog_posts -->
-        <table name="blog_posts">
-            <column name="id_post">1</column>
-            <column name="title">Título del primer artículo</column>
-            <column name="description">Este es el &lt;b&gt;primer&lt;/b&gt; articulo en la página de &lt;b&gt;Aldan Project&lt;/b&gt;, aquí puedes insertar información relacionada sobre el tema que se habla en el articulo.&lt;br&gt; Incluyendo una &lt;b&gt;imagen&lt;/b&gt; que lo acompaña a su lado izquierdo.&lt;br&gt;&lt;br&gt; Y aquí hay un &lt;a href='#'&gt;enlace&lt;/a&gt;.</column>
-            <column name="content">&lt;center&gt;Estás leyendo el &lt;b&gt;contenido&lt;/b&gt; de la primera publicación en &lt;a href='#'&gt;Aldan Project&lt;/a&gt;</column>
-            <column name="img">blog01.jpg</column>
-            <column name="date">2018-02-09</column>
-        </table>
-        <table name="blog_posts">
-            <column name="id_post">8</column>
-            <column name="title">Publicación creada con el panel</column>
-            <column name="description">Descripción escrita en un &lt;b&gt;textarea&lt;/b&gt; en el panel de administrador, el cual puede eliminar, modificar y buscar publicaciones.</column>
-            <column name="content">&lt;center&gt;Contenido centrado&lt;/center&gt;</column>
-            <column name="img">blog02.jpg</column>
-            <column name="date">2018-02-15</column>
-        </table>
-        <table name="blog_posts">
-            <column name="id_post">9</column>
-            <column name="title">Nueva publicación</column>
-            <column name="description">Probando el número de publicaciones impar.</column>
-            <column name="content">No hay :c</column>
-            <column name="img">blog01.jpg</column>
-            <column name="date">2018-02-15</column>
-        </table>
         <!-- Tabla forums -->
         <table name="forums">
             <column name="id_forum">1</column>
@@ -159,6 +135,7 @@ Y este &lt;a href=&quot;https://www.google.com&quot;&gt;un enlace&lt;/a&gt;.</co
             <column name="email">alejandro-hdez115@outlook.com</column>
             <column name="password">215e2b2a880169c2bb2a01a7826359538bc6da2aec7b558d287ae27b2920bd31</column>
             <column name="level">1</column>
+            <column name="score">0</column>
             <column name="biography">If does not exist, program it.</column>
             <column name="location">Tonalá, Jalisco</column>
             <column name="gender">1</column>
@@ -169,6 +146,7 @@ Y este &lt;a href=&quot;https://www.google.com&quot;&gt;un enlace&lt;/a&gt;.</co
             <column name="email">alexazumi935@gmail.com</column>
             <column name="password">91a73fd806ab2c005c13b4dc19130a884e909dea3f72d46e30266fe1a1f588d8</column>
             <column name="level">3</column>
+            <column name="score">0</column>
             <column name="biography">[NONE]</column>
             <column name="location">[NONE]</column>
             <column name="gender">0</column>
@@ -179,6 +157,7 @@ Y este &lt;a href=&quot;https://www.google.com&quot;&gt;un enlace&lt;/a&gt;.</co
             <column name="email">sgcesar@outlook.es</column>
             <column name="password">37b4be64dfd2c4ffc9fb610725c04192e476fe7d3b22d5c0ea77468af9886992</column>
             <column name="level">3</column>
+            <column name="score">0</column>
             <column name="biography">[NONE]</column>
             <column name="location">[NONE]</column>
             <column name="gender">0</column>
@@ -189,16 +168,7 @@ Y este &lt;a href=&quot;https://www.google.com&quot;&gt;un enlace&lt;/a&gt;.</co
             <column name="email">firerex001@gmail.com</column>
             <column name="password">37b4be64dfd2c4ffc9fb610725c04192e476fe7d3b22d5c0ea77468af9886992</column>
             <column name="level">2</column>
-            <column name="biography">[NONE]</column>
-            <column name="location">[NONE]</column>
-            <column name="gender">0</column>
-        </table>
-        <table name="users">
-            <column name="id_user">14</column>
-            <column name="username">Polo</column>
-            <column name="email">bla@gmail.com</column>
-            <column name="password">91a73fd806ab2c005c13b4dc19130a884e909dea3f72d46e30266fe1a1f588d8</column>
-            <column name="level">3</column>
+            <column name="score">0</column>
             <column name="biography">[NONE]</column>
             <column name="location">[NONE]</column>
             <column name="gender">0</column>

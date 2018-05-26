@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 05-05-2018 a las 03:20:36
+-- Tiempo de generación: 26-05-2018 a las 02:56:34
 -- Versión del servidor: 10.1.25-MariaDB
 -- Versión de PHP: 7.1.7
 
@@ -33,18 +33,8 @@ CREATE TABLE `blog_posts` (
   `title` varchar(35) NOT NULL,
   `description` mediumtext NOT NULL,
   `content` mediumtext NOT NULL,
-  `img` varchar(50) NOT NULL,
   `date` date DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `blog_posts`
---
-
-INSERT INTO `blog_posts` (`id_post`, `title`, `description`, `content`, `img`, `date`) VALUES
-(1, 'Título del primer artículo', 'Este es el <b>primer</b> articulo en la página de <b>Aldan Project</b>, aquí puedes insertar información relacionada sobre el tema que se habla en el articulo.<br> Incluyendo una <b>imagen</b> que lo acompaña a su lado izquierdo.<br><br> Y aquí hay un <a href=\'#\'>enlace</a>.', '<center>Estás leyendo el <b>contenido</b> de la primera publicación en <a href=\'#\'>Aldan Project</a>', 'blog01.jpg', '2018-02-09'),
-(8, 'Publicación creada con el panel', 'Descripción escrita en un <b>textarea</b> en el panel de administrador, el cual puede eliminar, modificar y buscar publicaciones.', '<center>Contenido centrado</center>', 'blog02.jpg', '2018-02-15'),
-(9, 'Nueva publicación', 'Probando el número de publicaciones impar.', 'No hay :c', 'blog01.jpg', '2018-02-15');
 
 -- --------------------------------------------------------
 
@@ -124,6 +114,7 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `password` varchar(70) NOT NULL,
   `level` int(2) NOT NULL,
+  `score` int(11) NOT NULL,
   `biography` varchar(100) NOT NULL,
   `location` varchar(40) NOT NULL,
   `gender` int(1) NOT NULL
@@ -133,12 +124,11 @@ CREATE TABLE `users` (
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id_user`, `username`, `email`, `password`, `level`, `biography`, `location`, `gender`) VALUES
-(1, 'Azumi', 'alejandro-hdez115@outlook.com', '215e2b2a880169c2bb2a01a7826359538bc6da2aec7b558d287ae27b2920bd31', 1, 'If does not exist, program it.', 'Tonalá, Jalisco', 1),
-(2, 'Hanatan', 'alexazumi935@gmail.com', '91a73fd806ab2c005c13b4dc19130a884e909dea3f72d46e30266fe1a1f588d8', 3, '[NONE]', '[NONE]', 0),
-(10, 'Rackio', 'sgcesar@outlook.es', '37b4be64dfd2c4ffc9fb610725c04192e476fe7d3b22d5c0ea77468af9886992', 3, '[NONE]', '[NONE]', 0),
-(12, 'Sr_Panda', 'firerex001@gmail.com', '37b4be64dfd2c4ffc9fb610725c04192e476fe7d3b22d5c0ea77468af9886992', 2, '[NONE]', '[NONE]', 0),
-(14, 'Polo', 'bla@gmail.com', '91a73fd806ab2c005c13b4dc19130a884e909dea3f72d46e30266fe1a1f588d8', 3, '[NONE]', '[NONE]', 0);
+INSERT INTO `users` (`id_user`, `username`, `email`, `password`, `level`, `score`, `biography`, `location`, `gender`) VALUES
+(1, 'Azumi', 'alejandro-hdez115@outlook.com', '215e2b2a880169c2bb2a01a7826359538bc6da2aec7b558d287ae27b2920bd31', 1, 0, 'If does not exist, program it.', 'Tonalá, Jalisco', 1),
+(2, 'Hanatan', 'alexazumi935@gmail.com', '91a73fd806ab2c005c13b4dc19130a884e909dea3f72d46e30266fe1a1f588d8', 3, 0, '[NONE]', '[NONE]', 0),
+(10, 'Rackio', 'sgcesar@outlook.es', '37b4be64dfd2c4ffc9fb610725c04192e476fe7d3b22d5c0ea77468af9886992', 3, 0, '[NONE]', '[NONE]', 0),
+(12, 'Sr_Panda', 'firerex001@gmail.com', '37b4be64dfd2c4ffc9fb610725c04192e476fe7d3b22d5c0ea77468af9886992', 2, 0, '[NONE]', '[NONE]', 0);
 
 --
 -- Índices para tablas volcadas
@@ -187,17 +177,17 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `blog_posts`
 --
 ALTER TABLE `blog_posts`
-  MODIFY `id_post` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_post` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `forums`
 --
 ALTER TABLE `forums`
-  MODIFY `id_forum` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_forum` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `forum_comments`
 --
 ALTER TABLE `forum_comments`
-  MODIFY `id_comment` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_comment` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `forum_posts`
 --
@@ -207,7 +197,7 @@ ALTER TABLE `forum_posts`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;COMMIT;
+  MODIFY `id_user` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
