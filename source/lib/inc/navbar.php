@@ -4,7 +4,7 @@
     <ul id='navbar'>
       <li><a class="main-bar" href="<?php echo SERVER_URL; ?>">Inicio</a></li>
       <li><a class="main-bar" href="../">Blog</a></li>
-      <li><a class="main-bar" href="#">Usuarios</a></li>
+      <li><a class="main-bar" href="<?php echo SERVER_URL; ?>leaderboards">Puntuaciones</a></li>
       <li><a class="main-bar" href="https://github.com/AldanProject/aldan-forum">GitHub</a></li>
       <li id="second-button" class="right-menu">
         <a class="main-bar" href="#">[ACTION]</a>

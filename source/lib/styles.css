@@ -355,10 +355,14 @@ div.message-box p a:hover {
   width: 100%;
 }
 
-#user-biography, #user-location, #user-gender {
+.user-data {
   border-radius: 15px;
   padding: 5px;
   transition: 0.20s;
+}
+
+#user-score {
+  margin: 10px 0 0 0;
 }
 
 #user-gender {
@@ -375,7 +379,7 @@ div.message-box p a:hover {
   width: 50%;
 }
 
-#user-biography:hover, #user-location:hover, #user-gender:hover {
+.user-data:hover {
   background-color: #EFE1E1;
 }
 
@@ -722,6 +726,11 @@ p.content {
   font-size: 1.2em;
   margin: 10px auto;
   width: 80%;
+}
+
+/* Leaderboards */
+.leaderboards-icon {
+  border-radius: 10px;
 }
 
 /* General */

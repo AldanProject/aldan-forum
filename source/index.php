@@ -42,6 +42,11 @@
         {
           include_once("lib/forum/new-forum.php");
         }
+        else if(isset($_GET['leaderboards']))
+        {
+          print("<script>setPageTitle('Tabla de puntuaciones');</script>");
+          include_once("lib/leaderboards.php");
+        }
         else
         {
           print("<script>document.title = 'Inicio | Foro de Aldan Project';</script>");

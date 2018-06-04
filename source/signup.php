@@ -47,6 +47,9 @@
             case 3:
               echo '<p class="message">El nombre de usuario ya existe</p>';
               break;
+            case 4:
+              echo '<p class="message">El nombre de usuario no debe incluir carácteres especiales y tener una longitud entre 3 y 17</p>';
+              break;
             default:
               echo '<p class="message">Error desconocido</p>';
               break;
@@ -67,29 +70,38 @@
           }
           else
           {
-            $userCheck = selectQuery('username', 'users', 'username', 's', $username, null);
-            if(mysqli_num_rows($userCheck) > 0) //Check if username already exists
+
+            $verifyUser = "/^[A-Za-z0-9-_]{3,12}$/";
+            if(preg_match($verifyUser, $username))
             {
-              header("Location: ".SERVER_URL."signup?e=3&user={$username}&email={$email}");
-              die();
-            }
-            else
-            {
-              $result = signupUser($username, $email, $passwordTwo, 3);
-              if($result)
+              $userCheck = selectQuery('username', 'users', 'username', 's', $username, null);
+              if(mysqli_num_rows($userCheck) > 0) //Check if username already exists
               {
-                $query = selectQuery('id_user, username, level', 'users', 'username', 's', $username, null);
-                $user = mysqli_fetch_assoc($query);
-                session_start();
-                $_SESSION['userID'] = $user['id_user'];
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['level'] = $user['level'];
-                header("Location: " . SERVER_URL);
+                header("Location: ".SERVER_URL."signup?e=3&user={$username}&email={$email}");
+                die();
               }
               else
               {
-                header("Location: " . SERVER_URL . "signup?e=1&user={$username}&email={$email}");
+                $result = signupUser($username, $email, $passwordTwo, 3);
+                if($result)
+                {
+                  $query = selectQuery('id_user, username, level', 'users', 'username', 's', $username, null);
+                  $user = mysqli_fetch_assoc($query);
+                  session_start();
+                  $_SESSION['userID'] = $user['id_user'];
+                  $_SESSION['username'] = $user['username'];
+                  $_SESSION['level'] = $user['level'];
+                  header("Location: " . SERVER_URL);
+                }
+                else
+                {
+                  header("Location: " . SERVER_URL . "signup?e=1&user={$username}&email={$email}");
+                }
               }
+            }
+            else
+            {
+              header("Location: ".SERVER_URL."signup?e=4&user={$username}&email={$email}");
             }
           }
         }

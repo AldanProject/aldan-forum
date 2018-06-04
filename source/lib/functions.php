@@ -44,7 +44,7 @@ function getUser($username)
   if(!empty($username))
   {
     include("lib/sql.php");
-    $query = $connection->prepare("SELECT id_user, username, email, biography, location, gender FROM users WHERE username = ?");
+    $query = $connection->prepare("SELECT id_user, username, email, biography, location, gender, score FROM users WHERE username = ?");
     if(!$query)
     {
       $e = mysqli_error($connection);;
@@ -406,6 +406,30 @@ function createPost($post, $forum)
           print("<script>createPost('{$title}', '{$date}', '{$content}', '{$image}', '{$username}', '{$forumName}', '{$forumID}', '{$postID}')</script>");
         }
       }
+    }
+  }
+}
+
+function createLeaderboards()
+{
+  $data = selectQuery('id_user, username, score', 'users', null, null, null, 'ORDER BY score DESC');
+  if($data)
+  {
+    $num = mysqli_num_rows($data);
+    if($num > 0)
+    {
+      while($rows = mysqli_fetch_assoc($data))
+      {
+        $tableAvatar[] = checkAvatar($rows['id_user']);
+        $tableUsername[] = $rows['username'];
+        $tableScore[] = $rows['score'];
+      }
+      $serverURL = SERVER_URL;
+      print("<script>serverURL = '{$serverURL}'</script>");
+      print("<script>tableAvatar = " . json_encode($tableAvatar) . "</script>");
+      print("<script>tableUsername = " . json_encode($tableUsername) . "</script>");
+      print("<script>tableScore = " . json_encode($tableScore) . "</script>");
+      print("<script>createLeaderboards();</script>");
     }
   }
 }

@@ -3,9 +3,10 @@ var serverURL;
 var forumID, forumTitle, forumDescription;
 var postID, postTitle, postCreator, postComments;
 var commentID, commentContent, commentDate, commentCreator, creatorAvatar, creatorID;
+var tableAvatar, tableUsername, tableScore;
 
 /* Write the user information in user.php */
-function setUserProfile(username, imageURL, email, biography, location, gender)
+function setUserProfile(username, imageURL, email, biography, location, gender, score)
 {
   document.title = 'Perfil de ' + username + ' | Foro de Aldan Project';
 
@@ -16,6 +17,7 @@ function setUserProfile(username, imageURL, email, biography, location, gender)
   var userGender = document.getElementById('user-gender');
   var userBiography = document.getElementById('user-biography');
   var userLocation = document.getElementById('user-location');
+  var userScore = document.getElementById('user-score');
 
   var userGenderP = userGender.childNodes;
 
@@ -34,6 +36,9 @@ function setUserProfile(username, imageURL, email, biography, location, gender)
       userGenderP[3].innerHTML = 'Femenino';
       break;
   }
+
+  var userScoreP = userScore.childNodes;
+  userScoreP[3].innerHTML = score;
 
   if(biography != '[NONE]')
   {
@@ -378,5 +383,49 @@ function confirmButton(message)
   if(window.confirm(message))
   {
 
+  }
+}
+
+/* Create leaderboards */
+function createLeaderboards()
+{
+  //Search for main-container div
+  var mainContainer = document.getElementById('main-container');
+  for(var i = 0; i < tableUsername.length; i++)
+  {
+    //Create new div
+    var mainDiv = document.createElement('div');
+    mainDiv.classList.add('forum-box');
+    mainDiv.classList.add('post');
+    if(i <= 0)
+    {
+      mainDiv.classList.add('first-post');
+    }
+    mainDiv.id = tableUsername[i];
+    mainDiv.setAttribute('onClick', 'searchUser(this.id);');
+    //Create avatar
+    var avatar = document.createElement('img');
+    avatar.classList.add('forum-icon');
+    avatar.classList.add('leaderboards-icon');
+    avatar.src = tableAvatar[i];
+    //Create username
+    var username = document.createElement('p');
+    username.classList.add('forum-title');
+    username.innerHTML = tableUsername[i];
+    //Create score
+    var score = document.createElement('p');
+    score.classList.add('forum-description');
+    score.innerHTML = "<b>Puntuación: </b>" + tableScore[i];
+    //Create arrow
+    var arrow = document.createElement('img');
+    arrow.classList.add('arrow');
+    arrow.src = 'img/assets/arrow.png';
+    //Append to mainDiv
+    mainDiv.appendChild(avatar);
+    mainDiv.appendChild(username);
+    mainDiv.appendChild(score);
+    mainDiv.appendChild(arrow);
+    //Append to mainContainer
+    mainContainer.append(mainDiv);
   }
 }
