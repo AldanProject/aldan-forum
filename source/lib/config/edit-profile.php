@@ -2,6 +2,7 @@
 if(isset($_POST['id_user']))
 {
 	$id = $_POST['id_user'];
+	$emailNew = $_POST['email'];
 	$biographyNew = $_POST['biography'];
 	$locationNew = $_POST['location'];
 	$genderNew = $_POST['gender'];
@@ -32,6 +33,7 @@ if(isset($_POST['id_user']))
 	}
 
 	updateQuery('gender', $genderNew, 'users', 'id_user', 'ii', $id);
+	updateQuery('email', $emailNew, 'users', 'id_user', 'si', $id);
 	if(!empty($avatar))
 	{
 		if(preg_match("/(.png)+$/", $avatar['name']))
@@ -83,7 +85,7 @@ if(isset($_POST['id_user']))
 	}
 }
 
-$result = selectQuery('username, biography, location, gender', 'users', 'id_user', 'i', $_SESSION['userID'], null);
+$result = selectQuery('username, email, biography, location, gender', 'users', 'id_user', 'i', $_SESSION['userID'], null);
 if($result)
 {
 	$nr = mysqli_num_rows($result);
@@ -110,6 +112,7 @@ if($result)
 		}
 
 		$gender = $rows['gender'];
+		$email = $rows['email'];
 	}
 	else
 	{
@@ -127,6 +130,8 @@ else
 	<input type="hidden" name="id_user" value="<?php print($_SESSION['userID']); ?>">
 	<p>Nombre de usuario</p>
 	<input type="text" name="username" value="<?php print($username); ?>" disabled>
+	<p>Correo electrónico</p>
+	<input type="email" name="email" value="<?php print($email); ?>" autocomplete="off" required>
 	<p>Biografía</p>
 	<textarea name="biography"><?php print($biography); ?></textarea>
 	<p>Locación</p>

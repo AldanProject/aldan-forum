@@ -725,6 +725,7 @@ p.content {
 .new-forum select, 
 .new-forum input[type=file],
 .new-forum input[type=password],
+.new-forum input[type=email],
 .new-forum textarea {
   border: 1px solid rgb(180, 180, 180);
   display: block;
