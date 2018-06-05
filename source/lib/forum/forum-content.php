@@ -19,23 +19,22 @@ if($result)
   if($result)
   {
       $nr = mysqli_num_rows($result);
-      if($nr == 0)
+      if($nr <= 0)
       {
         echo "<p class='message large'>No hay publicaciones</p>";
         echo "<p class='message large'><a href='{$serverURL}'>Regresar al inicio</a></p>";
       }
       else
       {
-        $num = 0;
         while($rows = mysqli_fetch_assoc($result))
         {
           $postID[] = $rows['id_post'];
           $postTitle[] = $rows['title'];
           /* Creator username */
-          $result = selectQuery('username', 'users', 'id_user', 'i', $rows['id_user'], null);
-          if($result)
+          $user = selectQuery('username', 'users', 'id_user', 'i', $rows['id_user'], null);
+          if($user)
           {
-            $count = mysqli_fetch_assoc($result);
+            $count = mysqli_fetch_assoc($user);
             $postCreator[] = $count['username'];
             /* Post count */
             $comments = selectQuery('COUNT(*)', 'forum_comments', 'id_post', 'i', $rows['id_post'], null);
@@ -43,7 +42,6 @@ if($result)
             {
               $count = mysqli_fetch_assoc($comments);
               $postComments[] = $count['COUNT(*)'];
-              $num++;
             }
           }
         }

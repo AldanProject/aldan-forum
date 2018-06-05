@@ -86,7 +86,7 @@ function setMenuElements(serverURL, activeUser, username, avatarURL)
 /* Forum link */
 function callForumPage(forumDiv)
 {
-  window.location.href = forumDiv.id;
+  window.location.href = forumDiv.id + "/";
 }
 
 /* Add forums */
@@ -130,7 +130,7 @@ function addForum()
 /* Post link */
 function callPostPage(forumDiv)
 {
-  window.location.href = forumID + "/post/" + forumDiv.id;
+  window.location.href = "post/" + forumDiv.id + "/";
 }
 
 /* Add posts */
@@ -165,7 +165,7 @@ function addPost()
     //Create arrow
     var arrow = document.createElement('img');
     arrow.classList.add('arrow');
-    arrow.src = 'img/assets/arrow.png';
+    arrow.src = '../img/assets/arrow.png';
     //Append to mainDiv
     mainDiv.appendChild(title);
     mainDiv.appendChild(creator);
@@ -213,10 +213,10 @@ function createPost(title, date, content, avatar, username, forumName, forumID, 
 }
 
 /* Apply style on text areas */
-function applyStyle(option)
+function applyStyle(option, commentBoxName)
 {
   var newText;
-  var txtarea = document.getElementById('comment-area');
+  var txtarea = document.getElementById(commentBoxName);
   var start = txtarea.selectionStart;
   var finish = txtarea.selectionEnd;
   var selected = txtarea.value.substring(start, finish);
@@ -243,7 +243,11 @@ function applyStyle(option)
         newText = '<a href="' + link + '">' + selected + "</a>";
       }
       break;
+    case 4:
+      newText = "<br/>";
+      break;
   }
+
   if(newText)
   {
     txtarea.value = txtarea.value.substring(0, start) + newText + txtarea.value.substring(finish, length);
@@ -282,15 +286,10 @@ function createComments()
     deleteBtn.classList.add('delete');
     deleteBtn.value = 'Eliminar comentario';
     /* Modify form */
-    var modifyForm = document.createElement('form');
-    modifyForm.method = 'post';
-    modifyForm.classList.add('options-form');
-    var modifyID = document.createElement('input');
-    modifyID.type = 'hidden';
-    modifyID.name = 'modify-comment';
-    modifyID.value = commentID[i];
     var modifyBtn = document.createElement('input');
-    modifyBtn.type = 'submit';
+    modifyBtn.type = 'button';
+    modifyBtn.id = commentID[i];
+    modifyBtn.setAttribute('onClick', 'callEditComment(this)');
     modifyBtn.value = 'Modificar comentario';
     /* Main structure */
     var table = document.createElement('table');
@@ -327,10 +326,8 @@ function createComments()
     /* Join */
     deleteForm.appendChild(deleteID);
     deleteForm.appendChild(deleteBtn);
-    modifyForm.appendChild(modifyID);
-    modifyForm.appendChild(modifyBtn);
     buttons.appendChild(deleteForm);
-    buttons.appendChild(modifyForm);
+    buttons.appendChild(modifyBtn);
     content.appendChild(date);
     content.appendChild(comment);
     user.appendChild(avatar);
@@ -428,4 +425,28 @@ function createLeaderboards()
     //Append to mainContainer
     mainContainer.append(mainDiv);
   }
+}
+
+/* Cancel comment */
+function hideBlackScreen(forum, post)
+{
+  window.location.href = serverURL + forum + "/post/" + post + "/";
+}
+
+/* Show edit comment form */
+function showEditComment(commentID, commentContent)
+{
+  var commentArea = document.getElementById('comment-area-edit');
+  var commentIDHidden = document.getElementById('comment-id');
+  var blackScreen = document.getElementById('black-screen');
+  commentIDHidden.value = commentID;
+  commentArea.innerHTML = commentContent;
+
+  blackScreen.style.display = 'flex';
+}
+
+/* Call edit comment */
+function callEditComment(comment)
+{
+  window.location.href = "edit-comment/" + comment.id;
 }

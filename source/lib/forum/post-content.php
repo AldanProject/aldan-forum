@@ -2,8 +2,9 @@
 <p id="forum-structure" class="forum-structure">{STRUCTURE}</p>
 <table id="post" class="post-container">
   <div id="option-buttons" class="option-buttons">
-    <form method="post" class="options-form">
-      <input class="post-id" type="hidden" name="delete-post">
+    <form method="post" class="options-form" action="<?php print(SERVER_URL); ?>delete/post" onsubmit="return confirm('Está a punto de eliminar la publicación, ¿desea continuar?')">
+      <input type="hidden" name="id_forum" value="<?php print($_GET['forum']); ?>">
+      <input type="hidden" name="id_post" value="<?php print($_GET['post']); ?>">
       <input class="delete" type="submit" value="Eliminar publicación">
     </form>
     <form method="post" class="options-form">
@@ -25,14 +26,17 @@
 </table>
 <hr>
 <p class="comment-title">Comentarios</p>
-<form id="comment-box" class="comment-box" method="post" action="<?php print(SERVER_URL); ?>create/comment">
-  <textarea id="comment-area" class="comment-area" name="comment-area"></textarea>
+<form id="comment-box" class="comment-box" method="post" action="<?php print(SERVER_URL); ?>new/comment">
+  <input type="hidden" name="id_forum" value="<?php print($_GET['forum']); ?>">
+  <input type="hidden" name="id_post" value="<?php print($_GET['post']); ?>">
+  <textarea id="comment-area" class="comment-area" name="comment-area" required></textarea>
   <div class="comment-buttons">
     <div class="buttons">
-      <input type="button" value="Negritas" onclick="applyStyle(0);">
-      <input type="button" value="Italica" onclick="applyStyle(1);">
-      <input type="button" value="Subrayado" onclick="applyStyle(2);">
-      <input type="button" value="Enlace" onclick="applyStyle(3);">
+      <input type="button" value="Negritas" onclick="applyStyle(0, 'comment-area');">
+      <input type="button" value="Italica" onclick="applyStyle(1, 'comment-area');">
+      <input type="button" value="Subrayado" onclick="applyStyle(2, 'comment-area');">
+      <input type="button" value="Enlace" onclick="applyStyle(3, 'comment-area');">
+      <input type="button" value="Salto de línea" onclick="applyStyle(4, 'comment-area');">
       <input type="submit" value="Comentar">
     </div>
   </div>
@@ -54,15 +58,54 @@
   </table>
 -->
 </div>
+<div id="black-screen" class="edit-comment">
+  <form class="comment-box" method="post" action="<?php print(SERVER_URL); ?>save/comment">
+    <input type="hidden" name="id_forum" value="<?php print($_GET['forum']); ?>">
+    <input type="hidden" name="id_post" value="<?php print($_GET['post']); ?>">
+    <input type="hidden" name="comment-id" id="comment-id">
+    <p>Editar comentario</p>
+    <textarea id="comment-area-edit" class="comment-area" name="comment-area" required></textarea>
+    <div class="comment-buttons">
+      <div class="buttons">
+        <input type="button" value="Negritas" onclick="applyStyle(0, 'comment-area-edit');">
+      <input type="button" value="Italica" onclick="applyStyle(1, 'comment-area-edit');">
+      <input type="button" value="Subrayado" onclick="applyStyle(2, 'comment-area-edit');">
+      <input type="button" value="Enlace" onclick="applyStyle(3, 'comment-area-edit');">
+      <input type="button" value="Salto de línea" onclick="applyStyle(4, 'comment-area-edit');">
+        <input type="button" value="Cancelar" class="cancel" onclick="hideBlackScreen(<?php print($_GET['forum']); ?>, <?php print($_GET['post']); ?>);">
+        <input type="submit" value="Guardar cambios" class="save-changes">
+      </div>
+    </div>
+  </div>
+</div>
 <?php
 /* Made by Aldan Project */
 if(isset($_POST['delete-comment']))
 {
-  $result = deleteQuery('forum_comments', 'id_comment', 'i', $_POST['delete-comment']);
+  deleteQuery('forum_comments', 'id_comment', 'i', $_POST['delete-comment']);
 }
-else if(isset($_POST['comment-area']))
+else if(isset($_GET['edit']))
 {
-  makeComment();
+  $result = selectQuery('id_comment, content, id_user', 'forum_comments', 'id_comment', 'i', $_GET['edit'], null);
+  if($result)
+  {
+    $num = mysqli_num_rows($result);
+    if($num > 0)
+    {
+      $rows = mysqli_fetch_assoc($result);
+      if(!isset($_SESSION['username']) || ($_SESSION['level'] >= 3 && $rows['id_user'] != $_SESSION['userID']))
+      {
+        header("Location: " . SERVER_URL);
+        die();
+      }
+      else
+      {
+        $commentID = $rows['id_comment'];
+        $commentContent = $rows['content'];
+        print("<script>showEditComment({$commentID}, '{$commentContent}');</script>");
+      }
+    }
+  }
 }
 /* Put the post information */
 createPost($_GET['post'], $_GET['forum']);

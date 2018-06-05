@@ -13,7 +13,7 @@ function loginQuery($data, $username, $password)
     if(!$query)
     {
       $e = mysqli_error($connection);;
-      print("<script>alert('{$e}')</script>");
+      print($e);
       return false;
     }
     else
@@ -23,7 +23,7 @@ function loginQuery($data, $username, $password)
       if(!$query)
       {
         $e = mysqli_error($connection);;
-        print("<script>alert('{$e}')</script>");
+        print($e);
         return false;
       }
       else
@@ -48,7 +48,7 @@ function getUser($username)
     if(!$query)
     {
       $e = mysqli_error($connection);;
-      print("<script>alert('{$e}')</script>");
+      print($e);
       return false;
     }
     else
@@ -58,7 +58,7 @@ function getUser($username)
       if(!$query)
       {
         $e = mysqli_error($connection);;
-        print("<script>alert('{$e}')</script>");
+        print($e);
         return false;
       }
       else
@@ -107,7 +107,7 @@ function selectQuery($data, $table, $field, $valueType, $value, $extra)
     if(!$query)
     {
       $e = mysqli_error($connection);;
-      print("<script>alert('{$e}')</script>");
+      print($e);
       return false;
     }
     else
@@ -120,7 +120,7 @@ function selectQuery($data, $table, $field, $valueType, $value, $extra)
       if(!$query)
       {
         $e = mysqli_error($connection);;
-        print("<script>alert('{$e}')</script>");
+        print($e);
         return false;
       }
       else
@@ -145,7 +145,7 @@ function signupUser($username, $email, $password, $level)
     if(!$query)
     {
       $e = mysqli_error($connection);;
-      print("<script>alert('{$e}')</script>");
+      print($e);
       return false;
     }
     else
@@ -155,7 +155,7 @@ function signupUser($username, $email, $password, $level)
       if(!$query)
       {
         $e = mysqli_error($connection);;
-        print("<script>alert('{$e}')</script>");
+        print($e);
         return false;
       }
       else
@@ -192,7 +192,7 @@ function insertQuery($data, $values, $paramType, $param)
     if(!$query)
     {
       $e = mysqli_error($connection);;
-      print("<script>alert('{$e}')</script>");
+      print($e);
       return false;
     }
     else
@@ -216,7 +216,7 @@ function insertQuery($data, $values, $paramType, $param)
       if(!$query)
       {
         $e = mysqli_error($connection);;
-        print("<script>alert('{$e}')</script>");
+        print($e);
         return false;
       }
       else
@@ -289,12 +289,19 @@ function deleteQuery($table, $field, $valueType, $value)
 {
   if(!empty($table) && !empty($field) && !empty($valueType) && !empty($value))
   {
-    include("lib/sql.php");
+    if(file_exists("lib/sql.php"))
+    {
+      include("lib/sql.php");
+    }
+    else if(file_exists("../sql.php"))
+    {
+      include("../sql.php");
+    }
     $query = $connection->prepare("DELETE FROM {$table} WHERE {$field} = ?");
     if(!$query)
     {
       $e = mysqli_error($connection);;
-      print("<script>alert('{$e}')</script>");
+      print($e);
       return false;
     }
     else
@@ -304,7 +311,7 @@ function deleteQuery($table, $field, $valueType, $value)
       if(!$query)
       {
         $e = mysqli_error($connection);;
-        print("<script>alert('{$e}')</script>");
+        print($e);
         return false;
       }
       else
@@ -320,17 +327,20 @@ function deleteQuery($table, $field, $valueType, $value)
   }
 }
 
-function makeComment()
+function makeComment($post, $user, $comment)
 {
-  include("lib/sql.php");
-  $post = $_POST['post'];
-  $user = $_SESSION['userID'];
-  $comment = $_POST['comment-area'];
+  include("../sql.php");
   $query = $connection->prepare("INSERT INTO forum_comments(id_comment, content, date, id_user, id_post) VALUES(null, ?, now(), ?, ?)");
   if(!$query)
-    die("<p class='message'>" . mysqli_error($connection) . "</p>");
-  $query->bind_param("sii", $comment, $user, $post);
-  $query->execute();
+  {
+    return false;
+  }
+  else
+  {
+    $query->bind_param("sii", $comment, $user, $post);
+    $query->execute();
+    return true;
+  }
 }
 
 function createComments($post)
@@ -431,6 +441,50 @@ function createLeaderboards()
       print("<script>tableScore = " . json_encode($tableScore) . "</script>");
       print("<script>createLeaderboards();</script>");
     }
+  }
+}
+
+function updateQuery($data, $newContent, $table, $field, $valueType, $value)
+{
+  if(!empty($data) && !empty($table) && !empty($field) && !empty($valueType) && !empty($value))
+  {
+    if(file_exists("lib/sql.php"))
+    {
+      include("lib/sql.php");
+    }
+    else if(file_exists("../sql.php"))
+    {
+      include("../sql.php");
+    }
+    
+    $q = "UPDATE {$table} SET {$data} = ? WHERE {$field} = ?";
+    $query = $connection->prepare($q);
+    if(!$query)
+    {
+      $e = mysqli_error($connection);
+      print($e);
+      return false;
+    }
+    else
+    {
+      $query->bind_param($valueType, $newContent, $value);
+      $query->execute();
+      if(!$query)
+      {
+        $e = mysqli_error($connection);
+        print($e);
+        return false;
+      }
+      else
+      {
+        return true;
+      }
+    }
+  }
+  else
+  {
+    print("<script>alert('Valores vacíos en consulta');</script>");
+    return false;
   }
 }
 ?>
