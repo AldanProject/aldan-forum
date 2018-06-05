@@ -29,7 +29,8 @@
         }
         else if(isset($_GET['new-post']))
         {
-          //include_once("lib/post/new-post.php");
+          print("<script>setPageTitle('Crear publicación');</script>");
+          include_once("lib/post/new-post.php");
         }
         else if(isset($_GET['post']))
         {

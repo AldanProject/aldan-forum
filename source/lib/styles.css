@@ -762,11 +762,18 @@ p.content {
   margin: auto;
 }
 
-.edit-comment > .comment-box p {
+.edit-comment > .comment-box p,
+.edit-comment > .comment-box p.title {
   color: white;
   font-family: 'Arimo', sans-serif;
   font-size: 1.5em;
+  margin: 5px 0;
   text-align: center;
+}
+
+.edit-comment > .comment-box p {
+  font-size: 2.0em;
+  margin-bottom: 20px;
 }
 
 .edit-comment > .comment-box textarea {
@@ -781,6 +788,30 @@ p.content {
 
 .comment-buttons input.save-changes {
   margin-right: 5px;
+}
+
+/* New post */
+.post-form {
+  width: 80%;
+  margin: 15px auto;
+}
+
+.post-form p {
+  text-align: center;
+}
+
+.post-form input[type=text],
+.post-form textarea {
+  border: 1px solid gray;
+}
+
+.post-form textarea {
+  text-align: left;
+  height: 250px;
+}
+
+.post-form .comment-buttons > .buttons {
+  width: 100%;
 }
 
 /* General */

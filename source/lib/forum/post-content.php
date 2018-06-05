@@ -7,10 +7,7 @@
       <input type="hidden" name="id_post" value="<?php print($_GET['post']); ?>">
       <input class="delete" type="submit" value="Eliminar publicación">
     </form>
-    <form method="post" class="options-form">
-      <input class="post-id" type="hidden" name="modify-post">
-      <input type="submit" value="Editar publicación">
-    </form>
+      <input id="edit-post" type="submit" value="Editar publicación">
   </div>
   <tr class="post-border">
     <td class="content">
@@ -68,17 +65,43 @@
     <div class="comment-buttons">
       <div class="buttons">
         <input type="button" value="Negritas" onclick="applyStyle(0, 'comment-area-edit');">
-      <input type="button" value="Italica" onclick="applyStyle(1, 'comment-area-edit');">
-      <input type="button" value="Subrayado" onclick="applyStyle(2, 'comment-area-edit');">
-      <input type="button" value="Enlace" onclick="applyStyle(3, 'comment-area-edit');">
-      <input type="button" value="Salto de línea" onclick="applyStyle(4, 'comment-area-edit');">
+        <input type="button" value="Italica" onclick="applyStyle(1, 'comment-area-edit');">
+        <input type="button" value="Subrayado" onclick="applyStyle(2, 'comment-area-edit');">
+        <input type="button" value="Enlace" onclick="applyStyle(3, 'comment-area-edit');">
+        <input type="button" value="Salto de línea" onclick="applyStyle(4, 'comment-area-edit');">
         <input type="button" value="Cancelar" class="cancel" onclick="hideBlackScreen(<?php print($_GET['forum']); ?>, <?php print($_GET['post']); ?>);">
         <input type="submit" value="Guardar cambios" class="save-changes">
       </div>
     </div>
-  </div>
+  </form>
 </div>
-<?php
+<!-- -->
+<div id="black-screen-post" class="edit-comment">
+  <form class="login-form post-form comment-box" method="post">
+    <input type="hidden" name="id_forum" value="<?php print($_GET['forum']); ?>">
+    <input type="hidden" name="id_post" value="<?php print($_GET['post']); ?>">
+    <input type="hidden" name="post-id" id="post-id">
+    <p>Editar publicación</p>
+    <p class="title">Título</p>
+    <input id="title-edit" type="text" name="title" required autocomplete="off">
+    <p class="title">Contenido</p>
+    <textarea name="content" id="comment-area-edit-post" required></textarea>
+    <div class="comment-buttons">
+      <div class="buttons">
+        <input type="button" value="Negritas" onclick="applyStyle(0, 'comment-area-edit-post');">
+        <input type="button" value="Italica" onclick="applyStyle(1, 'comment-area-edit-post');">
+        <input type="button" value="Subrayado" onclick="applyStyle(2, 'comment-area-edit-post');">
+        <input type="button" value="Enlace" onclick="applyStyle(3, 'comment-area-edit-post');">
+        <input type="button" value="Salto de línea" onclick="applyStyle(4, 'comment-area-edit-post');">
+        <input type="button" value="Centrado" onclick="applyStyle(5, 'comment-area-edit-post');">
+        <input type="button" value="Subtítulo" onclick="applyStyle(6, 'comment-area-edit-post');">
+        <input type="button" value="Cancelar" class="cancel" onclick="hideBlackScreen(<?php print($_GET['forum']); ?>, <?php print($_GET['post']); ?>);">
+        <input type="submit" value="Publicar" class="post-button">
+      </div>
+    </div>
+  </form>
+</div>
+  <?php
 /* Made by Aldan Project */
 if(isset($_POST['delete-comment']))
 {
@@ -107,6 +130,30 @@ else if(isset($_GET['edit']))
     }
   }
 }
+else if(isset($_GET['edit-post']))
+{
+  $result = selectQuery('id_post, title, content, id_user', 'forum_posts', 'id_post', 'i', $_GET['edit-post'], null);
+  if($result)
+  {
+    $num = mysqli_num_rows($result);
+    if($num > 0)
+    {
+      $rows = mysqli_fetch_assoc($result);
+      if(!isset($_SESSION['username']) || ($_SESSION['level'] >= 3 && $rows['id_user'] != $_SESSION['userID']))
+      {
+        header("Location: " . SERVER_URL);
+        die();
+      }
+      else
+      {
+        $postID = $rows['id_post'];
+        $title = $rows['title'];
+        $postContent = $rows['content'];
+        print("<script>showEditPost({$postID}, '{$title}', '{$postContent}');</script>");
+      }
+    }
+  }
+}
 /* Put the post information */
 createPost($_GET['post'], $_GET['forum']);
 /* Check if there is user logged in */
@@ -116,3 +163,4 @@ createComments($_GET['post']);
 /* Verify if actual user is the post's owner */
 verifyUser();
 ?>
+</div>

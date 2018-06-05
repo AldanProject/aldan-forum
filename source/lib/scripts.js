@@ -133,13 +133,18 @@ function callPostPage(forumDiv)
   window.location.href = "post/" + forumDiv.id + "/";
 }
 
+/* New post link */
+function newPostLink()
+{
+  var editLink = document.getElementById('add-link');
+  editLink.href = serverURL + "new/post/" + forumID;
+}
+
 /* Add posts */
 function addPost()
 {
   //Search for main-container div
   var mainContainer = document.getElementById('main-container');
-  var editLink = document.getElementById('add-link');
-  editLink.href = serverURL + "new/post/" + forumID;
   for(var i = 0; i < postID.length; i++)
   {
     //Create new div
@@ -194,9 +199,7 @@ function createPost(title, date, content, avatar, username, forumName, forumID, 
   var postContent = document.getElementById('post-content');
   var userImage = document.getElementById('user-image');
   var usernameText = document.getElementById('username');
-  var hiddenID = document.getElementsByClassName('post-id');
-  for(var i = 0; i < hiddenID.length; i++)
-    hiddenID[i].value = postID;
+  var editBtn = document.getElementById('edit-post');
   /* Apply changes */
   postTitle.innerHTML = title;
   postDate.innerHTML = '<b>Fecha de publicación: </b>' + date;
@@ -207,6 +210,8 @@ function createPost(title, date, content, avatar, username, forumName, forumID, 
   usernameText.innerHTML = username;
   usernameText.setAttribute('onClick', userClick);
   forumStructure.innerHTML = '<a href="' + serverURL + forumID + '">' + forumName + "</a> > " + title;
+  editBtn.id = postID;
+  editBtn.setAttribute('onClick', 'callEditPost(this)');
   /* Show containers */
   forumStructure.style.display = "block";
   post.style.display = "table";
@@ -237,6 +242,7 @@ function applyStyle(option, commentBoxName)
       newText = "<u>" + selected + "</u>";
       break;
     case 3:
+      /* Link */
       var link = prompt('Inserta el enlace');
       if(link != null)
       {
@@ -244,7 +250,16 @@ function applyStyle(option, commentBoxName)
       }
       break;
     case 4:
+      /* Break line */
       newText = "<br/>";
+      break;
+    case 5:
+      /* Center */
+      newText = "<center>" + selected + "</center>";
+      break;
+    case 6:
+      /* Subtitle */
+      newText = "<h2>" + selected + "</h2>";
       break;
   }
 
@@ -445,8 +460,28 @@ function showEditComment(commentID, commentContent)
   blackScreen.style.display = 'flex';
 }
 
+/* Show edit post form */
+function showEditPost(postID, postTitle, postContent)
+{
+  var commentArea = document.getElementById('comment-area-edit-post');
+  var postInput = document.getElementById('title-edit');
+  var commentIDHidden = document.getElementById('post-id');
+  var blackScreen = document.getElementById('black-screen-post');
+  commentIDHidden.value = postID;
+  postInput.value = postTitle;
+  commentArea.innerHTML = postContent;
+
+  blackScreen.style.display = 'flex';
+}
+
 /* Call edit comment */
 function callEditComment(comment)
 {
   window.location.href = "edit-comment/" + comment.id;
+}
+
+/* Call edit post */
+function callEditPost(post)
+{
+  window.location.href = "edit-post/" + post.id;
 }

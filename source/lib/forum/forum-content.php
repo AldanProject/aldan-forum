@@ -16,8 +16,10 @@ $serverURL = SERVER_URL;
 $result = selectQuery('name, closed', 'forums', 'id_forum', 'i', $_GET['forum'], null);
 if($result)
 {
+  print("<script>serverURL = '" . SERVER_URL . "'</script>");
   $name = mysqli_fetch_assoc($result);
   showNewPostButton($name['closed']);
+  print("<script>newPostLink();</script>");
   print("<script>document.title = '{$name['name']} | Foro de Aldan Project';</script>");
   $result = selectQuery('*', 'forum_posts', 'id_forum', 'i', $_GET['forum'], null);
   if($result)
@@ -49,7 +51,6 @@ if($result)
             }
           }
         }
-        print("<script>serverURL = '" . SERVER_URL . "'</script>");
         print("<script>postID = " . json_encode($postID) . "</script>");
         print("<script>postTitle = " . json_encode($postTitle) . "</script>");
         print("<script>postCreator = " . json_encode($postCreator) . "</script>");

@@ -12,8 +12,9 @@ RewriteRule ^edit/profile index.php?edit-profile
 RewriteRule ^([0-9])+/?$ index.php?forum=$1
 RewriteRule ^([0-9])+/post/([0-9])+/?$ index.php?post=$2&forum=$1
 RewriteRule ^([0-9])+/post/([0-9])+/edit-comment/([0-9])+/?$ index.php?post=$2&forum=$1&edit=$3
+RewriteRule ^([0-9])+/post/([0-9])+/edit-post/([0-9])+/?$ index.php?post=$2&forum=$1&edit-post=$3
 RewriteRule ^new/forum index.php?new-forum
-RewriteRule ^new/post/([0-9])+$ index.php?new-post&post=$1
+RewriteRule ^new/post/([0-9])+$ index.php?new-post&forum=$1
 RewriteRule ^leaderboards index.php?leaderboards
 RewriteRule ^new/comment lib/forum/new-comment.php
 RewriteRule ^delete/post lib/forum/delete-post.php
