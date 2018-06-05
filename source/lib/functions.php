@@ -461,6 +461,51 @@ function createLeaderboards()
   }
 }
 
+function updatePassword($userID, $password)
+{
+  if(!empty($userID) && !empty($password))
+  {
+    if(file_exists("lib/sql.php"))
+    {
+      include("lib/sql.php");
+    }
+    else if(file_exists("../sql.php"))
+    {
+      include("../sql.php");
+    }
+    
+    $q = "UPDATE users SET password = SHA2(?, 256) WHERE id_user = ?";
+    $query = $connection->prepare($q);
+    if(!$query)
+    {
+      $e = mysqli_error($connection);
+      print($e);
+      return false;
+    }
+    else
+    {
+      $query->bind_param('si', $password, $userID);
+      $query->execute();
+      if(!$query)
+      {
+        $e = mysqli_error($connection);
+        print($e);
+        return false;
+      }
+      else
+      {
+        return true;
+      }
+    }
+  }
+  else
+  {
+    print("<script>alert('Valores vacíos en consulta');</script>");
+
+    return false;
+  }
+}
+
 function updateQuery($data, $newContent, $table, $field, $valueType, $value)
 {
   if(!empty($data) && !empty($newContent) && !empty($table) && !empty($field) && !empty($valueType) && !empty($value))

@@ -6,9 +6,15 @@ if(isset($_POST['id_user']))
 	$locationNew = $_POST['location'];
 	$genderNew = $_POST['gender'];
 	$avatar = $_FILES['avatar'];
+	$password = $_POST['password'];
+	$passwordOne = $_POST['passwordOne'];
+	$passwordTwo = $_POST['passwordTwo'];
+
+	$message = "Datos actualizados correctamente";
 
 	if(!empty($biographyNew))
 	{
+		$biographyNew = str_replace(["\r\n", "\r", "\n"], "<br/>", $biographyNew);
 		updateQuery('biography', $biographyNew, 'users', 'id_user', 'si', $id);
 	}
 	else
@@ -39,6 +45,41 @@ if(isset($_POST['id_user']))
     	header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1.
 		header("Pragma: no-cache"); // HTTP 1.0.
 		header("Expires: 0");
+	}
+
+	if(!empty($password))
+	{
+		if(!empty($passwordOne) && !empty($passwordTwo))
+		{
+			if($passwordOne != $passwordTwo)
+			{
+				$message = "Nueva contraseña no coincide";
+			}
+			else
+			{
+				$result = loginQuery('username', $_SESSION['username'], $password);
+				if($result)
+				{
+					$num = mysqli_num_rows($result);
+					if($num > 0)
+					{
+						$query = updatePassword($id, $passwordTwo);
+						if($query)
+						{
+							$message = "La contraseña se ha actualizado";
+						}
+					}
+					else
+					{
+						$message = "Contraseña actual incorrecta";
+					}
+				}
+			}
+		}
+		else
+		{
+			$message = "Campos de contraseña vacíos";
+		}
 	}
 }
 
@@ -89,7 +130,7 @@ else
 	<p>Biografía</p>
 	<textarea name="biography"><?php print($biography); ?></textarea>
 	<p>Locación</p>
-	<input type="text" name="location" value="<?php print($location); ?>">
+	<input type="text" name="location" value="<?php print($location); ?>" autocomplete="off">
 	<p>Género</p>
 	<select name="gender">
 		<option value="0" <?php if($gender == 0) { print('selected'); } ?>>Sin definir</option>
@@ -104,5 +145,13 @@ else
 	<input type="password" name="passwordOne">
 	<p>Repetir nueva contraseña</p>
 	<input type="password" name="passwordTwo">
+	<p><b>
+		<?php
+		if(isset($message))
+		{
+			print($message);
+		}
+		?>
+	</b></p>
 	<input type="submit" value="Guardar cambios">
 </form>
