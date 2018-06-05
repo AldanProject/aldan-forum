@@ -20,6 +20,7 @@ RewriteRule ^new/comment lib/forum/new-comment.php
 RewriteRule ^delete/post lib/forum/delete-post.php
 RewriteRule ^save/comment lib/forum/update-comment.php
 RewriteRule ^save/post lib/forum/update-post.php
+RewriteRule ^download/? index.php?download
 
 #Error 404 not found
 ErrorDocument 404 /forum/404.php

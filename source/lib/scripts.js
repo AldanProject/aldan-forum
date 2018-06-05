@@ -65,6 +65,7 @@ function setMenuElements(serverURL, activeUser, username, avatarURL)
   var loginButton = document.getElementById('login-button');
   var secondButton = document.getElementById('second-button');
   var avatar = document.getElementById('user-avatar');
+  var download = document.getElementById('download-button');
   var usernameLabel = document.getElementById('username-label');
   var userLink = document.getElementById('user-link');
   var secondButtonLink = secondButton.childNodes;
@@ -78,6 +79,7 @@ function setMenuElements(serverURL, activeUser, username, avatarURL)
     avatar.style.display = "inline-block";
     usernameLabel.innerHTML = username;
     userLink.href = serverURL + 'user/' + username;
+    download.style.display = "flex";
   }
   else
   {

@@ -49,6 +49,11 @@
           print("<script>setPageTitle('Tabla de puntuaciones');</script>");
           include_once("lib/leaderboards.php");
         }
+        else if(isset($_GET['download']))
+        {
+          print("<script>setPageTitle('Descargar Medal of Darkness');</script>");
+          include_once("download.php");
+        }
         else
         {
           print("<script>document.title = 'Inicio | Foro de Aldan Project';</script>");

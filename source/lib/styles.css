@@ -815,6 +815,36 @@ p.content {
   width: 100%;
 }
 
+/* Download game */
+.download-game {
+  font-size: 2.5em;
+}
+
+.download {
+  display: flex;
+}
+
+.download-button {
+  margin: auto;
+  font-size: 2.0em;
+  border-radius: 20px;
+  color: white;
+  background-color: #4EA717;
+  font-family: 'Nunito', arial;
+  text-decoration: none;
+  padding: 15px;
+  margin: 20px auto;
+  transition: 0.2s;
+}
+
+.download-button:hover {
+  background-color: #56CB0F;
+}
+
+#download-button {
+  display: none;
+}
+
 /* General */
 .link:hover {
   cursor: pointer;
