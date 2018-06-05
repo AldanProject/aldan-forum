@@ -32,7 +32,7 @@ if(isset($_POST['title']))
 ?>
 <form class="login-form post-form" method="post">
 	<p class="title">Título</p>
-	<input type="text" name="title" required autocomplete="off">
+	<input type="text" name="title" required autocomplete="off" maxlength="45">
 	<p class="title">Contenido</p>
 	<textarea name="content" id="content" required></textarea>
 	<div class="comment-buttons">

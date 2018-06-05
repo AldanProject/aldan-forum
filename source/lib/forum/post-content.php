@@ -82,7 +82,7 @@
     <input type="hidden" name="id_post" value="<?php print($_GET['post']); ?>">
     <p>Editar publicación</p>
     <p class="title">Título</p>
-    <input id="title-edit" type="text" name="title" required autocomplete="off">
+    <input id="title-edit" type="text" name="title" required autocomplete="off" maxlength="45">
     <p class="title">Contenido</p>
     <textarea name="content" id="comment-area-edit-post" required></textarea>
     <div class="comment-buttons">
@@ -100,7 +100,7 @@
     </div>
   </form>
 </div>
-  <?php
+<?php
 /* Made by Aldan Project */
 if(isset($_POST['delete-comment']))
 {
@@ -162,4 +162,3 @@ createComments($_GET['post']);
 /* Verify if actual user is the post's owner */
 verifyUser();
 ?>
-</div>

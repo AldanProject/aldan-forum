@@ -434,6 +434,11 @@ function createPost($post, $forum)
         }
       }
     }
+    else
+    {
+      header("Location: " . SERVER_URL);
+      die();
+    }
   }
 }
 

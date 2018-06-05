@@ -130,7 +130,7 @@ else
 	<p>Biografía</p>
 	<textarea name="biography"><?php print($biography); ?></textarea>
 	<p>Locación</p>
-	<input type="text" name="location" value="<?php print($location); ?>" autocomplete="off">
+	<input type="text" name="location" value="<?php print($location); ?>" autocomplete="off" maxlength="60">
 	<p>Género</p>
 	<select name="gender">
 		<option value="0" <?php if($gender == 0) { print('selected'); } ?>>Sin definir</option>

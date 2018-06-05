@@ -209,7 +209,7 @@ function createPost(title, date, content, avatar, username, forumName, forumID, 
   userImage.setAttribute('onClick', userClick);
   usernameText.innerHTML = username;
   usernameText.setAttribute('onClick', userClick);
-  forumStructure.innerHTML = '<a href="' + serverURL + forumID + '">' + forumName + "</a> > " + title;
+  forumStructure.innerHTML = '<a href="' + serverURL + forumID + "/" + '">' + forumName + "</a> > " + title;
   editBtn.id = postID;
   editBtn.setAttribute('onClick', 'callEditPost(this)');
   /* Show containers */

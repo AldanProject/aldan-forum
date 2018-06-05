@@ -8,6 +8,9 @@ if(isset($_SESSION['username']))
 	$comment = $_POST['comment-area'];
 	$forum = $_POST['id_forum'];
 	$post = $_POST['id_post'];
+
+	$comment = str_replace(["\r\n", "\r", "\n"], "<br/>", $comment);
+
 	if(!empty($forum) && !empty($post) && !empty($comment))
 	{
 		if(makeComment($post, $_SESSION['userID'], $comment))

@@ -16,6 +16,13 @@ $serverURL = SERVER_URL;
 $result = selectQuery('name, closed', 'forums', 'id_forum', 'i', $_GET['forum'], null);
 if($result)
 {
+  $num = mysqli_num_rows($result);
+  if($num <= 0)
+  {
+    header("Location: ". SERVER_URL);
+    die();
+  }
+
   print("<script>serverURL = '" . SERVER_URL . "'</script>");
   $name = mysqli_fetch_assoc($result);
   showNewPostButton($name['closed']);
