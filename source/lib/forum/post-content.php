@@ -77,10 +77,9 @@
 </div>
 <!-- -->
 <div id="black-screen-post" class="edit-comment">
-  <form class="login-form post-form comment-box" method="post">
+  <form class="login-form post-form comment-box" method="post" action="<?php print(SERVER_URL); ?>save/post">
     <input type="hidden" name="id_forum" value="<?php print($_GET['forum']); ?>">
     <input type="hidden" name="id_post" value="<?php print($_GET['post']); ?>">
-    <input type="hidden" name="post-id" id="post-id">
     <p>Editar publicación</p>
     <p class="title">Título</p>
     <input id="title-edit" type="text" name="title" required autocomplete="off">
@@ -96,7 +95,7 @@
         <input type="button" value="Centrado" onclick="applyStyle(5, 'comment-area-edit-post');">
         <input type="button" value="Subtítulo" onclick="applyStyle(6, 'comment-area-edit-post');">
         <input type="button" value="Cancelar" class="cancel" onclick="hideBlackScreen(<?php print($_GET['forum']); ?>, <?php print($_GET['post']); ?>);">
-        <input type="submit" value="Publicar" class="post-button">
+        <input type="submit" value="Guardar cambios" class="post-button">
       </div>
     </div>
   </form>

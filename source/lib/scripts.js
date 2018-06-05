@@ -465,9 +465,7 @@ function showEditPost(postID, postTitle, postContent)
 {
   var commentArea = document.getElementById('comment-area-edit-post');
   var postInput = document.getElementById('title-edit');
-  var commentIDHidden = document.getElementById('post-id');
   var blackScreen = document.getElementById('black-screen-post');
-  commentIDHidden.value = postID;
   postInput.value = postTitle;
   commentArea.innerHTML = postContent;
 
