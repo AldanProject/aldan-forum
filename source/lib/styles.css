@@ -212,7 +212,8 @@ div.login form {
 .login-form input[type=email],
 .login-form input[type=text],
 .login-form input[type=password],
-.login-form select {
+.login-form select,
+.login-form textarea {
   border-radius: 6px;
   border: 0;
   font-family: 'Nunito', arial;
@@ -698,17 +699,12 @@ p.content {
   margin: auto;
 }
 
-.new-post a {
+.new-post a, .new-post form {
   display: flex;
   float: right;
   margin-right: 10px;
   padding: 3px;
   text-decoration: none;
-}
-
-.new-post form {
-  float: right;
-  margin-right: 5px;
 }
 
 /* New forum form */
@@ -724,12 +720,25 @@ p.content {
   text-align: center;
 }
 
-.new-forum input[type=submit], .new-forum input[type=text], .new-forum select {
+.new-forum input[type=submit], 
+.new-forum input[type=text], 
+.new-forum select, 
+.new-forum input[type=file],
+.new-forum input[type=password],
+.new-forum textarea {
   border: 1px solid rgb(180, 180, 180);
   display: block;
   font-size: 1.2em;
   margin: 10px auto;
   width: 80%;
+}
+
+.new-forum textarea {
+  text-align: left;
+}
+
+.new-forum input[type=file] {
+  border: 0;
 }
 
 /* Leaderboards */

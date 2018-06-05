@@ -238,6 +238,8 @@ function createForum()
   $title = $_POST['title'];
   $description = $_POST['description'];
   $status = $_POST['status'];
+  $image = $_FILES['icon'];
+
   $dataArray = array(
     $title,
     $description,
@@ -246,8 +248,23 @@ function createForum()
   $query = insertQuery('forums(id_forum, name, description, closed)', 'null, ?, ?, ?', 'ssi', $dataArray);
   if($query)
   {
-    header("Location: " . SERVER_URL);
-    die();
+    $result = selectQuery('id_forum', 'forums', 'name', 's', $title, null);
+    if($result)
+    {
+      $num = mysqli_num_rows($result);
+      if($num > 0)
+      {
+        $data = mysqli_fetch_assoc($result);
+        $id = $data['id_forum'];
+        $uploadFile = "img/forum/" . $id . ".png";
+
+        if(move_uploaded_file($image['tmp_name'], $uploadFile))
+        {
+          header("Location: " . SERVER_URL);
+          die();
+        }
+      }
+    }
   }
 }
 
@@ -446,7 +463,7 @@ function createLeaderboards()
 
 function updateQuery($data, $newContent, $table, $field, $valueType, $value)
 {
-  if(!empty($data) && !empty($table) && !empty($field) && !empty($valueType) && !empty($value))
+  if(!empty($data) && !empty($newContent) && !empty($table) && !empty($field) && !empty($valueType) && !empty($value))
   {
     if(file_exists("lib/sql.php"))
     {
@@ -484,6 +501,7 @@ function updateQuery($data, $newContent, $table, $field, $valueType, $value)
   else
   {
     print("<script>alert('Valores vacíos en consulta');</script>");
+
     return false;
   }
 }

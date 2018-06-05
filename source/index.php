@@ -24,7 +24,8 @@
         }
         else if(isset($_GET['edit-profile']))
         {
-          //include_once("lib/config/edit-profile.php");
+          print("<script>setPageTitle('Editar perfil');</script>");
+          include_once("lib/config/edit-profile.php");
         }
         else if(isset($_GET['new-post']))
         {

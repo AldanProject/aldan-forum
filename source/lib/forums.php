@@ -1,5 +1,5 @@
 <div id="option-buttons" class="option-buttons new-post">
-    <a href="<?php print(SERVER_URL); ?>new/forum"><input type="button" value="Nuevo foro"></a>
+  <a href="<?php print(SERVER_URL); ?>new/forum"><input type="button" value="Nuevo foro"></a>
 </div>
 <?php
 /* Made by Aldan Project | 2018 */

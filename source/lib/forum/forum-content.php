@@ -1,4 +1,8 @@
 <div id="option-buttons" class="option-buttons new-post">
+  <form method="post" action="<?php print(SERVER_URL); ?>lib/forum/delete-forum.php" onsubmit="return confirm('Está a punto de eliminar el foro, ¿desea continuar?')">
+    <input type="hidden" name="id_forum" value="<?php print($_GET['forum']); ?>">
+    <input type="submit" value="Eliminar foro">
+  </form>
   <a id="add-link" href=""><input type="button" value="Nueva publicación"></a>
 </div>
 
