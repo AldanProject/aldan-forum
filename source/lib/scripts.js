@@ -30,9 +30,12 @@ function setUserProfile(username, imageURL, email, biography, location, gender, 
       userGenderP[3].innerHTML = 'Sin especificar';
       break;
     case 1:
-      userGenderP[3].innerHTML = 'Masculino';
+      userGenderP[3].innerHTML = 'Sin especificar';
       break;
     case 2:
+      userGenderP[3].innerHTML = 'Masculino';
+      break;
+    case 3:
       userGenderP[3].innerHTML = 'Femenino';
       break;
   }

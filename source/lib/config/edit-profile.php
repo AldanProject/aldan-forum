@@ -133,9 +133,9 @@ else
 	<input type="text" name="location" value="<?php print($location); ?>" autocomplete="off" maxlength="60">
 	<p>Género</p>
 	<select name="gender">
-		<option value="0" <?php if($gender == 0) { print('selected'); } ?>>Sin definir</option>
-		<option value="2" <?php if($gender == 2) { print('selected'); } ?>>Femenino</option>
-		<option value="1" <?php if($gender == 1) { print('selected'); } ?>>Masculino</option>
+		<option value="1" <?php if($gender >= 0 && $gender <= 1) { print('selected'); } ?>>Sin definir</option>
+		<option value="3" <?php if($gender == 3) { print('selected'); } ?>>Femenino</option>
+		<option value="2" <?php if($gender == 2) { print('selected'); } ?>>Masculino</option>
 	</select>
 	<p>Avatar</p>
 	<input type="file" name="avatar" accept="image/jpeg, image/png">
