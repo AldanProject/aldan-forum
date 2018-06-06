@@ -133,7 +133,7 @@ else
 	<p>Correo electrónico</p>
 	<input type="email" name="email" value="<?php print($email); ?>" autocomplete="off" required>
 	<p>Biografía</p>
-	<textarea name="biography"><?php print($biography); ?></textarea>
+	<textarea name="biography" maxlength="300"><?php print($biography); ?></textarea>
 	<p>Locación</p>
 	<input type="text" name="location" value="<?php print($location); ?>" autocomplete="off" maxlength="60">
 	<p>Género</p>
