@@ -5,16 +5,20 @@
   <table id="user-table">
     <tr>
       <td class="column-info">
-        <div id="user-biography">
+        <div id="user-biography" class="user-data">
           <p class="title">Biografía</p>
           <p class="user-content"></p>
         </div><!--
-        --><div id="user-location">
+        --><div id="user-location" class="user-data">
           <p class="title">Locación</p>
           <p class="user-content"></p>
         </div><!--
-        --><div id="user-gender">
+        --><div id="user-gender" class="user-data">
           <p class="title">Género</p>
+          <p class="user-content"></p>
+        </div><!--
+        --><div id="user-score" class="user-data">
+          <p class="title">Puntuación</p>
           <p class="user-content"></p>
         </div>
       </td>
@@ -45,7 +49,8 @@ if($result)
     $location = $user['location'];
     $gender = $user['gender'];
     $image = checkAvatar($user['id_user']);
-    print("<script>setUserProfile('{$username}', '{$image}', '{$email}', '{$biography}', '{$location}', {$gender});</script>");
+    $score = $user['score'];
+    print("<script>setUserProfile('{$username}', '{$image}', '{$email}', '{$biography}', '{$location}', {$gender}, {$score});</script>");
   }
 }
 ?>

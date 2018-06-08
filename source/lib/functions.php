@@ -13,7 +13,7 @@ function loginQuery($data, $username, $password)
     if(!$query)
     {
       $e = mysqli_error($connection);;
-      print("<script>alert('{$e}')</script>");
+      print($e);
       return false;
     }
     else
@@ -23,7 +23,7 @@ function loginQuery($data, $username, $password)
       if(!$query)
       {
         $e = mysqli_error($connection);;
-        print("<script>alert('{$e}')</script>");
+        print($e);
         return false;
       }
       else
@@ -44,11 +44,11 @@ function getUser($username)
   if(!empty($username))
   {
     include("lib/sql.php");
-    $query = $connection->prepare("SELECT id_user, username, email, biography, location, gender FROM users WHERE username = ?");
+    $query = $connection->prepare("SELECT id_user, username, email, biography, location, gender, score FROM users WHERE username = ?");
     if(!$query)
     {
       $e = mysqli_error($connection);;
-      print("<script>alert('{$e}')</script>");
+      print($e);
       return false;
     }
     else
@@ -58,7 +58,7 @@ function getUser($username)
       if(!$query)
       {
         $e = mysqli_error($connection);;
-        print("<script>alert('{$e}')</script>");
+        print($e);
         return false;
       }
       else
@@ -107,12 +107,12 @@ function selectQuery($data, $table, $field, $valueType, $value, $extra)
     if(!$query)
     {
       $e = mysqli_error($connection);;
-      print("<script>alert('{$e}')</script>");
+      print($e);
       return false;
     }
     else
     {
-      if(!empty($field))
+      if(!empty($field) || (!empty($extra) && preg_match('/INNER JOIN/', $extra)))
       {
         $query->bind_param($valueType, $value);
       }
@@ -120,7 +120,7 @@ function selectQuery($data, $table, $field, $valueType, $value, $extra)
       if(!$query)
       {
         $e = mysqli_error($connection);;
-        print("<script>alert('{$e}')</script>");
+        print($e);
         return false;
       }
       else
@@ -141,11 +141,11 @@ function signupUser($username, $email, $password, $level)
   if(!empty($username) && !empty($email) && !empty($password) && !empty($level))
   {
     include("lib/sql.php");
-    $query = $connection->prepare("INSERT INTO users(id_user, username, email, password, level, biography, location) VALUES(null, ?, ?, SHA2(?, 256), ?, '[NONE]', '[NONE]')");
+    $query = $connection->prepare("INSERT INTO users(id_user, username, email, password, level, biography, location, gender) VALUES(null, ?, ?, SHA2(?, 256), ?, '[NONE]', '[NONE]', 0)");
     if(!$query)
     {
       $e = mysqli_error($connection);;
-      print("<script>alert('{$e}')</script>");
+      print($e);
       return false;
     }
     else
@@ -155,7 +155,7 @@ function signupUser($username, $email, $password, $level)
       if(!$query)
       {
         $e = mysqli_error($connection);;
-        print("<script>alert('{$e}')</script>");
+        print($e);
         return false;
       }
       else
@@ -192,7 +192,7 @@ function insertQuery($data, $values, $paramType, $param)
     if(!$query)
     {
       $e = mysqli_error($connection);;
-      print("<script>alert('{$e}')</script>");
+      print($e);
       return false;
     }
     else
@@ -216,7 +216,7 @@ function insertQuery($data, $values, $paramType, $param)
       if(!$query)
       {
         $e = mysqli_error($connection);;
-        print("<script>alert('{$e}')</script>");
+        print($e);
         return false;
       }
       else
@@ -238,6 +238,8 @@ function createForum()
   $title = $_POST['title'];
   $description = $_POST['description'];
   $status = $_POST['status'];
+  $image = $_FILES['icon'];
+
   $dataArray = array(
     $title,
     $description,
@@ -246,8 +248,23 @@ function createForum()
   $query = insertQuery('forums(id_forum, name, description, closed)', 'null, ?, ?, ?', 'ssi', $dataArray);
   if($query)
   {
-    header("Location: " . SERVER_URL);
-    die();
+    $result = selectQuery('id_forum', 'forums', 'name', 's', $title, null);
+    if($result)
+    {
+      $num = mysqli_num_rows($result);
+      if($num > 0)
+      {
+        $data = mysqli_fetch_assoc($result);
+        $id = $data['id_forum'];
+        $uploadFile = "img/forum/" . $id . ".png";
+
+        if(move_uploaded_file($image['tmp_name'], $uploadFile))
+        {
+          header("Location: " . SERVER_URL);
+          die();
+        }
+      }
+    }
   }
 }
 
@@ -289,12 +306,19 @@ function deleteQuery($table, $field, $valueType, $value)
 {
   if(!empty($table) && !empty($field) && !empty($valueType) && !empty($value))
   {
-    include("lib/sql.php");
+    if(file_exists("lib/sql.php"))
+    {
+      include("lib/sql.php");
+    }
+    else if(file_exists("../sql.php"))
+    {
+      include("../sql.php");
+    }
     $query = $connection->prepare("DELETE FROM {$table} WHERE {$field} = ?");
     if(!$query)
     {
       $e = mysqli_error($connection);;
-      print("<script>alert('{$e}')</script>");
+      print($e);
       return false;
     }
     else
@@ -304,7 +328,7 @@ function deleteQuery($table, $field, $valueType, $value)
       if(!$query)
       {
         $e = mysqli_error($connection);;
-        print("<script>alert('{$e}')</script>");
+        print($e);
         return false;
       }
       else
@@ -320,17 +344,20 @@ function deleteQuery($table, $field, $valueType, $value)
   }
 }
 
-function makeComment()
+function makeComment($post, $user, $comment)
 {
-  include("lib/sql.php");
-  $post = $_POST['post'];
-  $user = $_SESSION['userID'];
-  $comment = $_POST['comment-area'];
+  include("../sql.php");
   $query = $connection->prepare("INSERT INTO forum_comments(id_comment, content, date, id_user, id_post) VALUES(null, ?, now(), ?, ?)");
   if(!$query)
-    die("<p class='message'>" . mysqli_error($connection) . "</p>");
-  $query->bind_param("sii", $comment, $user, $post);
-  $query->execute();
+  {
+    return false;
+  }
+  else
+  {
+    $query->bind_param("sii", $comment, $user, $post);
+    $query->execute();
+    return true;
+  }
 }
 
 function createComments($post)
@@ -377,13 +404,13 @@ function createComments($post)
 
 function createPost($post, $forum)
 {
-  $result = selectQuery('*', 'forum_posts', 'id_post', 'i', $post, null);
-  if($result)
+  $data = selectQuery('forum_posts.*, forums.name', 'forum_posts', null, 'i', $post, 'INNER JOIN forums ON forum_posts.id_forum = forums.id_forum WHERE forum_posts.id_post = ?');
+  if($data)
   {
-    $num = mysqli_num_rows($result);
+    $num = mysqli_num_rows($data);
     if($num > 0)
     {
-      $postData = mysqli_fetch_assoc($result);
+      $postData = mysqli_fetch_assoc($data);
       $result = selectQuery('id_user, username', 'users', 'id_user', 'i', $postData['id_user'], null);
       if($result)
       {
@@ -392,30 +419,140 @@ function createPost($post, $forum)
         {
           $userData = mysqli_fetch_assoc($result);
           $GLOBALS['userID'] = $userData['id_user'];
-          $query = selectQuery('name', 'forums', 'id_forum', 'i', $forum, null);
-          if($query)
-          {
-            $num = mysqli_num_rows($result);
-            if($num > 0)
-            {
-              $forumName = mysqli_fetch_assoc($result);
-              /* Get results */
-              $title = $postData['title'];
-              $date = $postData['date'];
-              $content = $postData['content'];
-              $username = $userData['username'];
-              $forum = $forumName['name'];
-              $forumID = $forum;
-              $serverURL = SERVER_URL;
-              $postID = $_GET['post'];
-              $image = checkAvatar($userData['id_user']);
-              print("<script>serverURL = '{$serverURL}'</script>");
-              print("<script>createPost('{$title}', '{$date}', '{$content}', '{$image}', '{$username}', '{$forum}', '{$forumID}', '{$postID}')</script>");
-            }
-          }
+          /* Get results */
+          $title = $postData['title'];
+          $date = $postData['date'];
+          $content = $postData['content'];
+          $username = $userData['username'];
+          $forumName = $postData['name'];
+          $forumID = $forum;
+          $serverURL = SERVER_URL;
+          $postID = $_GET['post'];
+          $image = checkAvatar($userData['id_user']);
+          print("<script>serverURL = '{$serverURL}'</script>");
+          print("<script>createPost('{$title}', '{$date}', '{$content}', '{$image}', '{$username}', '{$forumName}', '{$forumID}', '{$postID}')</script>");
         }
       }
     }
+    else
+    {
+      header("Location: " . SERVER_URL);
+      die();
+    }
+  }
+}
+
+function createLeaderboards()
+{
+  $data = selectQuery('id_user, username, score', 'users', null, null, null, 'ORDER BY score DESC');
+  if($data)
+  {
+    $num = mysqli_num_rows($data);
+    if($num > 0)
+    {
+      while($rows = mysqli_fetch_assoc($data))
+      {
+        $tableAvatar[] = checkAvatar($rows['id_user']);
+        $tableUsername[] = $rows['username'];
+        $tableScore[] = $rows['score'];
+      }
+      $serverURL = SERVER_URL;
+      print("<script>serverURL = '{$serverURL}'</script>");
+      print("<script>tableAvatar = " . json_encode($tableAvatar) . "</script>");
+      print("<script>tableUsername = " . json_encode($tableUsername) . "</script>");
+      print("<script>tableScore = " . json_encode($tableScore) . "</script>");
+      print("<script>createLeaderboards();</script>");
+    }
+  }
+}
+
+function updatePassword($userID, $password)
+{
+  if(!empty($userID) && !empty($password))
+  {
+    if(file_exists("lib/sql.php"))
+    {
+      include("lib/sql.php");
+    }
+    else if(file_exists("../sql.php"))
+    {
+      include("../sql.php");
+    }
+    
+    $q = "UPDATE users SET password = SHA2(?, 256) WHERE id_user = ?";
+    $query = $connection->prepare($q);
+    if(!$query)
+    {
+      $e = mysqli_error($connection);
+      print($e);
+      return false;
+    }
+    else
+    {
+      $query->bind_param('si', $password, $userID);
+      $query->execute();
+      if(!$query)
+      {
+        $e = mysqli_error($connection);
+        print($e);
+        return false;
+      }
+      else
+      {
+        return true;
+      }
+    }
+  }
+  else
+  {
+    print("<script>alert('Valores vacíos en consulta');</script>");
+
+    return false;
+  }
+}
+
+function updateQuery($data, $newContent, $table, $field, $valueType, $value)
+{
+  if(!empty($data) && !empty($newContent) && !empty($table) && !empty($field) && !empty($valueType) && !empty($value))
+  {
+    if(file_exists("lib/sql.php"))
+    {
+      include("lib/sql.php");
+    }
+    else if(file_exists("../sql.php"))
+    {
+      include("../sql.php");
+    }
+    
+    $q = "UPDATE {$table} SET {$data} = ? WHERE {$field} = ?";
+    $query = $connection->prepare($q);
+    if(!$query)
+    {
+      $e = mysqli_error($connection);
+      print($e);
+      return false;
+    }
+    else
+    {
+      $query->bind_param($valueType, $newContent, $value);
+      $query->execute();
+      if(!$query)
+      {
+        $e = mysqli_error($connection);
+        print($e);
+        return false;
+      }
+      else
+      {
+        return true;
+      }
+    }
+  }
+  else
+  {
+    print("<script>alert('Valores vacíos en consulta');</script>");
+
+    return false;
   }
 }
 ?>

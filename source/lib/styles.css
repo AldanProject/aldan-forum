@@ -9,6 +9,12 @@ html, body {
   width: 100%;
 }
 
+.backgroungImage {
+  background-image: url('../img/background.png');
+  background-repeat: repeat;
+  background-position: center center;
+}
+
 div.main-container {
   background-color: #F9F9F9;
   box-shadow: -5px 0 5px -5px rgba(155,155,155,1), 5px 0 5px -5px rgba(155,155,155,1);
@@ -206,7 +212,8 @@ div.login form {
 .login-form input[type=email],
 .login-form input[type=text],
 .login-form input[type=password],
-.login-form select {
+.login-form select,
+.login-form textarea {
   border-radius: 6px;
   border: 0;
   font-family: 'Nunito', arial;
@@ -349,10 +356,14 @@ div.message-box p a:hover {
   width: 100%;
 }
 
-#user-biography, #user-location, #user-gender {
+.user-data {
   border-radius: 15px;
   padding: 5px;
   transition: 0.20s;
+}
+
+#user-score {
+  margin: 10px 0 0 0;
 }
 
 #user-gender {
@@ -369,7 +380,7 @@ div.message-box p a:hover {
   width: 50%;
 }
 
-#user-biography:hover, #user-location:hover, #user-gender:hover {
+.user-data:hover {
   background-color: #EFE1E1;
 }
 
@@ -624,6 +635,10 @@ p.content {
 }
 
 .comment-buttons input:hover {
+  cursor: pointer;
+}
+
+.comment-buttons input:hover {
   box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.8);
 }
 
@@ -684,17 +699,12 @@ p.content {
   margin: auto;
 }
 
-.new-post a {
+.new-post a, .new-post form {
   display: flex;
   float: right;
   margin-right: 10px;
   padding: 3px;
   text-decoration: none;
-}
-
-.new-post form {
-  float: right;
-  margin-right: 5px;
 }
 
 /* New forum form */
@@ -710,12 +720,129 @@ p.content {
   text-align: center;
 }
 
-.new-forum input[type=submit], .new-forum input[type=text], .new-forum select {
+.new-forum input[type=submit], 
+.new-forum input[type=text], 
+.new-forum select, 
+.new-forum input[type=file],
+.new-forum input[type=password],
+.new-forum input[type=email],
+.new-forum textarea {
   border: 1px solid rgb(180, 180, 180);
   display: block;
   font-size: 1.2em;
   margin: 10px auto;
   width: 80%;
+}
+
+.new-forum textarea {
+  text-align: left;
+}
+
+.new-forum input[type=file] {
+  border: 0;
+}
+
+/* Leaderboards */
+.leaderboards-icon {
+  border-radius: 10px;
+}
+
+/* Edit comment */
+.edit-comment {
+  display: none;
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.edit-comment > .comment-box {
+  display: block;
+  margin: auto;
+}
+
+.edit-comment > .comment-box p,
+.edit-comment > .comment-box p.title {
+  color: white;
+  font-family: 'Arimo', sans-serif;
+  font-size: 1.5em;
+  margin: 5px 0;
+  text-align: center;
+}
+
+.edit-comment > .comment-box p {
+  font-size: 2.0em;
+  margin-bottom: 20px;
+}
+
+.edit-comment > .comment-box textarea {
+  height: 150px;
+}
+
+.comment-buttons input.cancel {
+  float: right;
+  margin-right: 0;
+  background-color: red;
+}
+
+.comment-buttons input.save-changes {
+  margin-right: 5px;
+}
+
+/* New post */
+.post-form {
+  width: 80%;
+  margin: 15px auto;
+}
+
+.post-form p {
+  text-align: center;
+}
+
+.post-form input[type=text],
+.post-form textarea {
+  border: 1px solid gray;
+}
+
+.post-form textarea {
+  text-align: left;
+  height: 250px;
+}
+
+.post-form .comment-buttons > .buttons {
+  width: 100%;
+}
+
+/* Download game */
+.download-game {
+  font-size: 2.5em;
+}
+
+.download {
+  display: flex;
+}
+
+.download-button {
+  margin: auto;
+  font-size: 2.0em;
+  border-radius: 20px;
+  color: white;
+  background-color: #4EA717;
+  font-family: 'Nunito', arial;
+  text-decoration: none;
+  padding: 15px;
+  margin: 20px auto;
+  transition: 0.2s;
+}
+
+.download-button:hover {
+  background-color: #56CB0F;
+}
+
+#download-button {
+  display: none;
 }
 
 /* General */

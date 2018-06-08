@@ -20,7 +20,7 @@
   <body class="center">
     <div class="login signup">
       <a href="<?php echo SERVER_URL; ?>"><img src="img/logo/aldan-project.png" alt="Aldan Project - Logo" class="logo"></a>
-      <form action="signup.php" method="post" class="login-form">
+      <form action="signup.php<?php if(isset($_GET['download'])) { print("?download"); } ?>" method="post" class="login-form">
         <p class="title">Usuario</p>
         <input type="text" name="username" autocomplete="off" required
         <?php if(!isset($_GET['e'])) echo "autofocus"; ?>
@@ -47,6 +47,9 @@
             case 3:
               echo '<p class="message">El nombre de usuario ya existe</p>';
               break;
+            case 4:
+              echo '<p class="message">El nombre de usuario no debe incluir carácteres especiales y tener una longitud entre 3 y 17</p>';
+              break;
             default:
               echo '<p class="message">Error desconocido</p>';
               break;
@@ -62,31 +65,86 @@
 
           if($passwordOne != $passwordTwo)
           {
-            header("Location: ".SERVER_URL."signup?e=2&user={$username}&email={$email}");
-          }
-          else
-          {
-            $userCheck = selectQuery('username', 'users', 'username', 's', $username);
-            if(mysqli_num_rows($userCheck) > 0) //Check if username already exists
+            if(isset($_GET['download']))
             {
-              header("Location: ".SERVER_URL."signup?e=3&user={$username}&email={$email}");
+              header("Location: ".SERVER_URL."signup?e=2&user={$username}&email={$email}&download");
+              die();
             }
             else
             {
-              $result = signupUser($username, $email, $passwordTwo, 3);
-              if($result)
+              header("Location: ".SERVER_URL."signup?e=2&user={$username}&email={$email}");
+              die();
+            }
+          }
+          else
+          {
+
+            $verifyUser = "/^[A-Za-z0-9-_]{3,12}$/";
+            if(preg_match($verifyUser, $username))
+            {
+              $userCheck = selectQuery('username', 'users', 'username', 's', $username, null);
+              if(mysqli_num_rows($userCheck) > 0) //Check if username already exists
               {
-                $query = selectQuery('id_user, username, level', 'users', 'username', 's', $username);
-                $user = mysqli_fetch_assoc($query);
-                session_start();
-                $_SESSION['userID'] = $user['id_user'];
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['level'] = $user['level'];
-                header("Location: " . SERVER_URL);
+                if(isset($_GET['download']))
+                {
+                  header("Location: ".SERVER_URL."signup?e=3&user={$username}&email={$email}&download");
+                  die();
+                }
+                else
+                {
+                  header("Location: ".SERVER_URL."signup?e=3&user={$username}&email={$email}");
+                  die();
+                }
               }
               else
               {
-                header("Location: " . SERVER_URL . "signup?e=1&user={$username}&email={$email}");
+                $result = signupUser($username, $email, $passwordTwo, 3);
+                if($result)
+                {
+                  $query = selectQuery('id_user, username, level', 'users', 'username', 's', $username, null);
+                  $user = mysqli_fetch_assoc($query);
+                  session_start();
+                  $_SESSION['userID'] = $user['id_user'];
+                  $_SESSION['username'] = $user['username'];
+                  $_SESSION['level'] = $user['level'];
+
+                  if(isset($_GET['download']))
+                  {
+                    header("Location: " . SERVER_URL . "download");
+                    die();
+                  }
+                  else
+                  {
+                    header("Location: " . SERVER_URL);
+                    die();
+                  }
+                }
+                else
+                {
+                  if(isset($_GET['download']))
+                  {
+                    header("Location: " . SERVER_URL . "signup?e=1&user={$username}&email={$email}&download");
+                    die();
+                  }
+                  else
+                  {
+                    header("Location: " . SERVER_URL . "signup?e=1&user={$username}&email={$email}");
+                    die();
+                  }
+                }
+              }
+            }
+            else
+            {
+              if(isset($_GET['download']))
+              {
+                header("Location: ".SERVER_URL."signup?e=4&user={$username}&email={$email}&download");
+                die();
+              }
+              else
+              {
+                header("Location: ".SERVER_URL."signup?e=4&user={$username}&email={$email}");
+                die();
               }
             }
           }

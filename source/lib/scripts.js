@@ -3,9 +3,10 @@ var serverURL;
 var forumID, forumTitle, forumDescription;
 var postID, postTitle, postCreator, postComments;
 var commentID, commentContent, commentDate, commentCreator, creatorAvatar, creatorID;
+var tableAvatar, tableUsername, tableScore;
 
 /* Write the user information in user.php */
-function setUserProfile(username, imageURL, email, biography, location, gender)
+function setUserProfile(username, imageURL, email, biography, location, gender, score)
 {
   document.title = 'Perfil de ' + username + ' | Foro de Aldan Project';
 
@@ -16,6 +17,7 @@ function setUserProfile(username, imageURL, email, biography, location, gender)
   var userGender = document.getElementById('user-gender');
   var userBiography = document.getElementById('user-biography');
   var userLocation = document.getElementById('user-location');
+  var userScore = document.getElementById('user-score');
 
   var userGenderP = userGender.childNodes;
 
@@ -28,12 +30,18 @@ function setUserProfile(username, imageURL, email, biography, location, gender)
       userGenderP[3].innerHTML = 'Sin especificar';
       break;
     case 1:
-      userGenderP[3].innerHTML = 'Masculino';
+      userGenderP[3].innerHTML = 'Sin especificar';
       break;
     case 2:
+      userGenderP[3].innerHTML = 'Masculino';
+      break;
+    case 3:
       userGenderP[3].innerHTML = 'Femenino';
       break;
   }
+
+  var userScoreP = userScore.childNodes;
+  userScoreP[3].innerHTML = score;
 
   if(biography != '[NONE]')
   {
@@ -57,6 +65,7 @@ function setMenuElements(serverURL, activeUser, username, avatarURL)
   var loginButton = document.getElementById('login-button');
   var secondButton = document.getElementById('second-button');
   var avatar = document.getElementById('user-avatar');
+  var download = document.getElementById('download-button');
   var usernameLabel = document.getElementById('username-label');
   var userLink = document.getElementById('user-link');
   var secondButtonLink = secondButton.childNodes;
@@ -70,6 +79,7 @@ function setMenuElements(serverURL, activeUser, username, avatarURL)
     avatar.style.display = "inline-block";
     usernameLabel.innerHTML = username;
     userLink.href = serverURL + 'user/' + username;
+    download.style.display = "flex";
   }
   else
   {
@@ -81,7 +91,7 @@ function setMenuElements(serverURL, activeUser, username, avatarURL)
 /* Forum link */
 function callForumPage(forumDiv)
 {
-  window.location.href = "forum/" + forumDiv.id;
+  window.location.href = forumDiv.id + "/";
 }
 
 /* Add forums */
@@ -125,7 +135,14 @@ function addForum()
 /* Post link */
 function callPostPage(forumDiv)
 {
-  window.location.href = forumID + "/post/" + forumDiv.id;
+  window.location.href = "post/" + forumDiv.id + "/";
+}
+
+/* New post link */
+function newPostLink()
+{
+  var editLink = document.getElementById('add-link');
+  editLink.href = serverURL + "new/post/" + forumID;
 }
 
 /* Add posts */
@@ -133,8 +150,6 @@ function addPost()
 {
   //Search for main-container div
   var mainContainer = document.getElementById('main-container');
-  var editLink = document.getElementById('add-link');
-  editLink.href = serverURL + "new/post/" + forumID;
   for(var i = 0; i < postID.length; i++)
   {
     //Create new div
@@ -189,9 +204,7 @@ function createPost(title, date, content, avatar, username, forumName, forumID, 
   var postContent = document.getElementById('post-content');
   var userImage = document.getElementById('user-image');
   var usernameText = document.getElementById('username');
-  var hiddenID = document.getElementsByClassName('post-id');
-  for(var i = 0; i < hiddenID.length; i++)
-    hiddenID[i].value = postID;
+  var editBtn = document.getElementById('edit-post');
   /* Apply changes */
   postTitle.innerHTML = title;
   postDate.innerHTML = '<b>Fecha de publicación: </b>' + date;
@@ -201,17 +214,19 @@ function createPost(title, date, content, avatar, username, forumName, forumID, 
   userImage.setAttribute('onClick', userClick);
   usernameText.innerHTML = username;
   usernameText.setAttribute('onClick', userClick);
-  forumStructure.innerHTML = '<a href="' + serverURL + 'forum/' + forumID + '">' + forumName + "</a> > " + title;
+  forumStructure.innerHTML = '<a href="' + serverURL + forumID + "/" + '">' + forumName + "</a> > " + title;
+  editBtn.id = postID;
+  editBtn.setAttribute('onClick', 'callEditPost(this)');
   /* Show containers */
   forumStructure.style.display = "block";
   post.style.display = "table";
 }
 
 /* Apply style on text areas */
-function applyStyle(option)
+function applyStyle(option, commentBoxName)
 {
   var newText;
-  var txtarea = document.getElementById('comment-area');
+  var txtarea = document.getElementById(commentBoxName);
   var start = txtarea.selectionStart;
   var finish = txtarea.selectionEnd;
   var selected = txtarea.value.substring(start, finish);
@@ -232,13 +247,27 @@ function applyStyle(option)
       newText = "<u>" + selected + "</u>";
       break;
     case 3:
+      /* Link */
       var link = prompt('Inserta el enlace');
       if(link != null)
       {
         newText = '<a href="' + link + '">' + selected + "</a>";
       }
       break;
+    case 4:
+      /* Break line */
+      newText = "<br/>";
+      break;
+    case 5:
+      /* Center */
+      newText = "<center>" + selected + "</center>";
+      break;
+    case 6:
+      /* Subtitle */
+      newText = "<h2>" + selected + "</h2>";
+      break;
   }
+
   if(newText)
   {
     txtarea.value = txtarea.value.substring(0, start) + newText + txtarea.value.substring(finish, length);
@@ -277,15 +306,10 @@ function createComments()
     deleteBtn.classList.add('delete');
     deleteBtn.value = 'Eliminar comentario';
     /* Modify form */
-    var modifyForm = document.createElement('form');
-    modifyForm.method = 'post';
-    modifyForm.classList.add('options-form');
-    var modifyID = document.createElement('input');
-    modifyID.type = 'hidden';
-    modifyID.name = 'modify-comment';
-    modifyID.value = commentID[i];
     var modifyBtn = document.createElement('input');
-    modifyBtn.type = 'submit';
+    modifyBtn.type = 'button';
+    modifyBtn.id = commentID[i];
+    modifyBtn.setAttribute('onClick', 'callEditComment(this)');
     modifyBtn.value = 'Modificar comentario';
     /* Main structure */
     var table = document.createElement('table');
@@ -322,10 +346,8 @@ function createComments()
     /* Join */
     deleteForm.appendChild(deleteID);
     deleteForm.appendChild(deleteBtn);
-    modifyForm.appendChild(modifyID);
-    modifyForm.appendChild(modifyBtn);
     buttons.appendChild(deleteForm);
-    buttons.appendChild(modifyForm);
+    buttons.appendChild(modifyBtn);
     content.appendChild(date);
     content.appendChild(comment);
     user.appendChild(avatar);
@@ -379,4 +401,90 @@ function confirmButton(message)
   {
 
   }
+}
+
+/* Create leaderboards */
+function createLeaderboards()
+{
+  //Search for main-container div
+  var mainContainer = document.getElementById('main-container');
+  for(var i = 0; i < tableUsername.length; i++)
+  {
+    //Create new div
+    var mainDiv = document.createElement('div');
+    mainDiv.classList.add('forum-box');
+    mainDiv.classList.add('post');
+    if(i <= 0)
+    {
+      mainDiv.classList.add('first-post');
+    }
+    mainDiv.id = tableUsername[i];
+    mainDiv.setAttribute('onClick', 'searchUser(this.id);');
+    //Create avatar
+    var avatar = document.createElement('img');
+    avatar.classList.add('forum-icon');
+    avatar.classList.add('leaderboards-icon');
+    avatar.src = tableAvatar[i];
+    //Create username
+    var username = document.createElement('p');
+    username.classList.add('forum-title');
+    username.innerHTML = tableUsername[i];
+    //Create score
+    var score = document.createElement('p');
+    score.classList.add('forum-description');
+    score.innerHTML = "<b>Puntuación: </b>" + tableScore[i];
+    //Create arrow
+    var arrow = document.createElement('img');
+    arrow.classList.add('arrow');
+    arrow.src = 'img/assets/arrow.png';
+    //Append to mainDiv
+    mainDiv.appendChild(avatar);
+    mainDiv.appendChild(username);
+    mainDiv.appendChild(score);
+    mainDiv.appendChild(arrow);
+    //Append to mainContainer
+    mainContainer.append(mainDiv);
+  }
+}
+
+/* Cancel comment */
+function hideBlackScreen(forum, post)
+{
+  window.location.href = serverURL + forum + "/post/" + post + "/";
+}
+
+/* Show edit comment form */
+function showEditComment(commentID, commentContent)
+{
+  var commentArea = document.getElementById('comment-area-edit');
+  var commentIDHidden = document.getElementById('comment-id');
+  var blackScreen = document.getElementById('black-screen');
+  commentIDHidden.value = commentID;
+  commentArea.innerHTML = commentContent;
+
+  blackScreen.style.display = 'flex';
+}
+
+/* Show edit post form */
+function showEditPost(postID, postTitle, postContent)
+{
+  var commentArea = document.getElementById('comment-area-edit-post');
+  var postInput = document.getElementById('title-edit');
+  var blackScreen = document.getElementById('black-screen-post');
+  postInput.value = postTitle;
+  commentArea.innerHTML = postContent;
+
+  blackScreen.style.display = 'flex';
+}
+
+/* Call edit comment */
+function callEditComment(comment)
+{
+  window.location.href = "edit-comment/" + comment.id;
+}
+
+/* Call edit post */
+function callEditPost(post)
+{
+  window.location.href = "edit-post/" + post.id;
 }

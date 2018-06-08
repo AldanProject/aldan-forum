@@ -13,14 +13,21 @@
       session_start();
       if(isset($_SESSION['username']))
       {
-        header("Location: ".SERVER_URL);
+        if(isset($_GET['download']))
+        {
+          header("Location: ".SERVER_URL."download");
+        }
+        else
+        {
+          header("Location: ".SERVER_URL);
+        }
       }
     ?>
   </head>
   <body class="center">
     <div class="login">
       <a href="<?php echo SERVER_URL; ?>"><img src="img/logo/aldan-project.png" alt="Aldan Project - Logo" class="logo"></a>
-      <form action="login.php" method="post" class="login-form">
+      <form action="login.php <?php if(isset($_GET['download'])) { print("?download"); } ?>" method="post" class="login-form">
         <p class="title">Usuario</p>
         <input type="text" name="username" autocomplete="off" required autofocus>
         <p class="title">Contraseña</p>
@@ -42,7 +49,7 @@
                 break;
             }
           }
-          if(isset($_POST['username']))
+          else if(isset($_POST['username']))
           {
             $username = $_POST['username']; //Gets username
             $password = $_POST['password']; //Gets password without SHA-2 encryption
@@ -66,15 +73,24 @@
                 $_SESSION['username'] = $rows['username']; //Sets username
                 $_SESSION['userID'] = $rows['id_user']; //Sets user id
                 $_SESSION['level'] = $rows['level']; //Sets user level
-
-                header("Location: ".SERVER_URL);
+                
+                if(isset($_GET['download']))
+                {
+                  header("Location: " . SERVER_URL . "download");
+                  die();
+                }
+                else
+                {
+                  header("Location: " . SERVER_URL);
+                  die();
+                }
               }
             }
           }
         ?>
       </form>
       <hr>
-      <p class="no-user">Si no estás registrado, crea una cuenta <a href="<?php echo SERVER_URL; ?>signup">aquí</a>.</p>
+      <p class="no-user">Si no estás registrado, crea una cuenta <a href="<?php echo SERVER_URL; ?>signup<?php if(isset($_GET['download'])) { print("?download"); } ?>">aquí</a>.</p>
     </div>
   </body>
 </html>
