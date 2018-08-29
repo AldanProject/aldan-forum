@@ -463,7 +463,7 @@ p.title {
 
 .forum-description {
   color: black;
-  display: inline-block;
+  display: block;
   font-family: 'Nunito', arial;
   font-size: 1.1em;
 }
